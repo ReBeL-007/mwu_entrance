@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/mangichm/public_html/
+    - /bin/cp -R doc-management $DEPLOYPATH

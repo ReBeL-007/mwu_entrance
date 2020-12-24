@@ -1,0 +1,99 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .conatiner{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+  }
+
+  .ui.item.menu{
+    justify-content: space-between;
+  }
+
+  .ui.menu{
+      border: none;
+      box-shadow: none;
+  }
+
+  .ui.item.menu > div{
+      padding: 0 10px;
+  }
+
+  span.star{
+      color: red;
+  }
+
+  .logo{
+    text-align: left;
+  }
+
+  .logo img{
+      width: 80%;
+  }
+
+  .title h1{
+      margin: 0 0 10px 0;
+      font-size: 20px;
+  }
+
+  .title p{
+    margin-bottom: 10px;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.box{
+    /* border: 1px solid black; */
+    height: 100px;
+    width: 100px;
+    float: left;
+}
+
+  @media screen and (max-width: 480px) {
+    .box{
+      /* border: 1px solid black; */
+      height: 10px;
+      width: 50px;
+      float: left;
+    }
+  }
+
+.eight strong{
+    padding-right: 10px;
+}
+
+th>div{
+    padding-right: 20px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .sign{
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+  }
+
+  .exam-card{
+    border: 1px solid rgba(34,36,38,.15);
+    -webkit-box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    margin: 20px auto;
+    padding: 20px 10px;
+  }
+  .required::after {
+    content: " *";
+    color: red;
+}
