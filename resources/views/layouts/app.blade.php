@@ -75,5 +75,16 @@
             @yield('content')
         </main>
     </div>
+
+<!-- jQuery -->
+<script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
+<script>
+  $(document).ready(function(){
+      setTimeout(function(){
+         $(".alert").remove();
+      }, 10000 ); // 10 secs
+
+  });
+</script>
 </body>
 </html>

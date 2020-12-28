@@ -20,44 +20,7 @@ class Form extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'faculty',
-        'campus',
-        'level',
-        'programs',
-        'year',
-        'form_serial_no',
-        'sex',
-        'fname',
-        'mname',
-        'lname',
-        'regd_no',
-        'symbol_no',
-        'semester',
-        'exam_type',
-        'subjects',
-        'subject_codes',
-        'image',
-        'signature',
-        'is_verified',
-        'exam_centre',
-        'nationality',
-        'dateOfBirth',
-        'district',
-        'mother_name',
-        'father_name',
-        'ward',
-        'contact',
-        'email',
-        'board',
-        'passed_year',
-        'roll_no',
-        'division',
-        'is_final_verified',
-        'voucher',
-        'consent',
-        'created_at', 'updated_at', 'deleted_at', 
-    ];
+    protected $guarded = [''];
 
     public function faculties() {
         return $this->belongsTo(Faculty::class,'faculty');

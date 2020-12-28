@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Form;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user_id = Auth::user()->id;
+        $data = Form::where('user_id',$user_id)->first();
+        if($data) {
+            return view('home');
+        } else {
+            return redirect()->route('admin.forms.create');
+        }
     }
 }

@@ -32,16 +32,7 @@ class StoreFormRequest extends FormRequest
             'faculty' => [
                 'required'
             ],
-            'campus' => [
-                'required'
-            ],
             'level' => [
-                'required'
-            ],
-            'programs' => [
-                'required'
-            ],
-            'year' => [
                 'required'
             ],
             'sex' => [
@@ -53,21 +44,7 @@ class StoreFormRequest extends FormRequest
             'lname' => [
                 'required'
             ],
-            // 'regd_no' => [
-            //     'required'
-            // ],
-            'semester' => [
-                'required'
-            ],
-            'exam_type' => [
-                'required'
-            ],
-            'subjects' => [
-                'required'
-            ],
-            'subject_codes' => [
-                'required'
-            ],
+            
             'image' => [
                 'required',
                 'mimes:jpeg,png',
@@ -83,41 +60,35 @@ class StoreFormRequest extends FormRequest
                 'mimes:jpeg,png',
                 'max:512'
             ],
-            'nationality' => [
-                'required'
-            ],
             'dateOfBirth' => [
                 'required'
             ],
-            'district' => [
-                'required'
-            ],
-            'mother_name' => [
-                'required'
-            ],
-            'father_name' => [
-                'required'
-            ],
-            'contact' => [
-                'required'
-            ],
-            'board' => [
-                'required'
-            ],
-             'passed_year' => [
-                'required'
-            ],
-             'roll_no' => [
-                'required'
-            ],
+            // 'district' => [
+            //     'required'
+            // ],
+            // 'mother_name' => [
+            //     'required'
+            // ],
+            // 'father_name' => [
+            //     'required'
+            // ],
+            // 'contact' => [
+            //     'required'
+            // ],
+            // 'board' => [
+            //     'required'
+            // ],
+            //  'passed_year' => [
+            //     'required'
+            // ],
+            //  'roll_no' => [
+            //     'required'
+            // ],
 
-             'division' => [
-                'required'
-            ],
+            //  'division' => [
+            //     'required'
+            // ],
             'consent' => [
-                'required'
-            ],
-            'email' => [
                 'required'
             ],
 

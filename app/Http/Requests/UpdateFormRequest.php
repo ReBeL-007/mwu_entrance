@@ -23,18 +23,18 @@ class UpdateFormRequest extends FormRequest
             'faculty' => [
                 'required'
             ],
-            'campus' => [
-                'required'
-            ],
+            // 'campus' => [
+            //     'required'
+            // ],
             'level' => [
                 'required'
             ],
-            'programs' => [
-                'required'
-            ],
-            'year' => [
-                'required'
-            ],
+            // 'programs' => [
+            //     'required'
+            // ],
+            // 'year' => [
+            //     'required'
+            // ],
             'sex' => [
                 'required'
             ],
@@ -47,21 +47,21 @@ class UpdateFormRequest extends FormRequest
             // 'regd_no' => [
             //     'required'
             // ],
-            'semester' => [
-                'required'
-            ],
-            'exam_type' => [
-                'required'
-            ],
-            'subjects' => [
-                'required'
-            ],
-            'subject_codes' => [
-                'required'
-            ],
-            'nationality' => [
-                'required'
-            ],
+            // 'semester' => [
+            //     'required'
+            // ],
+            // 'exam_type' => [
+            //     'required'
+            // ],
+            // 'subjects' => [
+            //     'required'
+            // ],
+            // 'subject_codes' => [
+            //     'required'
+            // ],
+            // 'nationality' => [
+            //     'required'
+            // ],
             'dateOfBirth' => [
                 'required'
             ],
@@ -74,12 +74,12 @@ class UpdateFormRequest extends FormRequest
             'father_name' => [
                 'required'
             ],
-            'contact' => [
-                'required'
-            ],
-            'email' => [
-                'required'
-            ],
+            // 'contact' => [
+            //     'required'
+            // ],
+            // 'email' => [
+            //     'required'
+            // ],
         ];
 
     }

@@ -15,6 +15,7 @@ class CreateExamFormTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('symbol_no')->nullable();
             $table->unsignedInteger('faculty')->nullable();
             $table->foreign('faculty')->references('id')->on('faculties')->onDelete('cascade');
             $table->unsignedInteger('level')->nullable();
@@ -26,12 +27,11 @@ class CreateExamFormTable extends Migration
             $table->string('fname')->nullable();
             $table->string('mname')->nullable();
             $table->string('lname')->nullable();
-            $table->string('regd_no')->nullable();
-            $table->string('symbol_no')->nullable();
-            $table->string('semester')->nullable();
-            $table->string('exam_type')->nullable();
-            $table->string('subjects')->nullable();
-            $table->string('subject_codes')->nullable();
+            $table->string('caste')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('dateOfBirth2')->nullable();
+            $table->string('tole')->nullable();
             $table->string('image')->nullable();
             $table->string('signature')->nullable();
             $table->boolean('is_verified')->default(0);

@@ -40,7 +40,8 @@ class FormController extends Controller
         //getting only accessible courses for user group
         foreach($groups as $key => $group){
             if($group == 'Owner'){
-                $datas = Form::where('is_verified','1')->with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
+                // $datas = Form::where('is_verified','1')->with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
+                $datas = Form::with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
                 break;
             }
             else{
@@ -96,7 +97,14 @@ class FormController extends Controller
      */
     public function store(StoreFormRequest $request)
     {
-        // dd($request->all());
+        $user_id = Auth::user()->id;
+        $data = Form::where('user_id',$user_id)->first();
+        if($data) {
+            Session::flash('flash_warning', 'Sorry... you have already submitted the admission form!.');
+            Session::flash('flash_type', 'alert-warning');
+            return redirect()->route('home');
+        }
+        
         if($request->hasFile('image') && $request->file('image')->isValid()){
             $file = $request->file('image');
             $file_name= uniqid().'_'.$file->getClientOriginalName();
@@ -123,47 +131,119 @@ class FormController extends Controller
             $voucher= null;
 
         }
+        if($request->hasFile('see_certificate') && $request->file('see_certificate')->isValid()){
+            $file = $request->file('see_certificate');
+            $see_certificate= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/see_certificate',$see_certificate);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload see certificate";
+
+        }
+        if($request->hasFile('see_marksheet') && $request->file('see_marksheet')->isValid()){
+            $file = $request->file('see_marksheet');
+            $see_marksheet= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/see_marksheet',$see_marksheet);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload see marksheet";
+
+        }
+        if($request->hasFile('intermediate_certificate') && $request->file('intermediate_certificate')->isValid()){
+            $file = $request->file('intermediate_certificate');
+            $intermediate_certificate= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/intermediate_certificate',$intermediate_certificate);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload intermediate certificate";
+
+        }
+        if($request->hasFile('intermediate_marksheet') && $request->file('intermediate_marksheet')->isValid()){
+            $file = $request->file('intermediate_marksheet');
+            $intermediate_marksheet= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/intermediate_marksheet',$intermediate_marksheet);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload intermediate marksheet";
+
+        }
+        if($request->hasFile('bachelor_certificate') && $request->file('bachelor_certificate')->isValid()){
+            $file = $request->file('bachelor_certificate');
+            $bachelor_certificate= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/bachelor_certificate',$bachelor_certificate);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload bachelor certificate";
+
+        }
+        if($request->hasFile('bachelor_marksheet') && $request->file('bachelor_marksheet')->isValid()){
+            $file = $request->file('bachelor_marksheet');
+            $bachelor_marksheet= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/bachelor_marksheet',$bachelor_marksheet);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            return "Failed to upload bachelor marksheet";
+
+        }
+
         $data=[
             'faculty' => $request->faculty,
             'campus' => $request->campus,
             'level' => $request->level,
             'programs' => $request->programs,
-            'year' => $request->year,
-            'form_serial_no' => $request->year,
+            // 'year' => $request->year,
+            // 'form_serial_no' => $request->year,
             'sex' => $request->sex,
             'fname' => $request->fname,
             'mname' => $request->mname,
             'lname' => $request->lname,
-            'regd_no' => $request->regd_no,
+            // 'regd_no' => $request->regd_no,
             'symbol_no' => $request->symbol_no,
-            'semester' => $request->semester,
-            'exam_type' => $request->exam_type,
-            'subjects' => json_encode($request->subjects),
-            'subject_codes' => json_encode($request->subject_codes),
+            'caste' => $request->caste,
+            'religion' => $request->religion,
+            // 'subjects' => json_encode($request->subjects),
+            // 'subject_codes' => json_encode($request->subject_codes),
             'image' => $file_name,
             'signature' => $signature,
             'voucher' => $voucher,
-            'exam_centre' => $request->exam_centre,
+            'tole' => $request->tole,
             'nationality' => $request->nationality,
             'dateOfBirth' => $request->dateOfBirth,
+            'dateOfBirth2' => $request->dateOfBirth2,
             'district' => $request->district,
             'mother_name' => $request->mother_name,
             'father_name' => $request->father_name,
             'ward' => $request->ward,
             'contact' => $request->contact,
-            'email' => $request->email,
+            'vdc' => $request->vdc,
             'board' => json_encode($request->board),
             'passed_year' => json_encode($request->passed_year),
             'roll_no' => json_encode($request->roll_no),
             'division' => json_encode($request->division),
             'consent' => $request->consent,
+            'contact_address' => $request->contact_address,
+            'father_qualification' => $request->father_qualification,
+            'father_occupation' => $request->father_occupation,
+            'mother_qualification' => $request->mother_qualification,
+            'mother_occupation' => $request->mother_occupation,
+            'spouse_name' => $request->spouse_name,
+            'spouse_qualification' => $request->spouse_qualification,
+            'spouse_occupation' => $request->spouse_occupation,
+            'user_id' => $user_id,
+            'see_certificate' => $see_certificate,
+            'see_marksheet' => $see_marksheet,
+            'intermediate_certificate' => $intermediate_certificate,
+            'intermediate_marksheet' => $intermediate_marksheet,
+            'bachelor_certificate' => $bachelor_certificate,
+            'bachelor_marksheet' => $bachelor_marksheet,
         ];
         // dd($data);
         Form::create($data);
 
         Session::flash('flash_success', 'Form successfully submitted for verification!.');
         Session::flash('flash_type', 'alert-success');
-        return redirect()->route('admin.forms.create')->with('modal','true');
+        return redirect()->route('home');
+        // return redirect()->route('admin.forms.create')->with('modal','true');
     }
 
     /**
@@ -193,10 +273,11 @@ class FormController extends Controller
         $data = Form::find($data);
         $data->load(['faculties','levels','course']);
         $faculties = Faculty::all()->pluck('name','id');
-
-        $subject_ids = json_decode($data->subjects);
-        $subjects = Sub::whereIn('id',$subject_ids)->get();
-        return view('admin.backend.forms.edit', compact('data','faculties','subjects'));
+        
+        // $subject_ids = json_decode($data->subjects);
+        // $subjects = Sub::whereIn('id',$subject_ids)->get();
+        // dd($data);
+        return view('admin.backend.forms.edit', compact('data','faculties'));
     }
 
     /**
@@ -223,28 +304,44 @@ class FormController extends Controller
             'campus' => $request->campus,
             'level' => $request->level,
             'programs' => $request->programs,
-            'year' => $request->year,
-            'form_serial_no' => $request->year,
+            // 'year' => $request->year,
+            // 'form_serial_no' => $request->year,
             'sex' => $request->sex,
             'fname' => $request->fname,
             'mname' => $request->mname,
             'lname' => $request->lname,
-            'regd_no' => $request->regd_no,
+            // 'regd_no' => $request->regd_no,
             'symbol_no' => $request->symbol_no,
-            'semester' => $request->semester,
-            'exam_type' => $request->exam_type,
-            'subjects' => json_encode($request->subjects),
-            'subject_codes' => json_encode($request->subject_codes),
-            'exam_centre' => $request->exam_centre,
+            'caste' => $request->caste,
+            'religion' => $request->religion,
+            // 'subjects' => json_encode($request->subjects),
+            // 'subject_codes' => json_encode($request->subject_codes),
+            // 'image' => $file_name,
+            // 'signature' => $signature,
+            // 'voucher' => $voucher,
+            'tole' => $request->tole,
             'nationality' => $request->nationality,
             'dateOfBirth' => $request->dateOfBirth,
+            // 'dateOfBirth2' => $request->dateOfBirth2,
             'district' => $request->district,
             'mother_name' => $request->mother_name,
             'father_name' => $request->father_name,
             'ward' => $request->ward,
             'contact' => $request->contact,
-            'email' => $request->email,
-            // 'form_serial_no' => $request->form_serial_no,
+            'vdc' => $request->vdc,
+            // 'board' => json_encode($request->board),
+            // 'passed_year' => json_encode($request->passed_year),
+            // 'roll_no' => json_encode($request->roll_no),
+            // 'division' => json_encode($request->division),
+            // 'consent' => $request->consent,
+            'contact_address' => $request->contact_address,
+            'father_qualification' => $request->father_qualification,
+            'father_occupation' => $request->father_occupation,
+            'mother_qualification' => $request->mother_qualification,
+            'mother_occupation' => $request->mother_occupation,
+            'spouse_name' => $request->spouse_name,
+            'spouse_qualification' => $request->spouse_qualification,
+            'spouse_occupation' => $request->spouse_occupation,
         ];
         if($r=='User'){
             $data['is_verified'] = 1;

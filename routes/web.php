@@ -17,10 +17,10 @@
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/', 'Admin\HomeController@index')->name('dashboard');
+Route::get('/', 'HomeController@index');
 // Route::get('/storage/{extra}', function ($extra) {
 //     return redirect("/public/storage/$extra");
 //     })->where('extra', '.*');
