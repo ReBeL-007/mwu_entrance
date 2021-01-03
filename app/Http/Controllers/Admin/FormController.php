@@ -167,24 +167,24 @@ class FormController extends Controller
             return "Failed to upload intermediate marksheet";
 
         }
-        if($request->hasFile('bachelor_certificate') && $request->file('bachelor_certificate')->isValid()){
-            $file = $request->file('bachelor_certificate');
-            $bachelor_certificate= uniqid().'_'.$file->getClientOriginalName();
-            $file->storeAs('public/uploads/bachelor_certificate',$bachelor_certificate);
-        }else{
-            //if statement checks if file is a file and is valid, otherwise no file to upload
-            return "Failed to upload bachelor certificate";
+        // if($request->hasFile('bachelor_certificate') && $request->file('bachelor_certificate')->isValid()){
+        //     $file = $request->file('bachelor_certificate');
+        //     $bachelor_certificate= uniqid().'_'.$file->getClientOriginalName();
+        //     $file->storeAs('public/uploads/bachelor_certificate',$bachelor_certificate);
+        // }else{
+        //     //if statement checks if file is a file and is valid, otherwise no file to upload
+        //     return "Failed to upload bachelor certificate";
 
-        }
-        if($request->hasFile('bachelor_marksheet') && $request->file('bachelor_marksheet')->isValid()){
-            $file = $request->file('bachelor_marksheet');
-            $bachelor_marksheet= uniqid().'_'.$file->getClientOriginalName();
-            $file->storeAs('public/uploads/bachelor_marksheet',$bachelor_marksheet);
-        }else{
-            //if statement checks if file is a file and is valid, otherwise no file to upload
-            return "Failed to upload bachelor marksheet";
+        // }
+        // if($request->hasFile('bachelor_marksheet') && $request->file('bachelor_marksheet')->isValid()){
+        //     $file = $request->file('bachelor_marksheet');
+        //     $bachelor_marksheet= uniqid().'_'.$file->getClientOriginalName();
+        //     $file->storeAs('public/uploads/bachelor_marksheet',$bachelor_marksheet);
+        // }else{
+        //     //if statement checks if file is a file and is valid, otherwise no file to upload
+        //     return "Failed to upload bachelor marksheet";
 
-        }
+        // }
 
         $data=[
             'faculty' => $request->faculty,
@@ -234,8 +234,8 @@ class FormController extends Controller
             'see_marksheet' => $see_marksheet,
             'intermediate_certificate' => $intermediate_certificate,
             'intermediate_marksheet' => $intermediate_marksheet,
-            'bachelor_certificate' => $bachelor_certificate,
-            'bachelor_marksheet' => $bachelor_marksheet,
+            // 'bachelor_certificate' => $bachelor_certificate,
+            // 'bachelor_marksheet' => $bachelor_marksheet,
         ];
         // dd($data);
         Form::create($data);
