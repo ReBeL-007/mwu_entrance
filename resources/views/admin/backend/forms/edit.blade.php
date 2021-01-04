@@ -30,7 +30,7 @@
             </div>
             <div class="photo">
               <div class="box"></div>
-          </div>
+            </div>
         </div>
     <form class="ui form" method="POST" action="{{ route('admin.forms.update', [$data->id]) }}" enctype="multipart/form-data">
             @method('PUT')
@@ -41,7 +41,7 @@
                     <label class="">Entrance Exam Roll No :-</label>
                 </div>
                <div class="col-md-10 roll-no">
-                    <input class=" {{ $errors->has('symbol_no') ? 'is-invalid' : '' }}" type="text" name="symbol_no" placeholder="Exam Roll No" value="{{$data->symbol_no}}">
+                    <input class=" {{ $errors->has('symbol_no') ? 'is-invalid' : '' }}" type="text" name="symbol_no" placeholder="Exam Roll No" value="{{$data->symbol_no}}" disabled>
                     @if($errors->has('symbol_no'))
                     <span class="text-danger">
                         {{$errors->first('symbol_no')}}
@@ -49,32 +49,17 @@
                     @endif
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-3">
                     <label class="required">Name of School/College/Campus</label>
                 </div>
                 <div class="col-md-4">
-                    <select class="form-control select2" name="campus" id="campus" placeholder="School/College" required>
-                    <option value="">Select College</option>
-                        <option value="Babai Multiple Campus" {{ ('Babai Multiple Campus' === $data->campus) ? 'selected' : ''}}>Babai Multiple Campus</option>
-                        <option value="Bageshwari Multiple Campus" {{ ('Bageshwari Multiple Campus' === $data->campus) ? 'selected' : ''}}>Bageshwari Multiple Campus</option>
-                        <option value="Bheri Education Campus" {{ ('Bheri Education Campus' === $data->campus) ? 'selected' : ''}}>Bheri Education Campus</option>
-                        <option value="Bheri Gyanodaya Multiple Campus" {{ ('Bheri Gyanodaya Multiple Campus' === $data->campus) ? 'selected' : ''}}>Bheri Gyanodaya Multiple Campus</option>
-                        <option value="Bidyapur Janata Multiple Campus" {{ ('Bidyapur Janata Multiple Campus' === $data->campus) ? 'selected' : ''}}>Bidyapur Janata Multiple Campus</option>
-                        <option value="Central Campus of Engineering" {{ ('Central Campus of Engineering' === $data->campus) ? 'selected' : ''}}>Central Campus of Engineering</option>
-                        <option value="Central Campus of Education" {{ ('Central Campus of Education' === $data->campus) ? 'selected' : ''}}>Central Campus of Education,</option>
-                        <option value="Central Campus of Humanities and Social Sciences" {{ ('Central Campus of Humanities and Social Sciences' === $data->campus) ? 'selected' : ''}}>Central Campus of Humanities and Social Sciences</option>
-                        <option value="Central Campus of Management" {{ ('Central Campus of Management' === $data->campus) ? 'selected' : ''}}>Central Campus of Management</option>
-                        <option value="Central campus of Science and Technology" {{ ('Central campus of Science and Technology' === $data->campus) ? 'selected' : ''}}>Central campus of Science and Technology</option>
-                        <option value="Global College International" {{ ('Global College International' === $data->campus) ? 'selected' : ''}}>Global College International</option>
-                        <option value="Jaljala Multiple Campus" {{ ('Jaljala Multiple Campus' === $data->campus) ? 'selected' : ''}}>Jaljala Multiple Campus</option>
-                        <option value="Musikot Khalanga Multiple Campus" {{ ('Musikot Khalanga Multiple Campus' === $data->campus) ? 'selected' : ''}}>Musikot Khalanga Multiple Campus</option>
-                        <option value="Narayan Campus" {{ ('Narayan Campus' === $data->campus) ? 'selected' : ''}}>Narayan Campus</option>
-                        <option value="Rara Multiple Campus" {{ ('Rara Multiple Campus' === $data->campus) ? 'selected' : ''}}>Rara Multiple Campus</option>
-                        <option value="School of Law" {{ ('School of Law' === $data->campus) ? 'selected' : ''}}>School of Law</option>
-                        <option value="School of Management" {{ ('School of Management' === $data->campus) ? 'selected' : ''}}>School of Management</option>
-                        <option value="Tila Karnali Multiple Campus" {{ ('Tila Karnali Multiple Campus' === $data->campus) ? 'selected' : ''}}>Tila Karnali Multiple Campus</option>
-
+                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
+                        name="campus" id="campus" required>
+                        @foreach($colleges as $id=>$campus)
+                        <option value='{{ $id }}' {{ ($id==$data->campus) ? 'selected' : '' }}>{{ $campus }}</option>
+                        @endforeach
                     </select>
                     @if($errors->has('campus'))
                     <span class="text-danger">{{ $errors->first('campus') }}</span>
@@ -89,11 +74,12 @@
                     </div> 
                     <div class="col-md-3 facultyy">
                         <span>
-                            <select class="form-control {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty" id="faculties" required>
-                                <option value="">Select a faculty...</option>
-                                @foreach($faculties as $id => $faculty)
-
-                                <option value='{{ $id }}' {{ ($id==$data->faculty) ? 'selected' : '' }}>{{ $faculty }}</option>
+                            <select class="form-control {{ $errors->has('faculty') ? 'is-invalid' : '' }}"
+                                name="faculty" id="faculties" required>
+                                <option value="">Select a faculty...
+                                </option>
+                                @foreach($faculties as $id=>$faculty)
+                                <option value="{{ $id }}" {{ ($id==$data->faculty) ? 'selected' : '' }}>{{ $faculty }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('faculty'))
@@ -107,10 +93,9 @@
                         <p> Level </p>
                     </div>
                     <div class="col-md-2">
-                    <select class="form-control" name="level" id="levels" required>
+                        <select class="form-control" name="level" id="levels" required>
                         <option value="{{$data->level}}">{{$data->levels->name}}</option>
-
-                    </select>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -129,6 +114,8 @@
                     </div>
                 </div>
            </div>
+           
+           <h4 class="ui dividing header">Personal Details</h4>
             <!-- Name Field -->
             <div class="field">
                 <label class="required">Name of the Applicant: </label>
@@ -140,10 +127,10 @@
                         @endif
                     </div>
                     <div class="field">
-                        <input class=" " type="text" name="mname" placeholder="Middle Name"  value="{{$data->mname}}">
+                        <input class=" " type="text" name="mname" placeholder="Middle Name" value="{{$data->mname}}">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('lname') ? 'is-invalid' : '' }}" type="text" name="lname" placeholder="Last Name"  value="{{$data->lname}}" required>
+                        <input class=" {{ $errors->has('lname') ? 'is-invalid' : '' }}" type="text" name="lname" placeholder="Last Name" value="{{$data->lname}}" required>
                         @if($errors->has('lname'))
                         <span class="text-danger">{{ $errors->first('lname') }}</span>
                         @endif
@@ -154,8 +141,8 @@
             <div class="row fields">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4  caste">Caste</label>
-                        <input type="text" class="form-control col-md-8"  name="caste" value="{{$data->caste}}" required>
+                        <label class="col-md-4 caste">Caste</label>
+                        <input type="text" class="form-control col-md-8" name="caste" value="{{$data->caste}}" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -183,28 +170,29 @@
                 @endif
                 </div>
                 <!-- <div class="col-md-3">
-                <input class="form-control {{ $errors->has('dateOfBirth') ? 'is-invalid' : '' }} datepicker" type="text" name="dateOfBirth2" placeholder="DD/MM/YYYY (AD)" value="{{$data->dateOfBirth2}}" required>
+                <input class="form-control {{ $errors->has('dateOfBirth') ? 'is-invalid' : '' }} datepicker" type="text" name="dateOfBirth2" placeholder="DD/MM/YYYY (AD)" required>
                 @if($errors->has('dateOfBirth')) 
                     <span class="text-danger"> {{$errors ->first('dateOfBirth')}}</span>
                 @endif 
                 </div> -->
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <div class="row"><label class="col-md-4 sex">Sex </label>
-                        <select class="form-control col-md-8" name="sex" id="sex" required>
-                            <option value="male" {{ ('male' === $data->sex) ? 'selected' : '' }}>Male</option>
-                            <option value="female" {{ ('female' === $data->sex) ? 'selected' : '' }}>Female</option>
-                            <option value="other" {{ ('other' === $data->sex) ? 'selected' : '' }}>Other</option>
+                    <div class="row"><label class="col-md-4 sex">Sex </label><select
+                            class="form-control col-md-8" name="sex" id="sex" required>
+                            <option value="male" {{ ('male' === $data->sex) ? 'selected' : '' }}>Male </option>
+                            <option value="female" {{ ('female' === $data->sex) ? 'selected' : '' }}>Female </option>
+                            <option value="other" {{ ('other' === $data->sex) ? 'selected' : '' }}>Other </option>
                         </select>
                     </div>
                 </div>
             </div>
+        
             {{-- address --}}
             <h4 class="ui dividing header">Permanent Address</h4>
             <div class="row permanent-address fields">
                 <div class="col-md-3">
                     <div class="row">
-                        <label class="col-md-4 ">Tole/ Village </label>
+                        <label class="col-md-4 ">Tole/Village </label>
                         <input type="text" class="form-control col-md-8" name="tole" value="{{$data->tole}}" required>
                     </div>
                 </div>
@@ -216,7 +204,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">VDC/ Municipality </label>
+                        <label class="col-md-4 ">VDC/Municipality </label>
                         <input type="text" class="form-control col-md-8" name="vdc" value="{{$data->vdc}}" required>
                     </div>
                 </div>
@@ -241,8 +229,7 @@
                     </div>
                 </div>
             </div>
-        
-        <!-- examination -->
+           <!-- examination -->
         @php
         $boards = json_decode($data->board);
         $passed_year = json_decode($data->passed_year);
@@ -253,13 +240,13 @@
         <label class="required">SLC/SEE</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board" placeholder="Board or University" value="{{ $boards[0] }}" required>
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[0] }}" required>
                 @if($errors->has('board'))
                 <span class="text-danger">{{ $errors->first('board') }}</span>
                 @endif
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year" placeholder="Passed Year" value="{{ $passed_year[0] }}" required>
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[0] }}" required>
                 @if($errors->has('passed_year'))
                 <span class="text-danger">{{ $errors->first('passed_year') }}</span>
                 @endif
@@ -267,112 +254,103 @@
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no" placeholder="Roll No./ Symbol No." value="{{ $roll_no[0] }}"  required>
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[0] }}" required>
                         @if($errors->has('roll_no'))
                         <span class="text-danger">{{ $errors->first('roll_no') }}</span>
                         @endif
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division" placeholder="Division" value="{{ $divison[0] }}"  required>
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[0] }}" required>
                         @if($errors->has('division'))
                         <span class="text-danger">{{ $errors->first('division') }}</span>
                         @endif
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
+        <!-- <div class="fields"> -->
+            @if($data->see_certificate)<h6><a href="/storage/uploads/see_certificate/{{ $data->see_certificate }}" download="{{ $data->see_certificate }}">Click here to download SEE character certificate</a></h6>@endif
+            @if($data->see_marksheet)<h6><a href="/storage/uploads/see_marksheet/{{ $data->see_marksheet }}" download="{{ $data->see_marksheet }}">Click here to download SEE marksheet</a></h6>@endif
+            @if($data->see_provisional)<h6><a href="/storage/uploads/see_provisional/{{ $data->see_provisional }}" download="{{ $data->see_provisional }}">Click here to download SEE prvisional certificate</a></h6>@endif
+        <!-- </div> -->
 
         <label class="required">Intermediate/+2</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board" placeholder="Board or University" value="{{ $boards[1] }}" required>
-                @if($errors->has('board'))
-                <span class="text-danger">{{ $errors->first('board') }}</span>
-                @endif
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[1] }}" required>
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year" placeholder="Passed Year" value="{{ $passed_year[1] }}"  required>
-                @if($errors->has('passed_year'))
-                <span class="text-danger">{{ $errors->first('passed_year') }}</span>
-                @endif
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[1] }}" required>
             </div>
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no" placeholder="Roll No./ Symbol No." value="{{ $roll_no[1] }}"  required>
-                        @if($errors->has('roll_no'))
-                        <span class="text-danger">{{ $errors->first('roll_no') }}</span>
-                        @endif
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[1] }}" required>
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division" placeholder="Division" value="{{ $divison[1] }}"  required>
-                        @if($errors->has('division'))
-                        <span class="text-danger">{{ $errors->first('division') }}</span>
-                        @endif
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[1] }}" required>
                     </div>
                 </div>
             </div>
         </div>
+            @if($data->intermediate_certificate)<h6><a href="/storage/uploads/intermediate_certificate/{{ $data->intermediate_certificate }}" download="{{ $data->intermediate_certificate }}">Click here to download intermediate character certificate</a></h6>@endif
+            @if($data->intermediate_marksheet)<h6><a href="/storage/uploads/intermediate_marksheet/{{ $data->intermediate_marksheet }}" download="{{ $data->intermediate_marksheet }}">Click here to download intermediate marksheet</a></h6>@endif
+            @if($data->intermediate_provisional)<h6><a href="/storage/uploads/intermediate_provisional/{{ $data->intermediate_provisional }}" download="{{ $data->intermediate_provisional }}">Click here to download intermediate prvisional certificate</a></h6>@endif
 
         <label class="">Bachelor</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board" placeholder="Board or University" value="{{ $boards[2] }}" >
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[2] }}">
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year" placeholder="Passed Year" value="{{ $passed_year[2] }}" >
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[2] }}">
             </div>
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no" placeholder="Roll No./ Symbol No." value="{{ $roll_no[2] }}">
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[2] }}">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division" placeholder="Division" value="{{ $divison[2] }}">
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[2] }}">
                     </div>
                 </div>
             </div>
         </div>
+            @if($data->bachelor_certificate)<h6><a href="/storage/uploads/bachelor_certificate/{{ $data->bachelor_certificate }}" download="{{ $data->bachelor_certificate }}">Click here to download bachelor character certificate</a></h6>@endif
+            @if($data->bachelor_marksheet)<h6><a href="/storage/uploads/bachelor_marksheet/{{ $data->bachelor_marksheet }}" download="{{ $data->bachelor_marksheet }}">Click here to download bachelor marksheet</a></h6>@endif
+            @if($data->bachelor_provisional)<h6><a href="/storage/uploads/bachelor_provisional/{{ $data->bachelor_provisional }}" download="{{ $data->bachelor_provisional }}">Click here to download bachelor prvisional certificate</a></h6>@endif
+
 
         <label class="">Master</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board" placeholder="Board or University" value="{{ $boards[3] }}" >
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[3] }}">
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year" placeholder="Passed Year" value="{{ $passed_year[3] }}" >
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[3] }}">
             </div>
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no" placeholder="Roll No./ Symbol No." value="{{ $roll_no[3] }}">
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[3] }}">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division" placeholder="Division" value="{{ $divison[3] }}">
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[3] }}">
                     </div>
                 </div>
             </div>
         </div>
+            @if($data->masters_certificate)<h6><a href="/storage/uploads/masters_certificate/{{ $data->masters_certificate }}" download="{{ $data->masters_certificate }}">Click here to download masters character certificate</a></h6>@endif
+            @if($data->masters_marksheet)<h6><a href="/storage/uploads/masters_marksheet/{{ $data->masters_marksheet }}" download="{{ $data->masters_marksheet }}">Click here to download masters marksheet</a></h6>@endif
+            @if($data->masters_provisional)<h6><a href="/storage/uploads/masters_provisional/{{ $data->masters_provisional }}" download="{{ $data->masters_provisional }}">Click here to download masters prvisional certificate</a></h6>@endif
 
-        <!-- <label class="">Others</label>
-        <div class="fields">
-            <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board" placeholder="Board or University" value="{{ $boards[4] }}" >
-            </div>
-            <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year" placeholder="Passed Year" value="{{ $passed_year[4] }}" >
-            </div>
-            <div class="six wide field">
-                <div class="two fields">
-                    <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no" placeholder="Roll No./ Symbol No." value="{{ $roll_no[4] }}">
-                    </div>
-                    <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division" placeholder="Division" value="{{ $divison[4] }}">
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
+        <label class="">Other Documents</label>
+        
+            @if($data->citizenship)<h6><a href="/storage/uploads/citizenship/{{ $data->citizenship }}" download="{{ $data->citizenship }}">Click here to download citizenship</a></h6>@endif
+            @if($data->community_certificate)<h6><a href="/storage/uploads/community_certificate/{{ $data->community_certificate }}" download="{{ $data->community_certificate }}">Click here to download community certificate</a></h6>@endif
+            @if($data->sponsor_letter)<h6><a href="/storage/uploads/sponsor_letter/{{ $data->sponsor_letter }}" download="{{ $data->sponsor_letter }}">Click here to download sponsor letter</a></h6>@endif
+
 
         {{-- guardian's details --}}
         <h4 class="ui dividing header">Parent's/Guardian's Details</h4>
@@ -444,56 +422,18 @@
             </div>
         </div>
 
-        <!-- <h4 class="ui dividing header">Other Details</h4>
-        <div class="field">
-            <label class="required">PassPort Size Photo of Student</label>
-            <input class=" {{ $errors->has('image') ? 'is-invalid' : '' }}" type="file" name="image" accept="image/*" maxlength="" required>
-            @if($errors->has('image'))
-            <span class="text-danger">{{ $errors->first('image') }}</span>
-            @endif
-            <span class="text-danger"> Maximum File size: 512KB</span> <br>
-            <span class="text-danger"> Acceptable format: jpeg, png</span>
-        </div>
+        <h4 class="ui dividing header">Other Details</h4>
+           <!-- bank voucher -->
+           @if($data->image)<h6><a href="/storage/uploads/image/{{ $data->image }}" download="{{ $data->image }}">Click here to download Applicant's Photo</a></h6>@endif
+            @if($data->signature)<h6><a href="/storage/uploads/signature/{{ $data->signature }}" download="{{ $data->signature }}">Click here to download Applicant's Signature</a></h6>@endif
+            @if($data->voucher)<h6><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click here to download voucher</a></h6>@endif
 
-        <div class="field">
-            <label class="required">Applicant's signature (scanned image)</label>
-            <input class=" {{ $errors->has('signature') ? 'is-invalid' : '' }}" type="file" name="signature" accept="image/*" required>
-            @if($errors->has('signature'))
-            <span class="text-danger">{{ $errors->first('signature') }}</span>
-            @endif
-            <span class="text-danger"> Maximum File size: 512KB</span> <br>
-            <span class="text-danger"> Acceptable format: jpeg, png</span>
-        </div>
 
-        <h4 class="ui dividing header">Payment Details</h4>
-        <div class="field">
-            <label class="required">Deposit Receipt / Voucher (scanned image)</label>
-            <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" required>
-            @if($errors->has('voucher'))
-            <span class="text-danger">{{ $errors->first('voucher') }}</span>
-            @endif
-            <span class="text-danger"> Maximum File size: 512KB</span> <br>
-            <span class="text-danger"> Acceptable format: jpeg, png</span>
-        </div>
+        
+ 
 
-        <div class="field">
-            <span><input type="checkbox" name="consent" id="consent" value="1" required> I declare that the particulars given above, to the best of my knowledge, are true. If found incorrect, any action to be taken against me by the University will be acceptable. If I admit, I agree to abide by the University rules and regulations.</span>
-        </div>
-    @if($errors->has('consent'))
-    <span class="text-danger">{{ $errors->first('consent') }}</span>
-    @endif -->
-    <div class="voucher" style="display: flex;justify-content: center;text-align: center">
-        <div>
-            <h4>Deposit Receipt / Voucher</h4>
-            <img src="{{ asset('storage/uploads/voucher/'.$data->voucher) }}" alt="No Voucher" style="height: 40vh"><br><br>
-            <h5><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click to download deposit slip</a></h5>
-        </div>
-    </div>
-    <div class="form-group">
-        <button class="btn btn-success" type="submit">
-            {{-- {{ trans('global.save') }} --}} Approve
-        </button>
-        <a href="{{route('admin.forms.index')}}" class="btn btn-danger">{{ trans('global.cancel') }}</a>
+   <div class="field">
+        <button type="submit" class="btn btn-success"> Approved </button>
     </div>
     </form>
     </div>

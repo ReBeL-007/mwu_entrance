@@ -66,7 +66,6 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        // dd($request->all());
         if($request->generate_password === 'on' || $request->password === ''){
             // dd('sd');
         $random_temp_password= str_random(10);
@@ -75,13 +74,35 @@ class UsersController extends Controller
             // dd('sdsds');
         $password = $request->password;
         }
-        // dd($password);
+        
+        if($request->hasFile('official_seal') && $request->file('official_seal')->isValid()){
+            $file = $request->file('official_seal');
+            $official_seal= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/college/official_seal',$official_seal);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            $official_seal = null;
+
+        }
+        if($request->hasFile('authorized_signature') && $request->file('authorized_signature')->isValid()){
+            $file = $request->file('authorized_signature');
+            $authorized_signature= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/college/authorized_signature',$authorized_signature);
+        }else{
+            //if statement checks if file is a file and is valid, otherwise no file to upload
+            $authorized_signature = null;
+
+        }
         $data=[
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($password),
             'default_password' => $password,
-            'mobile' => $request->mobile
+            'mobile' => $request->mobile,
+            'merchant_no' => $request->merchant_no,
+            'official_seal' => $official_seal,
+            'authorized_signature' => $authorized_signature
+
         ];
         $user = Admin::create($data);
         $user->roles()->sync($request->input('roles', []));
@@ -115,17 +136,36 @@ class UsersController extends Controller
             $roles = $all_roles;
         }
         $groups = Group::all()->pluck('title', 'id');
-
         return view('admin.backend.users.edit', compact('user','roles','groups'));
     }
 
     public function update(UpdateUserRequest $request, Admin $user)
     {
-        
+        if($request->hasFile('official_seal') && $request->file('official_seal')->isValid()){
+            $file = $request->file('official_seal');
+            $official_seal= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/college/official_seal',$official_seal);
+        // }else{
+        //     //if statement checks if file is a file and is valid, otherwise no file to upload
+        //     $official_seal = null;
+
+        }
+        if($request->hasFile('authorized_signature') && $request->file('authorized_signature')->isValid()){
+            $file = $request->file('authorized_signature');
+            $authorized_signature= uniqid().'_'.$file->getClientOriginalName();
+            $file->storeAs('public/uploads/college/authorized_signature',$authorized_signature);
+        // }else{
+        //     //if statement checks if file is a file and is valid, otherwise no file to upload
+        //     $authorized_signature = null;
+
+        }
         $data=[
             'name' => $request->name,
             'email' => $request->email,
-            'mobile' => $request->mobile
+            'mobile' => $request->mobile,
+            'merchant_no' => $request->merchant_no,
+            'official_seal' => (isset($official_seal))?$official_seal:$user->official_seal,
+            'authorized_signature' => (isset($authorized_signature))?$authorized_signature:$user->authorized_signature
         ];
         if($request->password) {
             if($request->password !== $user->password){

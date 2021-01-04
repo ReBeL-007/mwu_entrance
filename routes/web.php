@@ -85,6 +85,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::resource('programs', 'Admin\ProgramController');
 
     // form
+    Route::get('forms/{form}/fraud-check', 'Admin\FormController@fraudCheck')->name('forms.fraud-check');
     Route::delete('forms/destroy', 'Admin\FormController@massDestroy')->name('forms.massDestroy');
     Route::resource('forms', 'Admin\FormController');
     Route::get('forms/{form}', 'Admin\FormController@generateform')->name('forms.generate');
@@ -93,7 +94,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('forms/triplicate/print', 'Admin\FormController@printtriplicate')->name('forms.print.triplicate');
     Route::get('forms/{form}/print-studentdetails', 'Admin\FormController@printformdetails')->name('forms.print-student-details');
     Route::post('forms/print-studentdetails', 'Admin\FormController@printmultipleformdetails')->name('forms.print-multiple-student-details');
-
+    
     Route::resource('faculty', 'Admin\FacultyController');
     Route::delete('faculties/destroy', 'Admin\FacultyController@massDestroy')->name('faculty.massDestroy');
 

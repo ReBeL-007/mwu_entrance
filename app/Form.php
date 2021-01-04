@@ -38,5 +38,8 @@ class Form extends Model
        return $this->belongsTo(Subject::class);
     }
 
+    public function colleges() {
+        return $this->belongsTo(Admin::class,'campus');
+     }
     
 }

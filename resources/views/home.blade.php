@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     @include('admin.backend.includes.messages')
+    @if(session('message'))
+    {{session('message')}}
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

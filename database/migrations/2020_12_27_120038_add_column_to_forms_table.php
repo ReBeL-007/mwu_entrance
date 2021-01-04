@@ -32,10 +32,14 @@ class AddColumnToFormsTable extends Migration
             $table->string('masters_provisional')->nullable();         
             $table->string('official_seal')->nullable();
             $table->string('authorized_signature')->nullable();
-            $table->boolean('status')->default(0);
+            $table->boolean('esewa_status')->default(0);
             $table->string('citizenship')->nullable();         
             $table->string('community_certificate')->nullable();
             $table->string('sponsor_letter')->nullable();
+            $table->string('pid')->nullable();
+            $table->string('rid')->nullable();
+            $table->string('esewa_amt')->nullable();
+            $table->string('scd')->nullable();
         });
     }
 

@@ -9,39 +9,18 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.users.update', [$user->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             
             <div class="form-group">
                 @if(Auth::user()->name=='IT Admin')
                 <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
-                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required>
                 @else
                 <label class="required" for="name">College {{ trans('cruds.user.fields.name') }}</label>
-                <select class="form-control select2 {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" placeholder="School/College" required>
-                    <option value="">Select College</option>
-                    <option value="Babai Multiple Campus" {{ ('Babai Multiple Campus' === $user->name) ? 'selected' : ''}}>Babai Multiple Campus</option>
-                    <option value="Bageshwari Multiple Campus" {{ ('Bageshwari Multiple Campus' === $user->name) ? 'selected' : ''}}>Bageshwari Multiple Campus</option>
-                    <option value="Bheri Education Campus" {{ ('Bheri Education Campus' === $user->name) ? 'selected' : ''}}>Bheri Education Campus</option>
-                    <option value="Bheri Gyanodaya Multiple Campus" {{ ('Bheri Gyanodaya Multiple Campus' === $user->name) ? 'selected' : ''}}>Bheri Gyanodaya Multiple Campus</option>
-                    <option value="Bidyapur Janata Multiple Campus" {{ ('Bidyapur Janata Multiple Campus' === $user->name) ? 'selected' : ''}}>Bidyapur Janata Multiple Campus</option>
-                    <option value="Central Campus of Engineering" {{ ('Central Campus of Engineering' === $user->name) ? 'selected' : ''}}>Central Campus of Engineering</option>
-                    <option value="Central Campus of Education" {{ ('Central Campus of Education' === $user->name) ? 'selected' : ''}}>Central Campus of Education,</option>
-                    <option value="Central Campus of Humanities and Social Sciences" {{ ('Central Campus of Humanities and Social Sciences' === $user->name) ? 'selected' : ''}}>Central Campus of Humanities and Social Sciences</option>
-                    <option value="Central Campus of Management" {{ ('Central Campus of Management' === $user->name) ? 'selected' : ''}}>Central Campus of Management</option>
-                    <option value="Central campus of Science and Technology" {{ ('Central campus of Science and Technology' === $user->name) ? 'selected' : ''}}>Central campus of Science and Technology</option>
-                    <option value="Global College International" {{ ('Global College International' === $user->name) ? 'selected' : ''}}>Global College International</option>
-                    <option value="Jaljala Multiple Campus" {{ ('Jaljala Multiple Campus' === $user->name) ? 'selected' : ''}}>Jaljala Multiple Campus</option>
-                    <option value="Musikot Khalanga Multiple Campus" {{ ('Musikot Khalanga Multiple Campus' === $user->name) ? 'selected' : ''}}>Musikot Khalanga Multiple Campus</option>
-                    <option value="Narayan Campus" {{ ('Narayan Campus' === $user->name) ? 'selected' : ''}}>Narayan Campus</option>
-                    <option value="Rara Multiple Campus" {{ ('Rara Multiple Campus' === $user->name) ? 'selected' : ''}}>Rara Multiple Campus</option>
-                    <option value="School of Law" {{ ('School of Law' === $user->name) ? 'selected' : ''}}>School of Law</option>
-                    <option value="School of Management" {{ ('School of Management' === $user->name) ? 'selected' : ''}}>School of Management</option>
-                    <option value="Tila Karnali Multiple Campus" {{ ('Tila Karnali Multiple Campus' === $user->name) ? 'selected' : ''}}>Tila Karnali Multiple Campus</option>
-
-                  </select>
                 @endif
+                <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required>
+                
                 @if($errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -61,7 +40,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="" for="password">{{ trans('cruds.user.fields.password') }}</label>
+                <label class="" for="password">{{ trans('cruds.user.fields.password') }} (Leave it, if you don't want to change it.)</label>
                 <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" >
                 @if($errors->has('password'))
                     <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -110,6 +89,38 @@
                 <span class="help-block">{{ trans('cruds.user.fields.groups_helper') }}</span>
             </div>
             @endif
+            <div class="form-group">
+                <label class="" for="merchant_no">{{ trans('cruds.user.fields.merchant_no') }}</label>
+                <input class="form-control {{ $errors->has('merchant_no') ? 'is-invalid' : '' }}" type="text" name="merchant_no" id="merchant_no" value="{{ old('merchant_no', $user->merchant_no) }}" >
+                @if($errors->has('merchant_no'))
+                    <span class="text-danger">{{ $errors->first('merchant_no') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.merchant_no_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="" for="official_seal">{{ trans('cruds.user.fields.official_seal') }}</label>
+                <input class="form-control {{ $errors->has('official_seal') ? 'is-invalid' : '' }}" type="file" name="official_seal" id="official_seal" value="{{ old('official_seal', $user->official_seal) }}" >
+                @if($user->official_seal) 
+                <img src="{{asset('storage/uploads/college/official_seal/'.$user->official_seal)}}" alt="official_seal" width="250px" height="150px">
+                @endif
+
+                @if($errors->has('official_seal'))
+                    <span class="text-danger">{{ $errors->first('official_seal') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.official_seal_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="" for="authorized_signature">{{ trans('cruds.user.fields.authorized_signature') }}</label>
+                <input class="form-control {{ $errors->has('authorized_signature') ? 'is-invalid' : '' }}" type="file" name="authorized_signature" id="authorized_signature" value="{{ old('authorized_signature', $user->authorized_signature) }}" >
+                @if($user->authorized_signature) 
+                    <img src="{{asset('storage/uploads/college/authorized_signature/'.$user->authorized_signature)}}" alt="authorized_signature" width="250px" height="150px">
+                @endif
+
+                @if($errors->has('authorized_signature'))
+                    <span class="text-danger">{{ $errors->first('authorized_signature') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.authorized_signature_helper') }}</span>
+            </div>
             <div class="form-group">
                 <button class="btn btn-success" type="submit">
                     {{ trans('global.save') }}

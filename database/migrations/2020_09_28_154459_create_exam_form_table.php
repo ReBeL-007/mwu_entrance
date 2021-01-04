@@ -20,7 +20,8 @@ class CreateExamFormTable extends Migration
             $table->foreign('faculty')->references('id')->on('faculties')->onDelete('cascade');
             $table->unsignedInteger('level')->nullable();
             $table->foreign('level')->references('id')->on('levels')->onDelete('cascade');            
-            $table->string('campus')->nullable();
+            $table->unsignedInteger('campus')->nullable();
+            $table->foreign('campus')->references('id')->on('admins')->onDelete('cascade');
             $table->string('year')->nullable();
             $table->string('form_serial_no')->nullable();
             $table->string('sex')->nullable();

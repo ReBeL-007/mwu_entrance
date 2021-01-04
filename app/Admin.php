@@ -20,7 +20,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile','default_password',
+        'name', 'email', 'password', 'mobile','default_password','merchant_no','official_seal','authorized_signature'
     ];
 
     /**
@@ -65,6 +65,11 @@ class Admin extends Authenticatable
         return $this->hasMany(Answer::class,'admin_id');
      }
 
+    public function forms() {
+
+        return $this->hasMany(Form::class,'campus');
+            
+    }
     // public function getRouteKeyName()
     // {
     //     return 'slug';

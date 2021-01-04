@@ -25,7 +25,7 @@
     <div class="container exam-card">
         @include('admin.backend.includes.messages')
         <div class="ui three item menu">
-            <div class="logo"><img src="{{ asset('mwu-logo.png') }}" alt="logo"></div>
+            <div class="logo"><img src="{{asset('mwu-logo.png') }}" alt="logo"></div>
             <div class="title">
                 <p><b> Mid-Western University </b></p>
                 <h1><b> Examinations Management Office </b></h1>
@@ -58,27 +58,13 @@
                     <label class="required">Name of School/College/Campus</label>
                 </div>
                 <div class="col-md-4">
-                    <select class="form-control select2" name="campus" id="campus" placeholder="School/College" required>
-                        <option value="">Select College</option>
-                        <option value="Babai Multiple Campus">Babai Multiple Campus</option>
-                        <option value="Bageshwari Multiple Campus">Bageshwari Multiple Campus</option>
-                        <option value="Bheri Education Campus">Bheri Education Campus</option>
-                        <option value="Bheri Gyanodaya Multiple Campus">Bheri Gyanodaya Multiple Campus</option>
-                        <option value="Bidyapur Janata Multiple Campus">Bidyapur Janata Multiple Campus</option>
-                        <option value="Central Campus of Engineering">Central Campus of Engineering</option>
-                        <option value="Central Campus of Education">Central Campus of Education</option>
-                        <option value="Central Campus of Humanities and Social Sciences">Central Campus of Humanities and Social Sciences</option>
-                        <option value="Central Campus of Management">Central Campus of Management</option>
-                        <option value="Central campus of Science and Technology">Central campus of Science and Technology</option>
-                        <option value="Global College International">Global College International</option>
-                        <option value="Jaljala Multiple Campus">Jaljala Multiple Campus</option>
-                        <option value="Musikot Khalanga Multiple Campus">Musikot Khalanga Multiple Campus</option>
-                        <option value="Narayan Campus">Narayan Campus</option>
-                        <option value="Rara Multiple Campus">Rara Multiple Campus</option>
-                        <option value="School of Law">School of Law</option>
-                        <option value="School of Management">School of Management</option>
-                        <option value="Tila Karnali Multiple Campus">Tila Karnali Multiple Campus</option>
-
+                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
+                        name="campus" id="campus" required>
+                        <option value="">Select a campus...
+                        </option>
+                        @foreach($colleges as $id=>$campus)
+                        <option value="{{ $id }}"> {{$campus}}</option>
+                        @endforeach
                     </select>
                     @if($errors->has('campus'))
                     <span class="text-danger">{{ $errors->first('campus') }}</span>
@@ -320,9 +306,9 @@
             </div>
             <div class="six wide field">
                 <p class="required" style="font-size:larger;">Provisional Certificate</p>
-                <input class=" {{ $errors->has('provisional_certificate') ? 'is-invalid' : '' }}" type="file" name="provisional_certificate" accept="image/*" maxlength="" required>
-                @if($errors->has('provisional_certificate'))
-                <span class="text-danger">{{ $errors->first('provisional_certificate') }}</span>
+                <input class=" {{ $errors->has('see_provisional') ? 'is-invalid' : '' }}" type="file" name="see_provisional" accept="image/*" maxlength="" required>
+                @if($errors->has('see_provisional'))
+                <span class="text-danger">{{ $errors->first('see_provisional') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
@@ -369,9 +355,9 @@
             </div>
             <div class="six wide field">
                 <p class="" style="font-size:larger;">Provisional Certificate</p>
-                <input class=" {{ $errors->has('provisional_certificate') ? 'is-invalid' : '' }}" type="file" name="provisional_certificate" accept="image/*" maxlength="" >
-                @if($errors->has('provisional_certificate'))
-                <span class="text-danger">{{ $errors->first('provisional_certificate') }}</span>
+                <input class=" {{ $errors->has('intermediate_provisional') ? 'is-invalid' : '' }}" type="file" name="intermediate_provisional" accept="image/*" maxlength="" >
+                @if($errors->has('intermediate_provisional'))
+                <span class="text-danger">{{ $errors->first('intermediate_provisional') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
@@ -418,9 +404,9 @@
             </div>
             <div class="six wide field">
                 <p class="" style="font-size:larger;">Provisional Certificate</p>
-                <input class=" {{ $errors->has('provisional_certificate') ? 'is-invalid' : '' }}" type="file" name="provisional_certificate" accept="image/*" maxlength="" >
-                @if($errors->has('provisional_certificate'))
-                <span class="text-danger">{{ $errors->first('provisional_certificate') }}</span>
+                <input class=" {{ $errors->has('bachelor_provisional') ? 'is-invalid' : '' }}" type="file" name="bachelor_provisional" accept="image/*" maxlength="" >
+                @if($errors->has('bachelor_provisional'))
+                <span class="text-danger">{{ $errors->first('bachelor_provisional') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
@@ -467,9 +453,9 @@
             </div>
             <div class="six wide field">
                 <p class="" style="font-size:larger;">Provisional Certificate</p>
-                <input class=" {{ $errors->has('provisional_certificate') ? 'is-invalid' : '' }}" type="file" name="provisional_certificate" accept="image/*" maxlength="" >
-                @if($errors->has('provisional_certificate'))
-                <span class="text-danger">{{ $errors->first('provisional_certificate') }}</span>
+                <input class=" {{ $errors->has('masters_provisional') ? 'is-invalid' : '' }}" type="file" name="masters_provisional" accept="image/*" maxlength="" >
+                @if($errors->has('masters_provisional'))
+                <span class="text-danger">{{ $errors->first('masters_provisional') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
@@ -498,27 +484,27 @@
         <div class="fields">
             <div class="six wide field">
                 <p class="" style="font-size:larger">Citizenship</p>
-                <input class=" {{ $errors->has('other_certificate') ? 'is-invalid' : '' }}" type="file" name="other_certificate" accept="image/*" maxlength="" >
-                @if($errors->has('other_certificate'))
-                <span class="text-danger">{{ $errors->first('other_certificate') }}</span>
+                <input class=" {{ $errors->has('citizenship') ? 'is-invalid' : '' }}" type="file" name="citizenship" accept="image/*" maxlength="" >
+                @if($errors->has('citizenship'))
+                <span class="text-danger">{{ $errors->first('citizenship') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
             </div>
             <div class="six wide field">
                 <p class="" style="font-size:larger;">Certificate of Commuinty School</p>
-                <input class=" {{ $errors->has('other_marksheet') ? 'is-invalid' : '' }}" type="file" name="other_marksheet" accept="image/*" maxlength="" >
-                @if($errors->has('other_marksheet'))
-                <span class="text-danger">{{ $errors->first('other_marksheet') }}</span>
+                <input class=" {{ $errors->has('community_certificate') ? 'is-invalid' : '' }}" type="file" name="community_certificate" accept="image/*" maxlength="" >
+                @if($errors->has('community_certificate'))
+                <span class="text-danger">{{ $errors->first('community_certificate') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
             </div>
             <div class="six wide field">
-                <p class="" style="font-size:larger;">Sponsers</p>
-                <input class=" {{ $errors->has('other_marksheet') ? 'is-invalid' : '' }}" type="file" name="other_marksheet" accept="image/*" maxlength="" >
-                @if($errors->has('other_marksheet'))
-                <span class="text-danger">{{ $errors->first('other_marksheet') }}</span>
+                <p class="" style="font-size:larger;">Sponsors</p>
+                <input class=" {{ $errors->has('sponsor_letter') ? 'is-invalid' : '' }}" type="file" name="sponsor_letter" accept="image/*" maxlength="" >
+                @if($errors->has('sponsor_letter'))
+                <span class="text-danger">{{ $errors->first('sponsor_letter') }}</span>
                 @endif
                 <span class="text-danger"> Maximum File size: 512KB</span> <br>
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
@@ -618,7 +604,7 @@
         <button type="submit" class="btn btn-success"> Register </button>
     </div>
     </form>
-
+    
     </div>
 
     {{-- <div id="emailSentModal" class="modal fade" role="dialog">
