@@ -24,10 +24,10 @@ Route::get('/', 'HomeController@index');
 // Route::get('/storage/{extra}', function ($extra) {
 //     return redirect("/public/storage/$extra");
 //     })->where('extra', '.*');
-Route::any('/tus/{any?}', function () {
-    $response = app('tus-server')->serve();
-    return $response->send();
-})->where('any', '.*');
+// Route::any('/tus/{any?}', function () {
+//     $response = app('tus-server')->serve();
+//     return $response->send();
+// })->where('any', '.*');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('login');

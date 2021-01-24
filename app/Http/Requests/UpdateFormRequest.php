@@ -20,52 +20,55 @@ class UpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
+            // 'symbol_no' => [
+            //     'required'
+            // ],
+            'exam_centre' => [
+                'required'
+            ],
+            'campus' => [
+                'required'
+            ],
             'faculty' => [
                 'required'
             ],
-            // 'campus' => [
-            //     'required'
-            // ],
             'level' => [
                 'required'
             ],
             // 'programs' => [
             //     'required'
             // ],
-            // 'year' => [
-            //     'required'
-            // ],
-            'sex' => [
-                'required'
-            ],
             'fname' => [
                 'required'
             ],
             'lname' => [
                 'required'
             ],
-            // 'regd_no' => [
-            //     'required'
-            // ],
-            // 'semester' => [
-            //     'required'
-            // ],
-            // 'exam_type' => [
-            //     'required'
-            // ],
-            // 'subjects' => [
-            //     'required'
-            // ],
-            // 'subject_codes' => [
-            //     'required'
-            // ],
-            // 'nationality' => [
-            //     'required'
-            // ],
+            'caste' => [
+                'required'
+            ],
+            'religion' => [
+                'required'
+            ],
+            'nationality' => [
+                'required'
+            ],
             'dateOfBirth' => [
                 'required'
             ],
-            'district' => [
+            'sex' => [
+                'required'
+            ],
+            'board' => [
+                'required'
+            ],
+             'passed_year' => [
+                'required'
+            ],
+             'roll_no' => [
+                'required'
+            ],
+             'division' => [
                 'required'
             ],
             'mother_name' => [
@@ -74,12 +77,6 @@ class UpdateFormRequest extends FormRequest
             'father_name' => [
                 'required'
             ],
-            // 'contact' => [
-            //     'required'
-            // ],
-            // 'email' => [
-            //     'required'
-            // ],
         ];
 
     }

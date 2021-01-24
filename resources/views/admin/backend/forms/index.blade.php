@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Filter by Semester</label>
+                    <label>Filter by District</label>
                     <select class="semester form-control">
                     </select>
                 </div>
@@ -47,9 +47,6 @@
                             SN
                         </th>
                         <th>
-                            Registration No.
-                        </th>
-                        <th>
                             Symbol No.
                         </th>
                         <th>
@@ -62,13 +59,13 @@
                             Program
                         </th>
                         <th>
-                            Semester
+                            District
                         </th>
                         <th>
-                            Status (Campus/ College/ School)
+                            Gender
                         </th>
                         <th>
-                            Status (Exam Management Office)
+                            Verification Status
                         </th>
                         <th>
                             Action
@@ -85,37 +82,28 @@
                             {{ $loop->index + 1 ?? '' }}
                         </td>
                         <td>
-                            {{ $data->regd_no ?? '' }}
-                        </td>
-                        <td>
                             {{ $data->symbol_no ?? '' }}
                         </td>
                         <td>
                             {{ $data->fname ?? '' }} {{ $data->mname ?? '' }} {{ $data->lname ?? '' }}
                         </td>
                         <td>
-                            {{ $data->campus ?? '' }}
+                            {{ $data->colleges->name ?? '' }}
                         </td>
                         <td>
                             {{ $data->course->name ?? '' }}
                         </td>
                         <td>
-                            {{ $data->semester ?? '' }}
+                            {{ $data->district ?? '' }}
                         </td>
                         <td>
+                            {{ $data->sex ?? '' }}
+                        </td>
+                         <td>
                             @if($data->is_verified == 0)
                             <span class="badge badge-info">Pending</span>
                             {{-- <label class="label label-danger">Pending</label> --}}
                             @elseif($data->is_verified == 1)
-                            <span class="badge badge-success">Approved</span>
-                            {{-- <label class="label label-success">Approved</label> --}}
-                            @endif
-                        </td>
-                         <td>
-                            @if($data->is_final_verified == 0)
-                            <span class="badge badge-info">Pending</span>
-                            {{-- <label class="label label-danger">Pending</label> --}}
-                            @elseif($data->is_final_verified == 1)
                             <span class="badge badge-success">Approved</span>
                             {{-- <label class="label label-success">Approved</label> --}}
                             @endif
@@ -128,23 +116,12 @@
                             @endcan --}}
 
                             @can('form-edit')
-                                @foreach(Auth::user()->roles as $role)
-                                    @if($role->title!=='Admin')
-                                        @if($data->is_verified==0 && $data->is_final_verified==0)
+                                        @if($data->is_verified==0)
                                         <a class="btn btn-xs btn-info" href="{{ route('admin.forms.edit', $data->id) }}">
                                             {{-- {{ trans('global.edit') }} --}}
                                             Approve
                                         </a>
-                                        @endif
-                                    @else
-                                        @if($data->is_final_verified==0)
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.forms.edit', $data->id) }}">
-                                            {{-- {{ trans('global.edit') }} --}}
-                                            Approve
-                                        </a>
-                                        @endif
-                                    @endif
-                                @endforeach
+                                        @endif  
                             @endcan
 
                             @can('card-download')
@@ -268,7 +245,7 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(5).search($('.college').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(4).search($('.college').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
@@ -279,7 +256,7 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(6).search($('.department').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(5).search($('.department').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
@@ -290,12 +267,13 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(7).search($('.semester').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(6).search($('.semester').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
             $('.semester').val($semester).trigger('selected');
         });
+
 
         $(document).on('click', '.admit-card', function() {
             $('.admit-cards').html('');
@@ -373,31 +351,31 @@
         dtButtons.push(admitCardButton);
         @endcan
 
-        @can('triplicate-download')
-        let triplicateButton = {
-            text: 'Get Triplicate'
-            , url: "{{ route('admin.forms.print.triplicate') }}"
-            , className: 'btn-success triplicate'
-            , action: function(e, dt, node, config) {
-                var ids = [];
-                $.each($('tbody').find('.selected'), function(i, ele) {
-                    ids.push($(ele).data('entry-id'));
-                });
+        // @can('triplicate-download')
+        // let triplicateButton = {
+        //     text: 'Get Triplicate'
+        //     , url: "{{ route('admin.forms.print.triplicate') }}"
+        //     , className: 'btn-success triplicate'
+        //     , action: function(e, dt, node, config) {
+        //         var ids = [];
+        //         $.each($('tbody').find('.selected'), function(i, ele) {
+        //             ids.push($(ele).data('entry-id'));
+        //         });
 
-                if (ids.length === 0) {
-                    alert("{{ trans('global.datatables.zero_selected') }}")
-                    return
-                }
+        //         if (ids.length === 0) {
+        //             alert("{{ trans('global.datatables.zero_selected') }}")
+        //             return
+        //         }
 
-                $('input[name="ids"]').val(ids);
-                $('input[name="program"]').val($('.department').val() != '' ? $('.department').val() : '');
-                $('input[name="college"]').val($('.college').val() != '' ? $('.college').val() : '');
-                $('input[name="semester"]').val($('.semester').val() != '' ? $('.semester').val() : '');
-                $('.multiple-form-print').attr('action',"{{ route('admin.forms.print.triplicate') }}").submit();
-            }
-        }
-        dtButtons.push(triplicateButton);
-        @endcan
+        //         $('input[name="ids"]').val(ids);
+        //         $('input[name="program"]').val($('.department').val() != '' ? $('.department').val() : '');
+        //         $('input[name="college"]').val($('.college').val() != '' ? $('.college').val() : '');
+        //         $('input[name="semester"]').val($('.semester').val() != '' ? $('.semester').val() : '');
+        //         $('.multiple-form-print').attr('action',"{{ route('admin.forms.print.triplicate') }}").submit();
+        //     }
+        // }
+        // dtButtons.push(triplicateButton);
+        // @endcan
         
         @can('form-download')
         let formButton = {
@@ -443,15 +421,15 @@
 
     function searchOption() {
         $('.college').html('<option value="">Select College</option>');
-        $.each($dataTable.column(5).data().unique(), function(i, ele) {
+        $.each($dataTable.column(4).data().unique(), function(i, ele) {
             $('.college').append('<option value="' + ele + '">' + ele + '</option>');
         });
         $('.department').html('<option value="">Select Program</option>');
-        $.each($dataTable.column(6).data().unique(), function(i, ele) {
+        $.each($dataTable.column(5).data().unique(), function(i, ele) {
             $('.department').append('<option value="' + ele + '">' + ele + '</option>');
         });
-        $('.semester').html('<option value="">Select Semester</option>');
-        $.each($dataTable.column(7).data().unique(), function(i, ele) {
+        $('.semester').html('<option value="">Select District</option>');
+        $.each($dataTable.column(6).data().unique(), function(i, ele) {
             $('.semester').append('<option value="' + ele + '">' + ele + '</option>');
         });
     }

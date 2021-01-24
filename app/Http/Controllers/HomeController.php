@@ -28,9 +28,10 @@ class HomeController extends Controller
         $user_id = Auth::user()->id;
         $data = Form::where('user_id',$user_id)->first();
         if($data) {
-            return view('home');
+            return view('home', compact('data'));
         } else {
             return redirect()->route('admin.forms.create');
         }
     }
+
 }

@@ -1,12 +1,12 @@
 <?php 
 // dd($form->colleges->merchant_no);
-   $url = "https://uat.esewa.com.np/epay/main";
+   $url = "https://esewa.com.np/epay/main";
    $data =[
-       'amt'=> 100,
+       'amt'=> 10,
        'pdc'=> 0,
        'psc'=> 0,
        'txAmt'=> 0,
-       'tAmt'=> 100,
+       'tAmt'=> 10,
        'pid'=> $form->pid,
        'scd'=> $form->colleges->merchant_no,
        'su'=> route('admin.forms.fraud-check',$form->id),
@@ -27,9 +27,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('/backend/dist/css/adminlte.min.css')}}">
+
     <title>Document</title>
 </head>
-<body>
+<body style="background-color: black; align-items: center; text-align: center;">
+<img src="{{asset('esewa_epay_logo.png')}}" alt="esewa-logo">
 <form action="<?php echo $url?>" method="POST">
     @csrf
     <input value="<?php echo $data['tAmt']?>" name="tAmt" type="hidden">
@@ -41,7 +44,7 @@
     <input value="<?php echo $data['pid']?>" name="pid" type="hidden">
     <input value="<?php echo $data['su']?>" type="hidden" name="su">
     <input value="<?php echo $data['fu']?>" type="hidden" name="fu">
-    <input value="Submit" type="submit">
+    <input value="Pay with esewa" class="btn btn-xs btn-success" type="submit">
 </form>
 </body>
 </html>

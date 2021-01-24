@@ -23,10 +23,9 @@
         <div class="ui three item menu">
             <div class="logo"><img src="{{ asset('mwu-logo.png') }}" alt="logo"></div>
             <div class="title">
-                <p><b> Mid-Western University </b></p>
-                <h1><b> Examinations Management Office </b></h1>
+            <h1><b> Mid-Western University </b></h1>
                 <p><strong>Surkhet, Nepal</strong></p>
-                <p class="underline"><b> Application Form for Examination of 2077 </b></p>
+                <p class="underline"><b> Application Form for Entrance Examination of 2077 </b></p>
             </div>
             <div class="photo">
               <div class="box"></div>
@@ -38,13 +37,24 @@
             <h4 class="ui dividing header"></h4>
             <div class="row">
                 <div class="col-md-2">
-                    <label class="">Entrance Exam Roll No :-</label>
+                    <label class="">Symbol No :-</label>
                 </div>
-               <div class="col-md-10 roll-no">
+               <div class="col-md-4 roll-no">
                     <input class=" {{ $errors->has('symbol_no') ? 'is-invalid' : '' }}" type="text" name="symbol_no" placeholder="Exam Roll No" value="{{$data->symbol_no}}" disabled>
                     @if($errors->has('symbol_no'))
                     <span class="text-danger">
                         {{$errors->first('symbol_no')}}
+                    </span>
+                    @endif
+                </div>
+                <div class="col-md-2">
+                    <label class="required">Exam Centre :-</label>
+                </div>
+               <div class="col-md-4 exam_centre">
+                    <input class=" {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" type="text" name="exam_centre" placeholder="Exam Centre" value="{{$data->exam_centre}}" required>
+                    @if($errors->has('exam_centre'))
+                    <span class="text-danger">
+                        {{$errors->first('exam_centre')}}
                     </span>
                     @endif
                 </div>
@@ -98,6 +108,96 @@
                         </select>
                     </div>
                 </div>
+                @if($data->faculty===5 && $data->level===1)
+                @php
+                $priority = json_decode($data->priority);
+                @endphp
+                <div class="priority">
+                    <div class="" style="overflow-x: auto; margin: 2rem;">
+                    <h5 style="font-weight: bold">Priority</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="3" style="text-align: center">
+                            Scholarships
+                            </th>
+                            <th scope="col" colspan="3" style="text-align: center">
+                            Full Paying
+                            </th>
+                            <th scope="col" colspan="3" style="text-align: center">
+                            Sponsered
+                            </th>
+                        </tr>
+                        <tr class="table-heading-row">
+                            <th scope="col">Civil</th>
+                            <th scope="col">Computer</th>
+                            <th scope="col">Hydropower</th>
+                            <th scope="col">Civil</th>
+                            <th scope="col">Computer</th>
+                            <th scope="col">Hydropower</th>
+                            <th scope="col">Civil</th>
+                            <th scope="col">Computer</th>
+                            <th scope="col">Hydropower</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <div class="" style="overflow-x: auto; margin: 2rem; max-width: 100%;">
+                    <h5 style="font-weight: bold">Fill The Priority</h5>
+                    <table class="table table-bordered ">
+                        <thead>
+                        <tr>
+                            <tr class="table-heading-row">
+                            <th></th>
+                            <th>P-1</th>
+                            <th>P-2</th>
+                            <th>P-3</th>
+                            <th>P-4</th>
+                            <th>P-5</th>
+                            <th>P-6</th>
+                            <th>P-7</th>
+                            <th>P-8</th>
+                            <th>P-9</th>
+                            </tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Number</th>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[0]}}"  required></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[1]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[2]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[3]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[4]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[5]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[6]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[7]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[8]}}" ></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p> . I have included all my credentials and information required for appearing in the examinations.</p>
+                    </div>
+                </div>
+                @else
                 <div class="row">
                     <div class="col-md-1">
                         <p>Programme</p>
@@ -113,6 +213,7 @@
                     <p> . I have included all my credentials and information required for appearing in the examinations.</p>
                     </div>
                 </div>
+                @endif
            </div>
            
            <h4 class="ui dividing header">Personal Details</h4>
@@ -141,19 +242,19 @@
             <div class="row fields">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 caste">Caste</label>
+                        <label class="col-md-4 caste required">Caste/Ethnicity</label>
                         <input type="text" class="form-control col-md-8" name="caste" value="{{$data->caste}}" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4  religion" >Religion</label>
+                        <label class="col-md-4  religion required" >Religion</label>
                         <input type="text" class="form-control col-md-8" name="religion" value="{{$data->religion}}" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 nationality">Nationality</label>
+                        <label class="col-md-4 nationality required">Nationality</label>
                         <input type="text" class="form-control col-md-8" name="nationality" value="{{$data->nationality}}" required>
                     </div>
                 </div>
@@ -161,7 +262,7 @@
             {{-- dob --}}
             <div class="row dob">
                 <div class="col-md-2 name">
-                    <label>Date of Birth:</label>
+                    <label class="required">Date of Birth:</label>
                 </div>
                 <div class="col-md-3">
                 <input class="form-control {{ $errors->has('dateOfBirth') ? 'is-invalid' : '' }} date-picker" type="text" name="dateOfBirth" placeholder="YYYY-MM-DD (BS)" value="{{$data->dateOfBirth}}" required>
@@ -177,7 +278,7 @@
                 </div> -->
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <div class="row"><label class="col-md-4 sex">Sex </label><select
+                    <div class="row"><label class="col-md-4 sex required">Sex </label><select
                             class="form-control col-md-8" name="sex" id="sex" required>
                             <option value="male" {{ ('male' === $data->sex) ? 'selected' : '' }}>Male </option>
                             <option value="female" {{ ('female' === $data->sex) ? 'selected' : '' }}>Female </option>
@@ -193,39 +294,41 @@
                 <div class="col-md-3">
                     <div class="row">
                         <label class="col-md-4 ">Tole/Village </label>
-                        <input type="text" class="form-control col-md-8" name="tole" value="{{$data->tole}}" required>
+                        <input type="text" class="form-control col-md-8" name="tole" value="{{$data->tole}}" >
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="row">
                         <label class="col-md-5 ">Ward No. </label>
-                        <input type="tel" class="form-control col-md-7" name="ward" value="{{$data->ward}}" required>
+                        <input type="tel" class="form-control col-md-7" name="ward" value="{{$data->ward}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 ">VDC/Municipality </label>
-                        <input type="text" class="form-control col-md-8" name="vdc" value="{{$data->vdc}}" required>
+                        <input type="text" class="form-control col-md-8" name="vdc" value="{{$data->vdc}}" >
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="row">
                     <label class="col-md-4 district">District </label>
-                        <input type="text" class="form-control col-md-8" name="district" value="{{$data->district}}" required>
+                    <select name="district" class="form-control col-md-8">
+                        <option value="{{$data->district}}">{{$data->district}}</option>
+                    </select>
                     </div>
                 </div>
             </div>
             <div class="row contact-info fields">
                 <div class="email col-md-7">
                     <div class="row">
-                        <label class="col-md-3 ">Contact Address</label>
-                        <input type="email" class="form-control col-md-9" name="contact_address" value="{{$data->contact_address}}" required>
+                        <label class="col-md-3 ">Email Address</label>
+                        <input type="email" class="form-control col-md-9" name="contact_address" value="{{$data->contact_address}}" >
                     </div>
                 </div>
                 <div class="telephone col-md-5">
                     <div class="row">
                         <label class="col-md-4 mobile">Mobile No. </label>
-                        <input type="tel" class="form-control col-md-8" name="contact" value="{{$data->contact}}" required>
+                        <input type="tel" class="form-control col-md-8" name="contact" value="{{$data->contact}}" >
                     </div>
                 </div>
             </div>
@@ -274,21 +377,21 @@
             @if($data->see_provisional)<h6><a href="/storage/uploads/see_provisional/{{ $data->see_provisional }}" download="{{ $data->see_provisional }}">Click here to download SEE prvisional certificate</a></h6>@endif
         <!-- </div> -->
 
-        <label class="required">Intermediate/+2</label>
+        <label class="">Intermediate/+2</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[1] }}" required>
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" value="{{ $boards[1] }}" >
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[1] }}" required>
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" value="{{ $passed_year[1] }}" >
             </div>
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[1] }}" required>
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" value="{{ $roll_no[1] }}" >
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[1] }}" required>
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" value="{{ $divison[1] }}" >
                     </div>
                 </div>
             </div>
@@ -358,20 +461,20 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">Father's Name</label>
+                        <label class="col-md-4 required">Father's Name</label>
                         <input type="text" class="form-control col-md-8" name="father_name" value="{{$data->father_name}}" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8 "placeholder="Qualifications" name="father_qualification" value="{{$data->father_qualification}}" required>
+                        <input type="text" class="form-control col-md-8 "placeholder="Qualifications" name="father_qualification" value="{{$data->father_qualification}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="father_occupation" value="{{$data->father_occupation}}" required>
+                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="father_occupation" value="{{$data->father_occupation}}" >
                     </div>
                 </div>
             </div>
@@ -380,20 +483,20 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">Mother's Name</label>
-                        <input type="text" class="form-control col-md-8" name="mother_name" value="{{$data->mother_name}}" required>
+                        <label class="col-md-4 required">Mother's Name</label>
+                        <input type="text" class="form-control col-md-8" name="mother_name" value="{{$data->mother_name}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="mother_qualification" value="{{$data->mother_qualification}}" required>
+                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="mother_qualification" value="{{$data->mother_qualification}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9"placeholder="Occupation" name="mother_occupation" value="{{$data->mother_occupation}}" required>
+                        <input type="tel" class="form-control col-md-9"placeholder="Occupation" name="mother_occupation" value="{{$data->mother_occupation}}" >
                     </div>
                 </div>
             </div>
@@ -404,19 +507,19 @@
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 ">Spouse's Name</label>
-                        <input type="text" class="form-control col-md-8" name="spouse_name" value="{{$data->spouse_name}}" required>
+                        <input type="text" class="form-control col-md-8" name="spouse_name" value="{{$data->spouse_name}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="spouse_qualification" value="{{$data->spouse_qualification}}" required>
+                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="spouse_qualification" value="{{$data->spouse_qualification}}" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="spouse_occupation" value="{{$data->spouse_occupation}}" required>
+                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="spouse_occupation" value="{{$data->spouse_occupation}}" >
                     </div>
                 </div>
             </div>

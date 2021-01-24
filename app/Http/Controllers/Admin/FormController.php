@@ -21,7 +21,8 @@ class FormController extends Controller
 
      public function __construct()
     {
-        $this->middleware('auth:admin')->except(['create','store','fraudCheck']);
+        $this->middleware('auth:admin')->except(['create','store','fraudCheck','printform','printformdetails']);
+        // $this->middleware('auth')->only(['create','store','fraudCheck','printform','printformdetails']);
     }
     /**
      * Display a listing of the resource.
@@ -307,6 +308,7 @@ class FormController extends Controller
             'ward' => $request->ward,
             'contact' => $request->contact,
             'vdc' => $request->vdc,
+            'priority' => json_encode($request->priority),
             'board' => json_encode($request->board),
             'passed_year' => json_encode($request->passed_year),
             'roll_no' => json_encode($request->roll_no),
@@ -337,7 +339,7 @@ class FormController extends Controller
             'community_certificate' => $community_certificate,
             'sponsor_letter' => $sponsor_letter,
             'pid' => substr(md5(time()), 0, 16),
-            
+            'payment_method' => $request->payment_method
         ];
         // dd($data);
         $form = Form::create($data
@@ -345,7 +347,12 @@ class FormController extends Controller
 
         Session::flash('flash_success', 'Form successfully submitted for verification!.');
         Session::flash('flash_type', 'alert-success');
-        return view('esewa',compact('form'));
+        if($request->payment_method == 0) {
+            return redirect()->route('home');
+        } else {
+            return view('esewa',compact('form'));
+        }
+            
         // return redirect()->route('admin.forms.create')->with('modal','true');
     }
 
@@ -413,6 +420,7 @@ class FormController extends Controller
             'campus' => $request->campus,
             'level' => $request->level,
             'programs' => $request->programs,
+            'exam_centre' => $request->exam_centre,
             'sex' => $request->sex,
             'fname' => $request->fname,
             'mname' => $request->mname,
@@ -497,26 +505,23 @@ class FormController extends Controller
 
     public function printform(Form $form)
     {
-        // abort_if(Gate::denies('payment-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        abort_if(Gate::denies('card-download'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $form->load(['faculties','levels','course']);
-        // $form->load('fee','student','fine_payments');
-        // $faculties = Faculty::all()->pluck('name','id');
-        // $form->load('fee','student','fine_payments');
-        $subject_ids = json_decode($form->subjects);
-        $subjects = Sub::whereIn('id',$subject_ids)->get();
-        return view('admin.backend.forms.print', compact('form','subjects'));
+        // dd($form);
+        // abort_if(Gate::denies('card-download'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $form->load(['faculties','levels','course','colleges']);
+        // $subject_ids = json_decode($form->subjects);
+        // $subjects = Sub::whereIn('id',$subject_ids)->get();
+        return view('admin.backend.forms.print', compact('form'));
     }
 
 public function printmultipleform(Request $request)
 {
     $ids = explode(',',$request->ids);
-    $forms = Form::with(['faculties','levels','course'])->whereIn('id',$ids)->get();
-    foreach ($forms as $key => $form) {
-        $subject_ids = json_decode($form->subjects);
-        $subjects = Sub::whereIn('id',$subject_ids)->get();
-        $form->subjects = $subjects;
-    }
+    $forms = Form::with(['faculties','levels','course','colleges'])->whereIn('id',$ids)->get();
+    // foreach ($forms as $key => $form) {
+    //     $subject_ids = json_decode($form->subjects);
+    //     $subjects = Sub::whereIn('id',$subject_ids)->get();
+    //     $form->subjects = $subjects;
+    // }
     return view('admin.backend.forms.printM', compact('forms'));
 }
 
@@ -539,7 +544,7 @@ public function printtriplicate(Request $request)
 
     public function printformdetails(Form $form)
     {        
-        abort_if(Gate::denies('form-download'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('form-download'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $data = $form->load(['faculties','levels','course','colleges']);
         $colleges = Admin::whereHas('roles', function ($query)
                             {
@@ -560,24 +565,26 @@ public function printtriplicate(Request $request)
     {
         abort_if(Gate::denies('form-download'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $ids = explode(',',$request->ids);
-        $forms = Form::with(['faculties','levels','course'])->whereIn('id',$ids)->get();
-        foreach ($forms as $key => $form) {
-            $subject_ids = json_decode($form->subjects);
-            $subjects = Sub::whereIn('id',$subject_ids)->get();
-            $form->subjects = $subjects;
-        }
+        $datas = Form::with(['faculties','levels','course'])->whereIn('id',$ids)->get();
+        $colleges = Admin::whereHas('roles', function ($query)
+                            {
+                                $query->where('id', 2);
+                            })
+                            ->with(['roles'])
+                            ->orderBy('name','asc')
+                            ->pluck('name','id');
         // $form->load('fee','student','fine_payments');
         $faculties = Faculty::all()->pluck('name','id');
 
-        return view('admin.backend.forms.print_studentdetailsM', compact('forms','faculties'));
+        return view('admin.backend.forms.print_studentdetailsM', compact('datas','faculties','colleges'));
     }
 
     public function fraudCheck(Form $form)
     {
         // esewa stuffs
-        $url = "https://uat.esewa.com.np/epay/transrec";
+        $url = "https://esewa.com.np/epay/transrec";
         $data =[
-            'amt'=> 100,
+            'amt'=> 10,
             'rid'=> $_GET['refId'],
             'pid'=> $form->pid,
             'scd'=> $form->colleges->merchant_no

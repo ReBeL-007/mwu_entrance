@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,16 +21,30 @@
 
     </style>
 </head>
-<body>
+<body> -->
+@extends('layouts.app')
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/form/semantic.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/form/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/plugins/select2/css/select2.bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/bower_components/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/plugins/nepali-date-picker/nepaliDatePicker.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/backend/plugins/datepicker/css/bootstrap-datepicker3.min.css')}}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap" rel="stylesheet">
+@endsection
+@section('content')
     <div class="container exam-card">
         @include('admin.backend.includes.messages')
         <div class="ui three item menu">
-            <div class="logo"><img src="{{asset('mwu-logo.png') }}" alt="logo"></div>
+            <div class="logo"><img src="{{asset('mwu-logo.png') }}" alt="logo" width="" height=""></div>
             <div class="title">
-                <p><b> Mid-Western University </b></p>
-                <h1><b> Examinations Management Office </b></h1>
+                <h1><b> Mid-Western University </b></h1>
                 <p><strong>Surkhet, Nepal</strong></p>
-                <p class="underline"><b> Application Form for Examination of 2077 </b></p>
+                <p class="underline"><b> Application Form for Entrance Examination of 2077 </b></p>
             </div>
             <div class="photo">
               <div class="box"></div>
@@ -39,7 +53,7 @@
         <form class="ui form" method="POST" action="{{ route('admin.forms.store') }}" enctype="multipart/form-data">
             @csrf
             <h4 class="ui dividing header"></h4>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-2">
                     <label class="">Entrance Exam Roll No :-</label>
                 </div>
@@ -51,7 +65,7 @@
                     </span>
                     @endif
                 </div>
-            </div>
+            </div> -->
 
             <div class="row">
                 <div class="col-md-3">
@@ -73,7 +87,7 @@
             </div>
            {{-- permission  --}}
            <div class="permission field" >
-                <div class="row">
+                <div class="row engineer">
                     <div class="col-md-6">
                          <p>I hereby request for the permission to appear in the entrance examination for Faculty of </p>
                     </div> 
@@ -104,10 +118,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 hide-for-engineer">
                         <p>Programme</p>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 hide-for-engineer">
                         <select class="form-control select2" name="programs" id="programs" required>
                             <option value="">Select a programme...</option>
                         </select>
@@ -144,19 +158,19 @@
             <div class="row fields">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 caste">Caste</label>
+                        <label class="col-md-4 caste required">Caste/Ethnicity</label>
                         <input type="text" class="form-control col-md-8" name="caste" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4  religion" >Religion</label>
+                        <label class="col-md-4   required" >Religion</label>
                         <input type="text" class="form-control col-md-8" name="religion" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 nationality">Nationality</label>
+                        <label class="col-md-4  required">Nationality</label>
                         <input type="text" class="form-control col-md-8" name="nationality" required>
                     </div>
                 </div>
@@ -164,7 +178,7 @@
             {{-- dob --}}
             <div class="row dob">
                 <div class="col-md-2 name">
-                    <label>Date of Birth:</label>
+                    <label class="required">Date of Birth:</label>
                 </div>
                 <div class="col-md-3">
                 <input class="form-control {{ $errors->has('dateOfBirth') ? 'is-invalid' : '' }} date-picker" type="text" name="dateOfBirth" placeholder="YYYY-MM-DD (BS)" required>
@@ -180,7 +194,7 @@
                 </div> -->
                 <div class="col-md-2"></div>
                 <div class="col-md-2">
-                    <div class="row"><label class="col-md-4 sex">Sex </label><select
+                    <div class="row"><label class="col-md-4 sex required">Sex </label><select
                             class="form-control col-md-8" name="sex" id="sex" required>
                             <option value="male">Male </option>
                             <option value="female">Female </option>
@@ -216,39 +230,118 @@
                 <div class="col-md-3">
                     <div class="row">
                         <label class="col-md-4 ">Tole/Village </label>
-                        <input type="text" class="form-control col-md-8" name="tole" required>
+                        <input type="text" class="form-control col-md-8" name="tole" >
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="row">
                         <label class="col-md-5 ">Ward No. </label>
-                        <input type="tel" class="form-control col-md-7" name="ward" required>
+                        <input type="tel" class="form-control col-md-7" name="ward" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 ">VDC/Municipality </label>
-                        <input type="text" class="form-control col-md-8" name="vdc" required>
+                        <input type="text" class="form-control col-md-8" name="vdc" >
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="row">
-                    <label class="col-md-4 district">District </label>
-                        <input type="text" class="form-control col-md-8" name="district" required>
+                    <label class="col-md-4">District </label>
+                    <select name="district" class="form-control col-md-8">
+                        <option value="">Select a district</option>
+                        <option value="Bhojpur">Bhojpur</option>
+                        <option value="Dhankuta">Dhankuta</option>
+                        <option value="Ilam">Ilam</option>
+                        <option value="Jhapa">Jhapa</option>
+                        <option value="Khotang">Khotang</option>
+                        <option value="Morang">Morang</option>
+                        <option value="Okhaldhunga">Okhaldhunga</option>
+                        <option value="Panchthar">Panchthar</option>
+                        <option value="Sankhuwasabha">Sankhuwasabha</option>
+                        <option value="Solukhumbu">Solukhumbu</option>
+                        <option value="Sunsari">Sunsari</option>
+                        <option value="Taplejung">Taplejung</option>
+                        <option value="Terhathum">Terhathum</option>
+                        <option value="Udayapur">Udayapur</option>
+                        <option value="Bara">Bara</option>
+                        <option value="Parsa">Parsa</option>
+                        <option value="Dhanusha">Dhanusha</option>
+                        <option value="Mahottari">Mahottari</option>
+                        <option value="Rautahat">Rautahat</option>
+                        <option value="Saptari">Saptari</option>
+                        <option value="Sarlahi">Sarlahi</option>
+                        <option value="Siraha">Siraha</option>
+                        <option value="Bhaktapur">Bhaktapur</option>
+                        <option value="Chitwan">Chitwan</option>
+                        <option value="Dhading">Dhading</option>
+                        <option value="Dolakha">Dolakha</option>
+                        <option value="Kathmandu">Kathmandu</option>
+                        <option value="Kavrepalanchok">Kavrepalanchok</option>
+                        <option value="Lalitpur">Lalitpur</option>
+                        <option value="Makwanpur">Makwanpur</option>
+                        <option value="Nuwakot">Nuwakot</option>
+                        <option value="Ramechhap">Ramechhap</option>
+                        <option value="Rasuwa">Rasuwa</option>
+                        <option value="Sindhuli">Sindhuli</option>
+                        <option value="Sindhupalchok">Sindhupalchok</option>
+                        <option value="Baglung">Baglung</option>
+                        <option value="Gorkha">Gorkha</option>
+                        <option value="Kaski">Kaski</option>
+                        <option value="Lamjung">Lamjung</option>
+                        <option value="Manang">Manang</option>
+                        <option value="Mustang">Mustang</option>
+                        <option value="Myagdi">Myagdi</option>
+                        <option value="Nawalpur">Nawalpur</option>
+                        <option value="Parbat">Parbat</option>
+                        <option value="Syangja">Syangja</option>
+                        <option value="Tanahun">Tanahun</option>
+                        <option value="Arghakhanchi">Arghakhanchi</option>
+                        <option value="Banke">Banke</option>
+                        <option value="Bardiya">Bardiya</option>
+                        <option value="Dang">Dang</option>
+                        <option value="Eastern Rukum">Eastern Rukum</option>
+                        <option value="Gulmi">Gulmi</option>
+                        <option value="Kapilavastu">Kapilavastu</option>
+                        <option value="Parasi">Parasi</option>
+                        <option value="Palpa">Palpa</option>
+                        <option value="Pyuthan">Pyuthan</option>
+                        <option value="Rolpa">Rolpa</option>
+                        <option value="Rupandehi">Rupandehi</option>
+                        <option value="Dailekh">Dailekh</option>
+                        <option value="Dolpa">Dolpa</option>
+                        <option value="Humla">Humla</option>
+                        <option value="Jajarkot">Jajarkot</option>
+                        <option value="Jumla">Jumla</option>
+                        <option value="Kalikot">Kalikot</option>
+                        <option value="Mugu">Mugu</option>
+                        <option value="Salyan">Salyan</option>
+                        <option value="Surkhet">Surkhet</option>
+                        <option value="Western Rukum">Western Rukum</option>
+                        <option value="Achham">Achham</option>
+                        <option value="Baitadi">Baitadi</option>
+                        <option value="Bajhang">Bajhang</option>
+                        <option value="Bajura">Bajura</option>
+                        <option value="Dadeldhura">Dadeldhura</option>
+                        <option value="Darchula">Darchula</option>
+                        <option value="Doti">Doti</option>
+                        <option value="Kailali">Kailali</option>
+                        <option value="Kanchanpur">Kanchanpur</option>
+                    </select>
                     </div>
                 </div>
             </div>
             <div class="row contact-info fields">
                 <div class="email col-md-7">
                     <div class="row">
-                        <label class="col-md-3 ">Contact Address</label>
-                        <input type="email" class="form-control col-md-9" name="contact_address" required>
+                        <label class="col-md-3 ">Email Address</label>
+                        <input type="email" class="form-control col-md-9" name="contact_address" >
                     </div>
                 </div>
                 <div class="telephone col-md-5">
                     <div class="row">
-                        <label class="col-md-4 mobile">Mobile No. </label>
-                        <input type="tel" class="form-control col-md-8" name="contact" required>
+                        <label class="col-md-4  ">Mobile No. </label>
+                        <input type="tel" class="form-control col-md-8" name="contact" >
                     </div>
                 </div>
             </div>
@@ -277,7 +370,7 @@
                         @endif
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" required>
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/Grade" required>
                         @if($errors->has('division'))
                         <span class="text-danger">{{ $errors->first('division') }}</span>
                         @endif
@@ -315,21 +408,21 @@
             </div>
         </div>
 
-        <label class="required">Intermediate/+2</label>
+        <label class="">Intermediate / +2</label>
         <div class="fields">
             <div class="seven wide field">
-                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" required>
+                <input class=" {{ $errors->has('board') ? 'is-invalid' : '' }}" type="text" name="board[]" placeholder="Board or University" >
             </div>
             <div class="three wide field">
-                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" required>
+                <input class=" {{ $errors->has('passed_year') ? 'is-invalid' : '' }}" type="text" name="passed_year[]" placeholder="Passed Year" >
             </div>
             <div class="six wide field">
                 <div class="two fields">
                     <div class="field">
-                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" required>
+                        <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA" >
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA" required>
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division / Grade" >
                     </div>
                 </div>
             </div>
@@ -378,7 +471,7 @@
                         <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA">
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/Grade">
                     </div>
                 </div>
             </div>
@@ -427,7 +520,7 @@
                         <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA">
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/Grade">
                     </div>
                 </div>
             </div>
@@ -476,15 +569,15 @@
                         <input class=" {{ $errors->has('roll_no') ? 'is-invalid' : '' }}" type="text" name="roll_no[]" placeholder="Percent / GPA">
                     </div>
                     <div class="field">
-                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/CGPA">
+                        <input class=" {{ $errors->has('division') ? 'is-invalid' : '' }}" type="text" name="division[]" placeholder="Division/Grade">
                     </div>
                 </div>
             </div>
         </div> -->
         <div class="fields">
             <div class="six wide field">
-                <p class="" style="font-size:larger">Citizenship</p>
-                <input class=" {{ $errors->has('citizenship') ? 'is-invalid' : '' }}" type="file" name="citizenship" accept="image/*" maxlength="" >
+                <p class="required" style="font-size:larger">Citizenship</p>
+                <input class=" {{ $errors->has('citizenship') ? 'is-invalid' : '' }}" type="file" name="citizenship" accept="image/*" maxlength="" required>
                 @if($errors->has('citizenship'))
                 <span class="text-danger">{{ $errors->first('citizenship') }}</span>
                 @endif
@@ -492,7 +585,7 @@
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
             </div>
             <div class="six wide field">
-                <p class="" style="font-size:larger;">Certificate of Commuinty School</p>
+                <p class="" style="font-size:larger;">Letter from Community School</p>
                 <input class=" {{ $errors->has('community_certificate') ? 'is-invalid' : '' }}" type="file" name="community_certificate" accept="image/*" maxlength="" >
                 @if($errors->has('community_certificate'))
                 <span class="text-danger">{{ $errors->first('community_certificate') }}</span>
@@ -501,7 +594,7 @@
                 <span class="text-danger"> Acceptable format: jpeg, png</span>
             </div>
             <div class="six wide field">
-                <p class="" style="font-size:larger;">Sponsors</p>
+                <p class="" style="font-size:larger;">Sponsor's Letter</p>
                 <input class=" {{ $errors->has('sponsor_letter') ? 'is-invalid' : '' }}" type="file" name="sponsor_letter" accept="image/*" maxlength="" >
                 @if($errors->has('sponsor_letter'))
                 <span class="text-danger">{{ $errors->first('sponsor_letter') }}</span>
@@ -517,20 +610,20 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">Father's Name</label>
+                        <label class="col-md-4 required">Father's Name</label>
                         <input type="text" class="form-control col-md-8" name="father_name" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8 "placeholder="Qualifications" name="father_qualification" required>
+                        <input type="text" class="form-control col-md-8 "placeholder="Qualifications" name="father_qualification" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="father_occupation" required>
+                        <input type="text" class="form-control col-md-9" placeholder="Occupation" name="father_occupation" >
                     </div>
                 </div>
             </div>
@@ -539,20 +632,20 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">Mother's Name</label>
+                        <label class="col-md-4 required">Mother's Name</label>
                         <input type="text" class="form-control col-md-8" name="mother_name" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="mother_qualification" required>
+                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="mother_qualification" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9"placeholder="Occupation" name="mother_occupation" required>
+                        <input type="text" class="form-control col-md-9"placeholder="Occupation" name="mother_occupation" >
                     </div>
                 </div>
             </div>
@@ -563,29 +656,34 @@
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 ">Spouse's Name</label>
-                        <input type="text" class="form-control col-md-8" name="spouse_name" required>
+                        <input type="text" class="form-control col-md-8" name="spouse_name" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-4 det">Qualifications</label>
-                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="spouse_qualification" required>
+                        <input type="text" class="form-control col-md-8" placeholder="Qualifications" name="spouse_qualification" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
                         <label class="col-md-3 det">Occupation</label>
-                        <input type="tel" class="form-control col-md-9" placeholder="Occupation" name="spouse_occupation" required>
+                        <input type="text" class="form-control col-md-9" placeholder="Occupation" name="spouse_occupation" >
                     </div>
                 </div>
             </div>
         </div>
 
-        <h4 class="ui dividing header">Payment Details</h4>
+        <h6 class="ui dividing header">Payment Method: 
+            <select class="col-md-3" name="payment_method" id="payment_method">
+                <option value="0">Upload Voucher</option>
+                <option value="1">eSewa</option>
+            </select>
+        </h6>
            <!-- bank voucher -->
-        <div class="field">
+        <div class="field" id="upload_voucher">
             <label class="required">Deposit Receipt / Voucher (scanned image)</label>
-            <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" required>
+            <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" id="voucher">
             @if($errors->has('voucher'))
             <span class="text-danger">{{ $errors->first('voucher') }}</span>
             @endif
@@ -607,27 +705,7 @@
     
     </div>
 
-    {{-- <div id="emailSentModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-    
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-              <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-    
-        </div>
-    </div> --}}
-
-    <template class="subject-row-template">
+    <!-- <template class="subject-row-template">
         <div class="three fields subject-row">
             <div class="field col-md-6">
                 <select name="subjects[]" class="subjects">
@@ -642,16 +720,41 @@
                 <button class="btn btn-danger remove-btn" type="button"><span style="color:white;" class="fas fa-trash"></span></button>
             </div>
         </div>
-    </template>
+    </template> -->
 
-    {{-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> --}}
-    <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
+    
+    @endsection
+
+    @section('scripts')
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
+    <!-- <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script> -->
     <script src="{{ asset('js/form/semantic.min.js')}}"></script>
     <script src="{{ asset('/backend/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="{{ asset('/backend/plugins/nepali-date-picker/nepaliDatePicker.min.js')}}"></script>
     <script src="{{ asset('/backend/plugins/datepicker/js/bootstrap-datepicker.min.js')}}"></script>
     <script>
+        $(function() {
+        var selected_type = $("#payment_method").val();
+            if(selected_type == '1') {
+                $("#upload_voucher").hide();
+                $("voucher").removeAttr('required');
+            } else if(selected_type == '0'){
+                $("#upload_voucher").show();
+                $("voucher").attr('required');
+            }
+        })
+
         $(document).ready(function() {
+            $("#payment_method").change(function() {
+                var selected_type = $(this).val();
+                if(selected_type == '1') {
+                    $("#upload_voucher").hide();
+                    $("voucher").removeAttr('required');
+                } else if(selected_type == '0'){
+                    $("#upload_voucher").show();
+                    $("voucher").attr('required');
+                }
+            });
             var $subject_list = [];
 
             $('select').select2({
@@ -721,31 +824,120 @@
             $("#levels").change(function() {
                 var selected_id = $(this).val();
                 var faculty_id = $('#faculties').val();
-                //
-                $.ajax({
-                    cache: false
-                    , url: "{{ route('admin.courses.getspecificcourses') }}"
-                    , type: 'get'
-                    , data: {
-                        levelId: selected_id
-                        , facultyId: faculty_id
-                    , }
-                    , dataType: 'json'
-                    , beforeSend: function(request) {
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    }
-                    , success: function(data) {
-                        // console.log(data);
-                        var len = data.length;
-                        $("#programs").empty();
-                        $programs = $("#programs").append("<option value=''>Select a program...</option>");
-                        for (var i = 0; i < len; i++) {
-                            var id = data[i]['id'];
-                            var name = data[i]['name'];
-                            $programs.append("<option value='" + id + "'>" + name + "</option>");
+
+                if(faculty_id==5 && selected_id==1) { 
+                    $(".engineer").append(`<div class="priority">
+                                            <div class="" style="overflow-x: auto; margin: 2rem;">
+                                            <h5 style="font-weight: bold">Priority</h5>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col" colspan="3" style="text-align: center">
+                                                    Scholarships
+                                                    </th>
+                                                    <th scope="col" colspan="3" style="text-align: center">
+                                                    Full Paying
+                                                    </th>
+                                                    <th scope="col" colspan="3" style="text-align: center">
+                                                    Sponsered
+                                                    </th>
+                                                </tr>
+                                                <tr class="table-heading-row">
+                                                    <th scope="col">Civil</th>
+                                                    <th scope="col">Computer</th>
+                                                    <th scope="col">Hydropower</th>
+                                                    <th scope="col">Civil</th>
+                                                    <th scope="col">Computer</th>
+                                                    <th scope="col">Hydropower</th>
+                                                    <th scope="col">Civil</th>
+                                                    <th scope="col">Computer</th>
+                                                    <th scope="col">Hydropower</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>2</td>
+                                                    <td>3</td>
+                                                    <td>4</td>
+                                                    <td>5</td>
+                                                    <td>6</td>
+                                                    <td>7</td>
+                                                    <td>8</td>
+                                                    <td>9</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+
+                                            <div class="" style="overflow-x: auto; margin: 2rem; max-width: 100%;">
+                                            <h5 style="font-weight: bold">Fill The Priority</h5>
+                                            <table class="table table-bordered ">
+                                                <thead>
+                                                <tr>
+                                                    <tr class="table-heading-row">
+                                                    <th></th>
+                                                    <th>P-1</th>
+                                                    <th>P-2</th>
+                                                    <th>P-3</th>
+                                                    <th>P-4</th>
+                                                    <th>P-5</th>
+                                                    <th>P-6</th>
+                                                    <th>P-7</th>
+                                                    <th>P-8</th>
+                                                    <th>P-9</th>
+                                                    </tr>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th>Number</th>
+                                                    <td><input type="number" name="priority[]" min="1" max="9"  required></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                `);
+                    $(".hide-for-engineer").hide(); 
+                    $("#programs").removeAttr("required")                             
+                } else {
+                    $(".hide-for-engineer").show();  
+                    $("#programs").attr("required",true)                             
+                    $.ajax({
+                        cache: false
+                        , url: "{{ route('admin.courses.getspecificcourses') }}"
+                        , type: 'get'
+                        , data: {
+                            levelId: selected_id
+                            , facultyId: faculty_id
+                        , }
+                        , dataType: 'json'
+                        , beforeSend: function(request) {
+                            return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
                         }
-                    }
-                });
+                        , success: function(data) {
+                            // console.log(data);
+                            $(".priority").remove();
+                            var len = data.length;
+                            $("#programs").empty();
+                            $programs = $("#programs").append("<option value=''>Select a program...</option>");
+                            for (var i = 0; i < len; i++) {
+                                var id = data[i]['id'];
+                                var name = data[i]['name'];
+                                $programs.append("<option value='" + id + "'>" + name + "</option>");
+                            }
+                        }
+                    });
+                }
             });
 
             // if changes is made on programs selection
@@ -766,37 +958,37 @@
             });
 
             // if changes is made on semester selection
-            $("#semester").change(function() {
-                var selected_id = $(this).val();
-                var program_id = $('#programs').val();
-                //
-                $.ajax({
-                    cache: false
-                    , url: "{{ route('admin.subs.getspecificsubs') }}"
-                    , type: 'get'
-                    // , async: false
-                    , data: {
-                        semester: selected_id
-                        , programId: program_id
-                    , }
-                    , dataType: 'json'
-                    , beforeSend: function(request) {
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    }
-                    , success: function(data) {
-                        // console.log(data)
-                        $subject_list = data;
-                        var len = data.length;
-                        $(".subjects").empty();
-                        $subjects = $(".subjects").append("<option value=''>Select a subject...</option>");
-                        for (var i = 0; i < len; i++) {
-                            var name = data[i]['title'];
-                            var id = data[i]['id'];
-                            $subjects.append("<option value='" + id + "'>" + name + "</option>");
-                        }
-                    }
-                });
-            });
+            // $("#semester").change(function() {
+            //     var selected_id = $(this).val();
+            //     var program_id = $('#programs').val();
+            //     //
+            //     $.ajax({
+            //         cache: false
+            //         , url: "{{ route('admin.subs.getspecificsubs') }}"
+            //         , type: 'get'
+            //         // , async: false
+            //         , data: {
+            //             semester: selected_id
+            //             , programId: program_id
+            //         , }
+            //         , dataType: 'json'
+            //         , beforeSend: function(request) {
+            //             return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            //         }
+            //         , success: function(data) {
+            //             // console.log(data)
+            //             $subject_list = data;
+            //             var len = data.length;
+            //             $(".subjects").empty();
+            //             $subjects = $(".subjects").append("<option value=''>Select a subject...</option>");
+            //             for (var i = 0; i < len; i++) {
+            //                 var name = data[i]['title'];
+            //                 var id = data[i]['id'];
+            //                 $subjects.append("<option value='" + id + "'>" + name + "</option>");
+            //             }
+            //         }
+            //     });
+            // });
 
             $(document).on('change', '.subjects', function() {
                 $subject = $(this).val();
@@ -822,12 +1014,8 @@
 
         });
 
-        // @if(session()->has('modal'))
-        //      $("#emailSentModal").modal("toggle");
-
-        // @endif
-
-        @if(session()->has('modal')) alert('Form successfully submitted for verification!. Thank you...') @endif
+        
     </script>
-</body>
-</html>
+    @endsection
+<!-- </body>
+</html> -->

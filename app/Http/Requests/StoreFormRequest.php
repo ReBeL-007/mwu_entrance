@@ -29,22 +29,39 @@ class StoreFormRequest extends FormRequest
     {
         return [
             //
+            'campus' => [
+                'required'
+            ],
             'faculty' => [
                 'required'
             ],
             'level' => [
                 'required'
             ],
-            'sex' => [
-                'required'
-            ],
+            // 'programs' => [
+            //     'required'
+            // ],
             'fname' => [
                 'required'
             ],
             'lname' => [
                 'required'
             ],
-            
+            'caste' => [
+                'required'
+            ],
+            'religion' => [
+                'required'
+            ],
+            'nationality' => [
+                'required'
+            ],
+            'dateOfBirth' => [
+                'required'
+            ],
+            'sex' => [
+                'required'
+            ],
             'image' => [
                 'required',
                 'mimes:jpeg,png',
@@ -55,39 +72,52 @@ class StoreFormRequest extends FormRequest
                 'mimes:jpeg,png',
                 'max:512'
             ],
-            'voucher' => [
+            'see_certificate' => [
                 'required',
                 'mimes:jpeg,png',
                 'max:512'
             ],
-            'dateOfBirth' => [
+            'see_marksheet' => [
+                'required',
+                'mimes:jpeg,png',
+                'max:512'
+            ],
+            'see_provisional' => [
+                'required',
+                'mimes:jpeg,png',
+                'max:512'
+            ],
+            'citizenship' => [
+                'required',
+                'mimes:jpeg,png',
+                'max:512'
+            ],
+            'board' => [
                 'required'
             ],
-            // 'district' => [
-            //     'required'
+             'passed_year' => [
+                'required'
+            ],
+             'roll_no' => [
+                'required'
+            ],
+             'division' => [
+                'required'
+            ],
+            // 'voucher' => [
+            //     'required',
+            //     'mimes:jpeg,png',
+            //     'max:512'
             // ],
-            // 'mother_name' => [
-            //     'required'
-            // ],
-            // 'father_name' => [
-            //     'required'
-            // ],
-            // 'contact' => [
-            //     'required'
-            // ],
-            // 'board' => [
-            //     'required'
-            // ],
-            //  'passed_year' => [
-            //     'required'
-            // ],
-            //  'roll_no' => [
-            //     'required'
-            // ],
-
-            //  'division' => [
-            //     'required'
-            // ],
+            'mother_name' => [
+                'required'
+            ],
+            'father_name' => [
+                'required'
+            ],
+            'payment_method' => [
+                'required'
+            ],     
             'consent' => [
                 'required'
             ],

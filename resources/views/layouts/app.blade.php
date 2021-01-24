@@ -10,8 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+  
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,6 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .disable {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -49,7 +55,18 @@
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Hi, {{ Auth::user()->name }}
+                                <a class="" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+
+                                </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                <!-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -63,7 +80,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                                </div> -->
                             </li>
                         @endguest
                     </ul>
@@ -77,7 +94,9 @@
     </div>
 
 <!-- jQuery -->
+<!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
+  @yield('scripts')
 <script>
   $(document).ready(function(){
       setTimeout(function(){
@@ -86,5 +105,6 @@
 
   });
 </script>
+  <!-- Scripts -->
 </body>
 </html>
