@@ -85,15 +85,15 @@
                             <?php
                             $url = "https://esewa.com.np/epay/main";
                             $esewa_data =[
-                                'amt'=> 10,
+                                'amt'=> $data->colleges->form_charge,
                                 'pdc'=> 0,
                                 'psc'=> 0,
                                 'txAmt'=> 0,
-                                'tAmt'=> 10,
+                                'tAmt'=> $data->colleges->form_charge,
                                 'pid'=> $data->pid,
                                 'scd'=> $data->colleges->merchant_no,
                                 'su'=> route('admin.forms.fraud-check',$data->id),
-                                'fu'=> route('admin.forms.create')
+                                'fu'=> route('home')
                             ];
                             
                                 $curl = curl_init($url);

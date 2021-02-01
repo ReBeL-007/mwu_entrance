@@ -77,6 +77,8 @@ return [
             'roles_helper'          => '',
             'groups'                 => 'Groups',
             'groups_helper'          => '',
+            'form_charge'                 => 'Form Charge',
+            'form_charge_helper'          => '',
             'merchant_no'                 => 'Merchant No.',
             'merchant_no_helper'          => '',
             'official_seal'                 => 'Official Seal',

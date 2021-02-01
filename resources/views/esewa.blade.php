@@ -2,15 +2,15 @@
 // dd($form->colleges->merchant_no);
    $url = "https://esewa.com.np/epay/main";
    $data =[
-       'amt'=> 10,
+       'amt'=> $form->colleges->form_charge,
        'pdc'=> 0,
        'psc'=> 0,
        'txAmt'=> 0,
-       'tAmt'=> 10,
+       'tAmt'=> $form->colleges->form_charge,
        'pid'=> $form->pid,
        'scd'=> $form->colleges->merchant_no,
        'su'=> route('admin.forms.fraud-check',$form->id),
-       'fu'=> route('admin.forms.create')
+       'fu'=> route('home')
     //    'su'=> redirect('/home')->with('message','Success'),
     //    'fu'=> redirect('/home')->with('message','Failed')
    ];
@@ -29,7 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('/backend/dist/css/adminlte.min.css')}}">
 
-    <title>Document</title>
+    <title>epay - eSewa</title>
 </head>
 <body style="background-color: black; align-items: center; text-align: center;">
 <img src="{{asset('esewa_epay_logo.png')}}" alt="esewa-logo">

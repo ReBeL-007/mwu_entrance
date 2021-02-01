@@ -1133,9 +1133,9 @@
             position: absolute;
             overflow: visible;
             width: 257px;
-            height: 74px;
+            height: 217px;
             left: 704px;
-            top: 1095px;
+            top: 945px;
         }
 
         #Rectangle_9 {
@@ -4573,7 +4573,7 @@
                     </rect>
                 </svg>
                 <div id="Photo_PP_Size">
-                    <span>Photo P/P<br />Size</span>
+                    <span></span>
                 </div>
                 <div id="Registration_No_">
                     <span>Name: </span>
@@ -4665,7 +4665,7 @@
                     <span>{{$form->faculties->name}}</span>
                 </div>
                 <div id="exam_centre">
-                    <span>{{$form->exam_centre}}</span>
+                    <span>{{($form->campus==20)?$form->exam_centre:$form->colleges->name}}</span>
                 </div>
                 @if($form->authorized_signature)
                 <svg class="Rectangle_8">
@@ -4676,8 +4676,8 @@
                 @endif
                 @if($form->official_seal)
                 <svg class="Rectangle_10">
-                    <img class="Rectangle_10" src="{{asset('storage/uploads/college/official_seal/'.$form->official_seal)}}" width="257" height="74">
-                    <rect id="Rectangle_10" rx="0" ry="0" x="0" y="0" width="257" height="74">
+                    <img class="Rectangle_10" src="{{asset('storage/uploads/college/official_seal/'.$form->official_seal)}}" width="257" height="217">
+                    <rect id="Rectangle_10" rx="0" ry="0" x="0" y="0" width="257" height="217">
                     </rect>
                 </svg>
                 @endif

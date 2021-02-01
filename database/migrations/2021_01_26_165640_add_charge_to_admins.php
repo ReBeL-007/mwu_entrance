@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnsToAdminsTable extends Migration
+class AddChargeToAdmins extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,7 @@ class AddColumnsToAdminsTable extends Migration
     {
         Schema::table('admins', function (Blueprint $table) {
             //
-            $table->string('merchant_no')->nullable();
-            $table->string('official_seal')->nullable();
-            $table->string('authorized_signature')->nullable();
-            
+            $table->string('form_charge')->nullable();
         });
     }
 

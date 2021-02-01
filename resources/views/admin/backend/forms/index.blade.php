@@ -65,6 +65,9 @@
                             Gender
                         </th>
                         <th>
+                            Payment Mode
+                        </th>
+                        <th>
                             Verification Status
                         </th>
                         <th>
@@ -98,6 +101,19 @@
                         </td>
                         <td>
                             {{ $data->sex ?? '' }}
+                        </td>
+                        <td>
+                            @if($data->payment_method == 1)
+                            <span class="badge badge-secondary">eSewa</span>
+                                @if($data->esewa_status == 0)
+                                <span class="badge badge-primary">Pending</span>
+                                @else
+                                <span class="badge badge-success">Paid</span>
+                                @endif
+                            @elseif($data->payment_method == 0)
+                            <span class="badge badge-secondary">Voucher</span>
+                            {{-- <label class="label label-success">Approved</label> --}}
+                            @endif
                         </td>
                          <td>
                             @if($data->is_verified == 0)

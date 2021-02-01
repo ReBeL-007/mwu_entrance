@@ -103,6 +103,14 @@
                 <span class="help-block">{{ trans('cruds.user.fields.merchant_no_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="" for="form_charge">{{ trans('cruds.user.fields.form_charge') }}</label>
+                <input class="form-control {{ $errors->has('form_charge') ? 'is-invalid' : '' }}" type="number" name="form_charge" id="form_charge" value="{{ old('form_charge', '') }}" >
+                @if($errors->has('form_charge'))
+                    <span class="text-danger">{{ $errors->first('form_charge') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.form_charge_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="" for="official_seal">{{ trans('cruds.user.fields.official_seal') }}</label>
                 <input class="form-control {{ $errors->has('official_seal') ? 'is-invalid' : '' }}" type="file" name="official_seal" id="official_seal" value="{{ old('official_seal', '') }}" >
                 @if($errors->has('official_seal'))

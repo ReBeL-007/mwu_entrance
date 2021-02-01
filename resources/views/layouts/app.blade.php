@@ -28,10 +28,18 @@
 </head>
 <body>
     <div id="app">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 header-image">
+                    <img src="{{asset('MWU top.svg') }}" alt="">
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Home
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -91,10 +99,20 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 header-image">
+                        <img src="{{asset('MWU Bottom.svg') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
 <!-- jQuery -->
-<!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
   @yield('scripts')
 <script>

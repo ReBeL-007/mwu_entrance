@@ -284,6 +284,7 @@ class FormController extends Controller
             'campus' => $request->campus,
             'level' => $request->level,
             'programs' => $request->programs,
+            'exam_centre' => $request->exam_centre,
             // 'year' => $request->year,
             // 'form_serial_no' => $request->year,
             'sex' => $request->sex,
@@ -339,7 +340,13 @@ class FormController extends Controller
             'community_certificate' => $community_certificate,
             'sponsor_letter' => $sponsor_letter,
             'pid' => substr(md5(time()), 0, 16),
-            'payment_method' => $request->payment_method
+            'payment_method' => $request->payment_method,
+            'disable_status' => $request->disable_status,
+            'disable_class' => $request->disable_class,
+            'disable_no' => $request->disable_no,
+            'disable_description' => $request->disable_description,
+            'martyr_status' => $request->martyr_status,
+            'martyr_no' => $request->martyr_no
         ];
         // dd($data);
         $form = Form::create($data
@@ -449,7 +456,13 @@ class FormController extends Controller
             'spouse_qualification' => $request->spouse_qualification,
             'spouse_occupation' => $request->spouse_occupation,
             'official_seal' => $auth->official_seal,
-            'authorized_signature' => $auth->authorized_signature
+            'authorized_signature' => $auth->authorized_signature,
+            'disable_status' => $request->disable_status,
+            'disable_class' => $request->disable_class,
+            'disable_no' => $request->disable_no,
+            'disable_description' => $request->disable_description,
+            'martyr_status' => $request->martyr_status,
+            'martyr_no' => $request->martyr_no
         ];
         if($r=='User'){
             $data['is_verified'] = 1;
@@ -584,7 +597,7 @@ public function printtriplicate(Request $request)
         // esewa stuffs
         $url = "https://esewa.com.np/epay/transrec";
         $data =[
-            'amt'=> 10,
+            'amt'=> $form->colleges->form_charge,
             'rid'=> $_GET['refId'],
             'pid'=> $form->pid,
             'scd'=> $form->colleges->merchant_no

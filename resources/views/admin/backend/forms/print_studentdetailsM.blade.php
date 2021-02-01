@@ -56,17 +56,12 @@
     </div> --}}
 
         <div class="card-body">
-        <div class="ui three item menu">
-                <div class="logo"><img src="{{ asset('mwu-logo.png') }}" alt="logo"></div>
-                <div class="title">
-                <h1><b> Mid-Western University </b></h1>
-                <p><strong>Surkhet, Nepal</strong></p>
-                <p class="underline"><b> Application Form for Entrance Examination of 2077 </b></p>
-                </div>
-                <div class="photo">
-                    <div class="box"></div>
+            <div class="row">
+                <div class="col-md-12 header-image">
+                    <img src="{{asset('MWU top.png') }}" style="width:100%" alt="">
                 </div>
             </div>
+
             <form class="ui form" method="POST" action="{{ route('admin.forms.update', [$data->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
@@ -324,6 +319,63 @@
                 </div>
             </div>
         
+            <div id="disable_section">
+            <div class="row field">
+                <label class=" col-md-2 sex required">Disability Status </label>
+                <select class="col-md-1" name="disable_status" id="disable_status">
+                    <option value="0" {{ ('0' == $data->disable_status) ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ ('1' == $data->disable_status) ? 'selected' : '' }}>Yes</option>
+                </select>        
+            </div>
+            @if($data->disable_status=='1')
+                <div class="row fields" id="disable_subsection">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <label class="col-md-6 caste ">Classification</label>
+                            <select class="form-control col-md-4" name="disable_class">
+                                <option value="Ka" {{ ('Ka' == $data->disable_class) ? 'selected' : '' }}>Ka</option>
+                                <option value="Kha" {{ ('Kha' == $data->disable_class) ? 'selected' : '' }}>Kha</option>
+                                <option value="Ga" {{ ('Ga' == $data->disable_class) ? 'selected' : '' }}>Ga</option>
+                                <option value="Gha" {{ ('Gha' == $data->disable_class) ? 'selected' : '' }}>Gha</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <label class="col-md-4" >Disability ID Number</label>
+                            <input type="text" class="form-control col-md-8" name="disable_no" value="{{$data->disable_no}}">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <label class="col-md-4">Description</label>
+                            <textarea class="form-control col-md-8" name="disable_description" rows="2">{{$data->disable_no}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <div id="martyr_section">
+                <div class="row field">
+                    <label class=" col-md-2 sex required">Martyr Status </label>
+                    <select class="col-md-1" name="martyr_status" id="martyr_status">
+                        <option value="0" {{ ('0' == $data->martyr_status) ? 'selected' : '' }}>No</option>
+                        <option value="1" {{ ('1' == $data->martyr_status) ? 'selected' : '' }}>Yes</option>
+                    </select>        
+                </div>
+                @if($data->martyr_status=='1')
+                    <div class="row field" id="martyr_subsection">                        
+                        <div class="col-md-4">
+                            <div class="row">
+                                <label class="col-md-4" >Certificate ID Number</label>
+                                <input type="text" class="form-control col-md-8" name="martyr_no" value="{{$data->martyr_no}}">
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            
             {{-- address --}}
             <h4 class="ui dividing header">Permanent Address</h4>
             <div class="row permanent-address fields">
@@ -341,7 +393,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">VDC/Municipality </label>
+                        <label class="col-md-4 ">Municipality/Rural-Municipality </label>
                         <input type="text" class="form-control col-md-8" name="vdc" value="{{$data->vdc}}" >
                     </div>
                 </div>
@@ -537,26 +589,35 @@
         <div class="row">
             <div class="col-md-4">
             @if($data->authorized_signature)
-                <img class="signature" src="{{asset('storage/uploads/college/authorized_signature/'.$data->authorized_signature)}}" width="257" height="74">
+                <img class="signature" src="{{asset('storage/uploads/college/authorized_signature/'.$data->authorized_signature)}}" width="257" height="150">
             @endif
                 <br> <span>...................................................</span> <br> 
                 <span>Authorized Signature</span> 
             </div>
             <div class="col-md-4">
             @if($data->official_seal)
-                <img class="signature" src="{{asset('storage/uploads/college/official_seal/'.$data->official_seal)}}" width="257" height="74">
+                <img class="signature" src="{{asset('storage/uploads/college/official_seal/'.$data->official_seal)}}" width="150" height="150">
             @endif
                 <br> <span>...................................................</span> <br> 
                 <span>Official Seal</span>             
             </div>
             <div class="col-md-4">
-                <img class="signature" src="{{asset('storage/uploads/signature/'.$data->signature)}}" width="257" height="74">
+                <img class="signature" src="{{asset('storage/uploads/signature/'.$data->signature)}}" width="257" height="150">
                 <br> <span>...................................................</span> <br> 
                 <span>Applicant's Signature</span>   
             </div>
         </div>    
     </form>
     </div>
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 header-image">
+                    <img src="{{asset('MWU Bottom.svg') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
 
     <div class="breakpage"></div>

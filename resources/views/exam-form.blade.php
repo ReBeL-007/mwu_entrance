@@ -39,7 +39,7 @@
 @section('content')
     <div class="container exam-card">
         @include('admin.backend.includes.messages')
-        <div class="ui three item menu">
+        <!-- <div class="ui three item menu">
             <div class="logo"><img src="{{asset('mwu-logo.png') }}" alt="logo" width="" height=""></div>
             <div class="title">
                 <h1><b> Mid-Western University </b></h1>
@@ -49,10 +49,10 @@
             <div class="photo">
               <div class="box"></div>
           </div>
-        </div>
+        </div> -->
         <form class="ui form" method="POST" action="{{ route('admin.forms.store') }}" enctype="multipart/form-data">
             @csrf
-            <h4 class="ui dividing header"></h4>
+            <!-- <h4 class="ui dividing header"></h4> -->
             <!-- <div class="row">
                 <div class="col-md-2">
                     <label class="">Entrance Exam Roll No :-</label>
@@ -83,6 +83,15 @@
                     @if($errors->has('campus'))
                     <span class="text-danger">{{ $errors->first('campus') }}</span>
                     @endif
+                </div>
+
+                <div class="col-md-1 exam_centre">
+                    <label class="">Exam Centre :-</label>
+                </div>
+               <div class="col-md- exam_centre">
+                    <select class="form-control {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" name="exam_centre" id="exam_centre">
+                        
+                    </select>
                 </div>
             </div>
            {{-- permission  --}}
@@ -224,6 +233,27 @@
             <span class="text-danger"> Maximum File size: 512KB</span> <br>
             <span class="text-danger"> Acceptable format: jpeg, png</span>
         </div>
+
+        <div id="disable_section">
+            <div class="row field">
+                <label class=" col-md-2 sex required">Disability Status </label>
+                <select class="col-md-1" name="disable_status" id="disable_status">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>        
+            </div>
+        </div>
+
+        <div id="martyr_section">
+            <div class="row field">
+                <label class=" col-md-2 sex required">Martyr Status </label>
+                <select class="col-md-1" name="martyr_status" id="martyr_status">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>        
+            </div>
+        </div>
+
             {{-- address --}}
             <h4 class="ui dividing header">Permanent Address</h4>
             <div class="row permanent-address fields">
@@ -241,8 +271,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <label class="col-md-4 ">VDC/Municipality </label>
-                        <input type="text" class="form-control col-md-8" name="vdc" >
+                        <label class="col-md-5 ">Municipality/Rural-Municipality</label>
+                        <input type="text" class="form-control col-md-7" name="vdc" >
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -742,9 +772,29 @@
                 $("#upload_voucher").show();
                 $("voucher").attr('required');
             }
+
+        var selected_college = $("#campus").val();
+            if(selected_college == '20') {
+                $(".exam_centre").show();
+                $("#exam_centre").empty();
+                $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option><option value='MICD - Kathmandu'>MICD - Kathmandu</option>");
+            } else {
+                $(".exam_centre").hide();
+            }
         })
 
         $(document).ready(function() {
+            $("#campus").change(function() {
+                var selected_college = $(this).val();
+                if(selected_college == '20') {
+                    $(".exam_centre").show();
+                    $("#exam_centre").empty();
+                    $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option><option value='MICD - Kathmandu'>MICD - Kathmandu</option>");
+                } else {
+                    $(".exam_centre").hide();
+                }
+            });
+
             $("#payment_method").change(function() {
                 var selected_type = $(this).val();
                 if(selected_type == '1') {
@@ -755,6 +805,60 @@
                     $("voucher").attr('required');
                 }
             });
+
+            $("#disable_status").change(function() {
+                var selected_type = $(this).val();
+                if(selected_type == '1') {
+                    $("#disable_section").append(`
+                    <div class="row fields" id="disable_subsection">
+                        <div class="col-md-3">
+                            <div class="row">
+                                <label class="col-md-6 caste ">Classification</label>
+                                <select class="form-control col-md-4" name="disable_class" id="disable_status">
+                                    <option value="Ka">Ka</option>
+                                    <option value="Kha">Kha</option>
+                                    <option value="Ga">Ga</option>
+                                    <option value="Gha">Gha</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <label class="col-md-4" >Disability ID Number</label>
+                                <input type="text" class="form-control col-md-8" name="disable_no">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row">
+                                <label class="col-md-4">Description</label>
+                                <textarea class="form-control col-md-8" name="disable_description" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>`
+                    );
+                } else if(selected_type == '0'){
+                    $("#disable_subsection").remove();
+                }
+            });
+
+            $("#martyr_status").change(function() {
+                var selected_type = $(this).val();
+                if(selected_type == '1') {
+                    $("#martyr_section").append(`
+                    <div class="row field" id="martyr_subsection">                        
+                        <div class="col-md-4">
+                            <div class="row">
+                                <label class="col-md-4" >Certificate ID Number</label>
+                                <input type="text" class="form-control col-md-8" name="martyr_no">
+                            </div>
+                        </div>
+                    </div>`
+                    );
+                } else if(selected_type == '0'){
+                    $("#martyr_subsection").remove();
+                }
+            });
+
             var $subject_list = [];
 
             $('select').select2({

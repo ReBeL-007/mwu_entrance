@@ -101,7 +101,8 @@ class UsersController extends Controller
             'mobile' => $request->mobile,
             'merchant_no' => $request->merchant_no,
             'official_seal' => $official_seal,
-            'authorized_signature' => $authorized_signature
+            'authorized_signature' => $authorized_signature,
+            'form_charge' => $request->form_charge,
 
         ];
         $user = Admin::create($data);
@@ -165,7 +166,8 @@ class UsersController extends Controller
             'mobile' => $request->mobile,
             'merchant_no' => $request->merchant_no,
             'official_seal' => (isset($official_seal))?$official_seal:$user->official_seal,
-            'authorized_signature' => (isset($authorized_signature))?$authorized_signature:$user->authorized_signature
+            'authorized_signature' => (isset($authorized_signature))?$authorized_signature:$user->authorized_signature,
+            'form_charge' => $request->form_charge,
         ];
         if($request->password) {
             if($request->password !== $user->password){
