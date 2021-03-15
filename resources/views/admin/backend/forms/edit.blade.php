@@ -41,36 +41,9 @@
                         {{$errors->first('symbol_no')}}
                     </span>
                     @endif
-                </div>
-                <div class="col-md-2">
-                    <label class="required">Exam Centre :-</label>
-                </div>
-               <div class="col-md-4 exam_centre">
-                    <input class=" {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" type="text" name="exam_centre" placeholder="Exam Centre" value="{{($data->campus==20)?$data->exam_centre:$data->colleges->name}}" required>
-                    @if($errors->has('exam_centre'))
-                    <span class="text-danger">
-                        {{$errors->first('exam_centre')}}
-                    </span>
-                    @endif
-                </div>
+                </div>                
             </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="required">Name of School/College/Campus</label>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
-                        name="campus" id="campus" required>
-                        @foreach($colleges as $id=>$campus)
-                        <option value='{{ $id }}' {{ ($id==$data->campus) ? 'selected' : '' }}>{{ $campus }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('campus'))
-                    <span class="text-danger">{{ $errors->first('campus') }}</span>
-                    @endif
-                </div>
-            </div>
            {{-- permission  --}}
            <div class="permission field" >
                 <div class="row">

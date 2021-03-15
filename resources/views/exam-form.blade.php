@@ -52,6 +52,15 @@
         </div> -->
         <form class="ui form" method="POST" action="{{ route('admin.forms.store') }}" enctype="multipart/form-data">
             @csrf
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="hidden" name="campus" value="{{$colleges->id}}">
+                    
+                    @if($errors->has('campus'))
+                    <span class="text-danger">{{ $errors->first('campus') }}</span>
+                    @endif
+                </div>
+            </div>
             <!-- <h4 class="ui dividing header"></h4> -->
             <!-- <div class="row">
                 <div class="col-md-2">
@@ -67,33 +76,6 @@
                 </div>
             </div> -->
 
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="required">Name of School/College/Campus</label>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
-                        name="campus" id="campus" required>
-                        <option value="">Select a campus...
-                        </option>
-                        @foreach($colleges as $id=>$campus)
-                        <option value="{{ $id }}"> {{$campus}}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('campus'))
-                    <span class="text-danger">{{ $errors->first('campus') }}</span>
-                    @endif
-                </div>
-
-                <div class="col-md-1 exam_centre">
-                    <label class="">Exam Centre :-</label>
-                </div>
-               <div class="col-md- exam_centre">
-                    <select class="form-control {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" name="exam_centre" id="exam_centre">
-                        
-                    </select>
-                </div>
-            </div>
            {{-- permission  --}}
            <div class="permission field" >
                 <div class="row engineer">

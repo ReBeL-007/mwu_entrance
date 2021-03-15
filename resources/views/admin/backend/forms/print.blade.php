@@ -4583,13 +4583,13 @@
                 <path id="Line_4" d="M 0 0 L 883.2205200195313 0">
                 </path>
             </svg>
-            <div id="SchoolCampus">
+            <!-- <div id="SchoolCampus">
                 <span>School/Campus:</span>
             </div>
             <svg class="Line_5" viewBox="0 0 356 3">
                 <path id="Line_5" d="M 0 0 L 356 0">
                 </path>
-            </svg>
+            </svg> -->
             <div id="Faculty_">
                 <span>Faculty :</span>
             </div>
@@ -4607,13 +4607,13 @@
             <div id="Level_">
                 <span>Level :</span>
             </div>
-            <div id="Exam_Centre_">
+            <!-- <div id="Exam_Centre_">
                 <span>Exam. Centre :</span>
             </div>
             <svg class="Line_9" viewBox="0 0 381 3">
                 <path id="Line_9" d="M 0 0 L 381 0">
                 </path>
-            </svg>
+            </svg> -->
             <div id="Bachelor__Master__MPhil">
                 @if($form->faculty===5 && $form->level===1)
                     @php
@@ -4752,7 +4752,6 @@
                 
             </div>
             <div id="college_name">
-                <span>{{$form->colleges->name}}</span>
             </div>
             <div id="registration_no">
             <span> {{ $form->fname ?? '' }} {{ $form->mname ?? '' }} {{ $form->lname ?? '' }}</span>
@@ -4764,7 +4763,6 @@
                 <span>{{$form->year}}</span>
             </div> -->
             <div id="exam_centre">
-                <span>{{($form->campus==20)?$form->exam_centre:$form->colleges->name}}</span>
             </div>
             @if($form->authorized_signature)
             <svg class="Rectangle_8">

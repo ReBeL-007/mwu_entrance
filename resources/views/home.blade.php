@@ -9,6 +9,7 @@
     <div class="row justify-content-center">
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-form">
+                @if(isset($data))
                 <thead>
                     <tr>
                         <th>
@@ -16,9 +17,6 @@
                         </th>
                         <th>
                             Name
-                        </th>
-                        <th>
-                            College
                         </th>
                         <th>
                             Faculty
@@ -44,15 +42,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr>                    
                          <td>
                             {{$data->symbol_no}} 
                          </td>
                          <td>
                          {{ $data->fname ?? '' }} {{ $data->mname ?? '' }} {{ $data->lname ?? '' }}
-                         </td>
-                         <td>
-                            {{$data->colleges->name}} 
                          </td>
                          <td>
                             {{$data->faculties->name}} 
@@ -125,10 +120,10 @@
                             <a class="btn btn-xs btn-success <?PHP echo ($data->is_verified == '0')? 'disabled': ''; ?>" href="{{ route('admin.forms.print', $data->id) }}" target="_blank" style="margin:5px 0px;" >
                                 Get Card
                             </a>
-                         </td>
-        
+                         </td> 
                     </tr>
                 </tbody>
+                 @endif
             </table>
     </div>
 </div>

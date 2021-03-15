@@ -97,7 +97,7 @@
 
         #Surkhet_Nepal {
             left: 749px;
-            top: 44px;
+            top: 104px;
             position: absolute;
             overflow: visible;
             width: 248px;
@@ -266,7 +266,7 @@
             position: absolute;
             width: 883.221px;
             height: 3px;
-            left: 140.761px;
+            left: 240.761px;
             top: 335.5px;
             transform: matrix(1, 0, 0, 1, 0, 0);
         }
@@ -900,43 +900,7 @@
             width: 235px;
             white-space: nowrap;
             text-align: center;
-            font-family: Mangal;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 28px;
-            color: rgba(0, 0, 0, 1);
-        }
-
-        #Line_25 {
-            fill: transparent;
-            stroke: rgba(112, 112, 112, 1);
-            stroke-width: 3px;
-            stroke-linejoin: miter;
-            stroke-linecap: butt;
-            stroke-dasharray: 2 3;
-            stroke-dashoffset: 0;
-            stroke-miterlimit: 4;
-            shape-rendering: auto;
-        }
-
-        .Line_25 {
-            overflow: visible;
-            position: absolute;
-            width: 365px;
-            height: 3px;
-            left: 654px;
-            top: 1179.5px;
-            transform: matrix(1, 0, 0, 1, 0, 0);
-        }
-        #official_seal {
-            left: 683px;
-            top: 1202px;
-            position: absolute;
-            overflow: visible;
-            width: 359px;
-            white-space: nowrap;
-            text-align: center;
-            font-family: Mangal;
+            font-family: Kantipur;
             font-style: normal;
             font-weight: normal;
             font-size: 28px;
@@ -1041,7 +1005,7 @@
         }
 
         #registration_no {
-            left: 181px;
+            left: 281px;
             top: 302px;
             position: absolute;
             overflow: visible;
@@ -1117,25 +1081,6 @@
             height: 74px;
             left: 55px;
             top: 1092px;
-        }
-
-        #Rectangle_10 {
-            fill: rgba(255, 255, 255, 1);
-            stroke: rgba(112, 112, 112, 1);
-            stroke-width: 1px;
-            stroke-linejoin: miter;
-            stroke-linecap: butt;
-            stroke-miterlimit: 4;
-            shape-rendering: auto;
-        }
-
-        .Rectangle_10 {
-            position: absolute;
-            overflow: visible;
-            width: 257px;
-            height: 217px;
-            left: 704px;
-            top: 945px;
         }
 
         #Rectangle_9 {
@@ -1786,6 +1731,10 @@
             font-size: 28px;
             color: rgba(0, 0, 0, 1);
         }
+
+        /* @media print {
+    body {transform: scale(.5);}
+} */
 
     </style>
     <script id="applicationScript">
@@ -4546,37 +4495,46 @@
 </head>
 <body>
     <div id="Web_1920__1">
-        @foreach($forms as $keys => $form)
+        @foreach($exams as $keys => $exam)
         <div class="Web_1920__1">
             <div class="Group_18">
                 <img id="mwu-logo" src="{{ asset('mwu-logo.png') }}" alt="Mid Western University">
                 <div id="Mid-Western_University">
                     <span>Mid-Western University</span>
                 </div>
-                
+                <div id="Examinations_Management_Office">
+                    <span>Examinations Management Office</span>
+                </div>
                 <div id="Surkhet_Nepal">
                     <span>Surkhet, Nepal</span>
                 </div>
                 <div id="Examination_Admission_Card">
-                    <span>Entrance Examination Admit Card</span>
+                    <span>Examination Admission Card</span>
                 </div>
                 <div id="Full_Name_">
-                    <span>Symbol No:</span>
+                    <span>Full Name :</span>
                 </div>
                 <svg class="Line_1" viewBox="0 0 944.482 3">
                     <path id="Line_1" d="M 0 0 L 944.4818115234375 0">
                     </path>
                 </svg>
+                <div id="Symbol_No">
+                    <span>Symbol No:</span>
+                </div>
+                <svg class="Line_2" viewBox="0 0 432 3">
+                    <path id="Line_2" d="M 0 0 L 432 0">
+                    </path>
+                </svg>
                 <svg class="Rectangle_2">
-                    <img class="Rectangle_2" src="{{asset('storage/uploads/image/'.$form->image)}}" style="z-index:1;" width="217" height="217">
+                    <img class="Rectangle_2" src="{{asset('storage/uploads/exams/image/'.$exam->image)}}" style="z-index:1;" width="217" height="217">
                     <rect id="Rectangle_2" rx="49" ry="49" x="0" y="0" width="217" height="217">
                     </rect>
                 </svg>
                 <div id="Photo_PP_Size">
-                    <span></span>
+                    <span>Photo P/P<br />Size</span>
                 </div>
                 <div id="Registration_No_">
-                    <span>Name: </span>
+                    <span>Registration No: </span>
                 </div>
                 <svg class="Line_4" viewBox="0 0 883.221 3">
                     <path id="Line_4" d="M 0 0 L 883.2205200195313 0">
@@ -4596,6 +4554,13 @@
                     <path id="Line_6" d="M 0 0 L 983.4818115234375 0">
                     </path>
                 </svg>
+                <div id="Exam_Year_">
+                    <span>Exam. Year :</span>
+                </div>
+                <svg class="Line_7" viewBox="0 0 412 3">
+                    <path id="Line_7" d="M 0 0 L 412 0">
+                    </path>
+                </svg>
                 <div id="Level_">
                     <span>Level :</span>
                 </div>
@@ -4607,85 +4572,189 @@
                     </path>
                 </svg> -->
                 <div id="Bachelor__Master__MPhil">
-                @if($form->faculty===5 && $form->level===1)
-                    @php
-                    $priority = json_decode($form->priority);
-                    @endphp
-                    @switch($priority[0])
-                    @case( '1'):@case( '4' ):@case( '7')
-                        <span>B.E. Civil</span>
-                    @break
-                    @case( 2 ):@case( '5' ):@case( '8')
-                        <span>B.E. Computer</span>
-                    @break
-                    @case( 3 ):@case( '6' ):@case( '9')
-                        <span>B.E. Hydropower</span>
-                    @break
-                    @endswitch
-                @else
-                <span>{{$form->course->name}}</span>
-                @endif
+                    <span>{{$exam->course->name}}</span>
                 </div>
+                <div id="Semester">
+                    <span>Semester:</span>
+                </div>
+                <svg class="Rectangle_4">
+                    <rect id="Rectangle_4" rx="0" ry="0" x="0" y="0" width="1744" height="527">
+                    </rect>
+                </svg>
+                <svg class="Line_10" viewBox="0 0 1744 1">
+                    <path id="Line_10" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_12" viewBox="0 0 1744 1">
+                    <path id="Line_12" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_13" viewBox="0 0 1744 1">
+                    <path id="Line_13" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_14" viewBox="0 0 1744 1">
+                    <path id="Line_14" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_15" viewBox="0 0 1744 1">
+                    <path id="Line_15" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_16" viewBox="0 0 1744 1">
+                    <path id="Line_16" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_17" viewBox="0 0 1744 1">
+                    <path id="Line_17" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_18" viewBox="0 0 1744 1">
+                    <path id="Line_18" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <div id="Regular">
+                    <span>Regular</span>
+                </div>
+                <svg class="Rectangle_5">
+                    <rect id="Rectangle_5" rx="0" ry="0" x="0" y="0" width="44" height="37">
+                    </rect>
+                </svg>
+                <div id="Chance">
+                    <span>Chance</span>
+                </div>
+                <svg class="Rectangle_6">
+                    <rect id="Rectangle_6" rx="0" ry="0" x="0" y="0" width="44" height="37">
+                    </rect>
+                </svg>
+                <div id="Partial">
+                    <span>Partial</span>
+                </div>
+                <svg class="Rectangle_7">
+                    <rect id="Rectangle_7" rx="0" ry="0" x="0" y="0" width="44" height="37">
+                    </rect>
+                </svg>
+                <svg class="Line_19" viewBox="0 0 1 474">
+                    <path id="Line_19" d="M 0 0 L 0 474">
+                    </path>
+                </svg>
+                <svg class="Line_20" viewBox="0 0 1 474">
+                    <path id="Line_20" d="M 0 0 L 0 474">
+                    </path>
+                </svg>
+                <div id="SN">
+                    <span>S.N.</span>
+                </div>
+                <div id="Subjects">
+                    <span>Subjects</span>
+                </div>
+                <div id="Sub_Code">
+                    <span>Sub. Code</span>
+                </div>
+                <svg class="Line_21" viewBox="0 0 1744 1">
+                    <path id="Line_21" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
+                <svg class="Line_22" viewBox="0 0 1744 1">
+                    <path id="Line_22" d="M 0 0 L 1744 0">
+                    </path>
+                </svg>
                 <svg class="Line_23" viewBox="0 0 365 3">
                     <path id="Line_23" d="M 0 0 L 365 0">
                     </path>
                 </svg>
                 <div id="__">
-                    <span>Authorized Signature</span>
+                    <span>परीक्षार्थि पुरा दस्तखत</span>
                 </div>
-                
-                <svg class="Line_25" viewBox="0 0 365 3">
-                    <path id="Line_25" d="M 0 0 L 365 0">
-                    </path>
-                </svg>
-                <div id="official_seal">
-                    <span>Official Seal</span>
-                </div>
-
                 <svg class="Line_24" viewBox="0 0 365 3">
                     <path id="Line_24" d="M 0 0 L 365 0">
                     </path>
                 </svg>
                 <div id="Full_Signature_of_Applicant">
-                    <span>Applicant's Signature</span>
+                    <span>Full Signature of Applicant</span>
+                </div>
+                <div id="_M___________">
+                    <span>नोट : प्रवेशपत्र र उत्तरपुस्तिकामा गरिएको हस्ताक्षर फरक परेमा परिक्षा रद्द गर्न सकिन्छ।</span>
                 </div>
                 <div id="student_name">
-                    <span>{{$form->symbol_no}}</span>
+                    <span> {{ $exam->fname ?? '' }} {{ $exam->mname ?? '' }} {{ $exam->lname ?? '' }}</span>
                 </div>
                 <div id="symbol_no">
-                    
+                    <span>{{$exam->symbol_no}}</span>
                 </div>
                 <div id="college_name">
+                    <span>{{$exam->campus}}</span>
                 </div>
                 <div id="registration_no">
-                <span> {{ $form->fname ?? '' }} {{ $form->mname ?? '' }} {{ $form->lname ?? '' }}</span>
+                    <span>{{$exam->regd_no}}</span>
                 </div>
                 <div id="faculty">
-                    <span>{{$form->faculties->name}}</span>
+                    <span>{{$exam->faculties->name}}</span>
                 </div>
-                <div id="exam_centre">
+                <div id="exam_year">
+                    <span>{{$exam->year}}</span>
                 </div>
-                @if($form->authorized_signature)
+                <!-- <div id="exam_centre">
+                    <span>{{$exam->exam_centre}}</span>
+                </div> -->
                 <svg class="Rectangle_8">
-                    <img class="Rectangle_8" src="{{asset('storage/uploads/college/authorized_signature/'.$form->authorized_signature)}}" width="257" height="74">
+                    <img class="Rectangle_8" src="{{asset('storage/uploads/exams/signature/'.$exam->signature)}}" width="257" height="74">
                     <rect id="Rectangle_8" rx="0" ry="0" x="0" y="0" width="257" height="74">
                     </rect>
                 </svg>
-                @endif
-                @if($form->official_seal)
-                <svg class="Rectangle_10">
-                    <img class="Rectangle_10" src="{{asset('storage/uploads/college/official_seal/'.$form->official_seal)}}" width="257" height="217">
-                    <rect id="Rectangle_10" rx="0" ry="0" x="0" y="0" width="257" height="217">
-                    </rect>
-                </svg>
-                @endif
                 <svg class="Rectangle_9">
-                    <img class="Rectangle_9" src="{{asset('storage/uploads/signature/'.$form->signature)}}" width="257" height="74">
+                    <img class="Rectangle_9" src="{{asset('storage/uploads/exams/signature/'.$exam->signature)}}" width="257" height="74">
                     <rect id="Rectangle_9" rx="0" ry="0" x="0" y="0" width="257" height="74">
                     </rect>
                 </svg>
-            
-            
+
+                {{-- <svg class="Checkbox" viewBox="0 -29.294 73.817 55.072">
+			<path id="Checkbox" class="d-none bachleor" d="M 20.84847640991211 25.7776050567627 L 0 4.92912769317627 L 4.230125904083252 0.6990022659301758 L 20.84847640991211 17.01520347595215 L 69.58707427978516 -29.29393768310547 L 73.81719970703125 -25.06381416320801 L 20.84847640991211 25.7776050567627 Z">
+			</path>
+        </svg> --}}
+                @if($exam->exam_type==='Regular')
+                <svg class="Checkbox_b" viewBox="0 0 30.312 20.905">
+                    <path id="Checkbox_b" d="M 12.02042675018311 20.90509033203125 L 0 8.884662628173828 L 2.438927173614502 6.445735931396484 L 12.02042675018311 15.85302734375 L 27.87345314025879 0 L 30.31237983703613 2.438927173614502 L 12.02042675018311 20.90509033203125 Z">
+                    </path>
+                </svg>
+                @elseif($exam->exam_type==='Chance')
+                <svg class="Checkbox_ca" viewBox="0 0 30.312 20.905">
+                    <path id="Checkbox_ca" d="M 12.02042675018311 20.90509033203125 L 0 8.884662628173828 L 2.438927173614502 6.445735931396484 L 12.02042675018311 15.85302734375 L 27.87345314025879 0 L 30.31237983703613 2.438927173614502 L 12.02042675018311 20.90509033203125 Z">
+                    </path>
+                </svg>
+                @else
+                <svg class="Checkbox_cb" viewBox="0 0 30.312 20.905">
+                    <path id="Checkbox_cb" d="M 12.02042675018311 20.90509033203125 L 0 8.884662628173828 L 2.438927173614502 6.445735931396484 L 12.02042675018311 15.85302734375 L 27.87345314025879 0 L 30.31237983703613 2.438927173614502 L 12.02042675018311 20.90509033203125 Z">
+                    </path>
+                </svg>
+                @endif
+                {{-- <svg class="Checkbox_cc" viewBox="0 -29.294 73.817 55.072">
+			<path id="Checkbox_cc" class="d-none m.phil" d="M 20.84847640991211 25.7776050567627 L 0 4.92912769317627 L 4.230125904083252 0.6990022659301758 L 20.84847640991211 17.01520347595215 L 69.58707427978516 -29.29393768310547 L 73.81719970703125 -25.06381416320801 L 20.84847640991211 25.7776050567627 Z">
+			</path>
+		</svg>
+		<svg class="Checkbox_cd" viewBox="0 -29.294 73.817 55.072">
+			<path id="Checkbox_cd" class="d-none master" d="M 20.84847640991211 25.7776050567627 L 0 4.92912769317627 L 4.230125904083252 0.6990022659301758 L 20.84847640991211 17.01520347595215 L 69.58707427978516 -29.29393768310547 L 73.81719970703125 -25.06381416320801 L 20.84847640991211 25.7776050567627 Z">
+			</path>
+		</svg> --}}
+                <div id="semester">
+                    <span>{{$exam->semester}}</span>
+                </div>
+                @foreach($exam->subjects as $key=>$subject)
+                @if($subject!==null)
+                <div id="Group_{{9+$key}}">
+                    <div id="sn_cg">
+                        <span>{{$key+1}}</span>
+                    </div>
+                    <div id="subject_ch">
+                        <span>{{$subject->title}}</span>
+                    </div>
+                    <div id="sub_code_ci">
+                        <span>{{$subject->subject_code }}</span>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+
             </div>
             <br class="breakpage">
             <style>
@@ -4707,18 +4776,18 @@
             <div class="instruction-container" style="margin-top:350px;padding: 100px">
                 <span>
                     <div class="instruction" style="font-size: 25px;text-align: justify;">
-                    <h4> Entrance examination rules</h4>
-                    <ol>
-                        <li>Without admission card applicants is not allowed to enter into the examination hall.</li>
-                        <li>Candidates must arrive at the examination hall 15 minutes before the commencement of the examination.</li>
-                        <li>Candidate is not allowed to enter the examination hall after 15 minutes of the commencement of examination.</li>
-                        <li>Candidate must follow the seat plan in the examination. </li>
-                        <li>Candidate is not allowed to take cell phone, camera or other memory devices in the examination hall.</li>
-                        <li>No examinee shall be allowed to consult any form of written material or verbal communication with fellow examinee inside the examination hall.
-                        </li>
-                        <li>Any form of misconduct by an examinee shall result in the cancellation of his/her answer paper, An invigilator will have every authority regarding the disciplinary matters.
-                        </li>
-                    </ol>
+                        <h3 style="text-align: center">परीक्षा आचारसंहिता सम्बन्धी व्यवस्था <span style="font-family: sans-serif">:</span></h3><br>
+                        मध्य-पश्चिमाञ्चल विश्वविद्यालय सङ्गठन र शैक्षिक प्रशासन नियमावली २०६९ को नियम १२६ र मध्य-पश्चिमाञ्चल विश्वविद्यालय शिक्षक–कर्मचारी नियमावली २०६९ को नियम ६६ मा तोकिएको आचारसंहिताहरूका अतिरिक्त परीक्षा व्यवस्थापन कार्यलयद्वारा सञ्चालन गरिने वैकल्पिक विधिको सत्रान्त परीक्षालाई मर्यादित र विश्वसनीय बनाउनका लागि देहायबमोजिमको आचारसंहिता सम्बन्धित सबै शिक्षक, कर्मचारी र विद्यार्थीहरुले पालना गर्नुपर्नेछ<span style="font-family: sans-serif">:</span><br>
+                        <ol>
+                            <li style="font-family: sans-serif">सबै परीक्षार्थीहरुले व्यक्तिको गोपनीयताको हकको पालना गर्नुका साथै लिखित या मौखिक रूपमा परीक्षासँग सम्बन्धित सामग्रीहरु साटफेर गर्ने, फेसबुकलगायत अन्य सामाजिक सञ्जालका माध्यमबाट हेराफेरी गर्न पाइनेछैन।</li>
+                            <li style="font-family: sans-serif">परीक्षा संचालनसम्बन्धी आवश्यक सूचना सम्प्रेषण गर्ने देखि परीक्षालाई मर्यादित र विश्वशनिय रुपमा सम्पन्न गर्ने जिम्मेवारी र दायित्व म. प. वि. का सम्पूर्ण पदाधिकारी, शिक्षक, कर्मचारी र विद्यार्थीको हुनेछ।</li>
+                            <li style="font-family: sans-serif">परीक्षाका लागि आवश्यक विद्युतीय उपकरण तथा अन्य स्टेसनरी लगायतका सामग्रीहरूको सुनिश्चितता तथा व्यवस्थापन विद्यार्थी स्वयंले गर्नुपर्नेछ।त्यस्ता उपकरणको उपलब्धता नभई परीक्षा छुट्न गएमा विद्यार्थी स्वयम् जिम्मेवार हुनेछ।</li>
+                            <li style="font-family: sans-serif">विद्यार्थीले उत्तर लेख्दा आफूले हासिल गरेको ज्ञान र सीपलाई सिर्जनात्मक ढङ्गले प्रश्न अनुरूप प्रस्तुत नगरी सामूहिक चोरी (Collaborative Fraud) तथा अरूलाई उत्तर लेखाउने (Impersonation) कार्य परीक्षाको नियम बिपरित मानिनेछ।</li>
+                            <li style="font-family: sans-serif">विद्यार्थीले विषयगत परीक्षाको उत्तर लेख्दा अन्य व्यक्तिले लेखेका अभिव्यक्तिहरू सन्दर्भ स्रोत नखुलाई नक्कल गरेको कार्य बौद्धिक चोरी (Plagiarism) मानिनेछ । विद्यार्थीले त्यस्तो कार्य गरेको पाइएमा परिक्षाको नियमानुसार कारबाही हुनेछ।</li>
+                            <li style="font-family: sans-serif">अहिलेको विशेष परिस्तिथिमा सञ्चालन भएको वैकल्पिक परीक्षालाई मर्यादित र व्यवस्थित रूपले सम्पन्न गर्न सम्पूर्ण विश्वविद्यालय पदाधिकारी, शिक्षक, कर्मचारी र विद्यार्थीको नैतिक जिम्मेवारी हुनेछ।</li>
+                            <li style="font-family: sans-serif">विद्यार्थीले लेखेको उत्तरपुस्तिकाको ओरिजनल कपी गोपनीयताका साथ राख्ने जिम्मेवारी स्वयम् विद्यार्थीको हुनेछ।यदि कसैले उक्त उत्तरपुस्तिकाको गोपनीयता भङ्ग गरेमा नियमानुसार कारबाही गरिनेछ।</li>
+                            <li style="font-family: sans-serif">विद्यार्थीले उत्तर आफ्नै मौलिक र सिर्जनात्मक शैलीमा लेख्नुपर्नेछ । यदी दुई वा दुईभन्दा बढी विद्यार्थीहरुले लेखेको उत्तर एक आपसमा हु-बहु मिल्न गएको खण्डमा उत्तरपुस्तिका परिक्षले त्यस्ता उत्तरपुस्तिकालाई आवश्यक कारवाहीका लागि म. प. वि. मुल परिक्षा समितिमा परिक्षा व्यवस्थापन कार्यालयमार्फत सिफारिसका लागि पेश गरिनेछ।</li>
+                        </ol>
                     </div>
                 </span>
             </div>

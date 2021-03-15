@@ -70,6 +70,12 @@ class Admin extends Authenticatable
         return $this->hasMany(Form::class,'campus');
             
     }
+
+    public function exams() {
+
+        return $this->hasMany(Exam::class,'campus');
+            
+    }
     // public function getRouteKeyName()
     // {
     //     return 'slug';

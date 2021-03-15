@@ -22,7 +22,7 @@ class FormController extends Controller
      public function __construct()
     {
         $this->middleware('auth:admin')->except(['create','store','fraudCheck','printform','printformdetails']);
-        // $this->middleware('auth')->only(['create','store','fraudCheck','printform','printformdetails']);
+        $this->middleware('auth')->only(['create']);
     }
     /**
      * Display a listing of the resource.
@@ -33,44 +33,7 @@ class FormController extends Controller
     {
         abort_if(Gate::denies('form-access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $datas = Form::orderBy('regd_no','asc')->get();
-        $datas = [];
-        $user = Auth::user();
-
-        $groups = $user->groups()->pluck('title');
-
-        // dd($groups);
-        //getting only accessible courses for user group
-        foreach($groups as $key => $group){
-            if($group == 'Owner'){
-                // $datas = Form::where('is_verified','1')->with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
                 $datas = Form::with(['faculties','levels','course','colleges'])->orderBy('created_at','asc')->get();
-                break;
-            }
-            else{
-                $courses_under_faculty[$key] = Form::where('is_verified','1')->whereHas('faculties' , function ($query) use ($group)
-                                                        {
-                                                            $query->where('name', $group);
-                                                        })
-                                                        ->with(['faculties','levels','course','colleges'])
-                                                        ->orderBy('created_at','asc')
-                                                        ->get();
-            }
-        }
-
-        //converting multidimentional array of courses to single in order to return to view
-        if(isset($courses_under_faculty) && !empty($courses_under_faculty)){
-            foreach($courses_under_faculty as $course){
-                foreach($course as $c){
-                    $datas[] = $c;
-                }
-            }
-        }
-
-        foreach($user->roles as $role){
-            if($role->title==='User'){
-                $datas = Form::where('campus',$user->id)->orderBy('created_at','asc')->get();
-            }
-        }
         // $datas = Form::all();
 
         return view('admin.backend.forms.index', compact('datas'));
@@ -90,10 +53,9 @@ class FormController extends Controller
         $colleges = Admin::whereHas('roles', function ($query)
                             {
                                 $query->where('id', 2);
-                            })
-                            ->with(['roles'])
-                            ->orderBy('name','asc')
-                            ->pluck('name','id');
+                            })                          
+                            ->where('name','MUSOM')
+                            ->first();
                             // dd($colleges);
         $faculties = Faculty::all()->pluck('name','id');
         return view('exam-form',compact('faculties','colleges'));
@@ -309,7 +271,6 @@ class FormController extends Controller
             'ward' => $request->ward,
             'contact' => $request->contact,
             'vdc' => $request->vdc,
-            'priority' => json_encode($request->priority),
             'board' => json_encode($request->board),
             'passed_year' => json_encode($request->passed_year),
             'roll_no' => json_encode($request->roll_no),
@@ -389,19 +350,13 @@ class FormController extends Controller
         abort_if(Gate::denies('form-edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $data = Form::find($data);
         $data->load(['faculties','levels','course','colleges']);
-        $colleges = Admin::whereHas('roles', function ($query)
-                            {
-                                $query->where('id', 2);
-                            })
-                            ->with(['roles'])
-                            ->orderBy('name','asc')
-                            ->pluck('name','id');
+        
         $faculties = Faculty::all()->pluck('name','id');
         
         // $subject_ids = json_decode($data->subjects);
         // $subjects = Sub::whereIn('id',$subject_ids)->get();
         // dd($data);
-        return view('admin.backend.forms.edit', compact('data','faculties','colleges'));
+        return view('admin.backend.forms.edit', compact('data','faculties'));
     }
 
     /**
@@ -414,17 +369,10 @@ class FormController extends Controller
     public function update(UpdateFormRequest $request, Form $form)
     {
         $auth = Auth::user();
-        $r = 'Admin';
-        foreach($auth->roles as $role){
-            if($role->title == 'User'){
-                $r = $role->title;
-                break;
-            }
-        }
 
          $data=[
             'faculty' => $request->faculty,
-            'campus' => $request->campus,
+            // 'campus' => $request->campus,
             'level' => $request->level,
             'programs' => $request->programs,
             'exam_centre' => $request->exam_centre,
@@ -462,13 +410,9 @@ class FormController extends Controller
             'disable_no' => $request->disable_no,
             'disable_description' => $request->disable_description,
             'martyr_status' => $request->martyr_status,
-            'martyr_no' => $request->martyr_no
+            'martyr_no' => $request->martyr_no,
+            'is_verified' => 1
         ];
-        if($r=='User'){
-            $data['is_verified'] = 1;
-        } else {
-            $data['is_final_verified'] = 1;
-        }
         // dd($data);
         $form->update($data);
 

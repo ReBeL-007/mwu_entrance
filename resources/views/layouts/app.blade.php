@@ -28,13 +28,13 @@
 </head>
 <body>
     <div id="app">
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 header-image">
                     <img src="{{asset('MWU top.svg') }}" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
@@ -99,7 +99,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <footer>
+        <!-- <footer>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 header-image">
@@ -107,12 +107,12 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
 
     </div>
 
 <!-- jQuery -->
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
   @yield('scripts')
 <script>
