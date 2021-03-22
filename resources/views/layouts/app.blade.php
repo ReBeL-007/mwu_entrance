@@ -28,13 +28,17 @@
 </head>
 <body>
     <div id="app">
-        <!-- <div class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 header-image">
-                    <img src="{{asset('MWU top.svg') }}" alt="">
+                    @if(request()->is('admin/forms/*') )
+                        <img src="{{asset('entrance_header.png') }}" alt="" width="100%">
+                    @else
+                        <img src="{{asset('exam_header.png') }}" alt="" width="100%">
+                    @endif
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
