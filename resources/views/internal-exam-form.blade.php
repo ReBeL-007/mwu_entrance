@@ -481,7 +481,7 @@
             <!-- bank voucher -->
             <div class="field" id="upload_voucher">
                 <label class="required">Deposit Receipt / Voucher (scanned image)</label>
-                <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" id="voucher">
+                <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" id="voucher" required>
                 @if($errors->has('voucher'))
                 <span class="text-danger">{{ $errors->first('voucher') }}</span>
                 @endif
@@ -536,10 +536,10 @@
             var selected_type = $("#payment_method").val();
                 if(selected_type == '1') {
                     $("#upload_voucher").hide();
-                    $("voucher").removeAttr('required');
+                    $("#voucher").removeAttr('required');
                 } else if(selected_type == '0'){
                     $("#upload_voucher").show();
-                    $("voucher").attr('required');
+                    $("#voucher").attr('required', true);
                 }
         })
 
@@ -582,10 +582,10 @@
                 var selected_type = $(this).val();
                 if(selected_type == '1') {
                     $("#upload_voucher").hide();
-                    $("voucher").removeAttr('required');
+                    $("#voucher").removeAttr('required');
                 } else if(selected_type == '0'){
                     $("#upload_voucher").show();
-                    $("voucher").attr('required');
+                    $("#voucher").attr('required', true);
                 }
             });
 

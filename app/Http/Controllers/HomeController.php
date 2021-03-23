@@ -31,12 +31,14 @@ class HomeController extends Controller
         $exam = Exam::where('user_id',$user_id)->latest()->first();
         
         if($exam) {
-            $data = $exam;
-            return view('home', compact('data'));
+            return view('home', compact('exam'));
         }
-        if($data) {
+        elseif($data) {
             // dd($data->colleges()); 
             return view('home', compact('data'));
+        }
+        else{
+            return view('home',compact('exam'));
         }
     }
 
