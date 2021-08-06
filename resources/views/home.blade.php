@@ -201,7 +201,7 @@
                                 'tAmt'=> $exam->colleges->form_charge,
                                 'pid'=> $exam->pid,
                                 'scd'=> $exam->colleges->merchant_no,
-                                'su'=> route('admin.forms.fraud-check',$exam->id),
+                                'su'=> route('admin.exams.fraud-check',$exam->id),
                                 'fu'=> route('home')
                             ];
                             

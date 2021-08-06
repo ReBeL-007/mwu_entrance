@@ -21,7 +21,7 @@ class ExamController extends Controller
 
      public function __construct()
     {
-        $this->middleware('auth:admin')->except(['create','store','printform','printformdetails']);
+        $this->middleware('auth:admin')->except(['create','store','fraudCheck','printform','printformdetails']);
         $this->middleware('auth')->only(['create']);
     }
     /**
@@ -138,7 +138,7 @@ class ExamController extends Controller
         if($request->payment_method == 0) {
             return redirect()->route('home');
         } else {
-            return view('esewa',compact('form'));
+            return view('esewa2',compact('form'));
         }
         // return redirect()->route('admin.exams.create')->with('modal','true');
     }
@@ -328,6 +328,42 @@ public function printtriplicate(Request $request)
         $faculties = Faculty::all()->pluck('name','id');
 
         return view('admin.backend.exams.print_studentdetailsM', compact('exams','faculties'));
+    }
+
+    public function fraudCheck(Exam $exam)
+    {
+        // esewa stuffs
+        $url = "https://esewa.com.np/epay/transrec";
+        $data =[
+            'amt'=> $exam->colleges->form_charge,
+            'rid'=> $_GET['refId'],
+            'pid'=> $exam->pid,
+            'scd'=> $exam->colleges->merchant_no
+        ];
+
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            // dd($response);
+        // end of esewa stuffs
+
+        if(strpos($response,'Success') !== false) {
+            $exam->esewa_amt = $data['amt'];
+            $exam->esewa_status = 1;
+            $exam->rid = $data['rid'];
+            $exam->scd = $data['scd'];
+            $exam->save();
+            Session::flash('flash_success', 'eSewa payment successfully made!.');
+            Session::flash('flash_type', 'alert-success');
+            return redirect()->route('home');
+        } else {
+            Session::flash('flash_danger', 'eSewa payment was unsuccessful!.');
+            Session::flash('flash_type', 'alert-danger');
+            return redirect()->route('home');
+        }
     }
 
 }

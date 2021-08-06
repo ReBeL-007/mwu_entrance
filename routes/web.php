@@ -96,6 +96,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::post('forms/print-studentdetails', 'Admin\FormController@printmultipleformdetails')->name('forms.print-multiple-student-details');
     
     // exam
+    Route::get('exams/{exam}/fraud-check', 'Admin\ExamController@fraudCheck')->name('exams.fraud-check');
     Route::delete('exams/destroy', 'Admin\ExamController@massDestroy')->name('exams.massDestroy');
     Route::resource('exams', 'Admin\ExamController');
     Route::get('exams/{exam}', 'Admin\ExamController@generateform')->name('exams.generate');

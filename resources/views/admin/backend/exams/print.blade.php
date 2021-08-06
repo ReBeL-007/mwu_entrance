@@ -79,7 +79,7 @@
 
         #Examinations_Management_Office {
             left: 503px;
-            top: 44px;
+            top: 34px;
             position: absolute;
             overflow: visible;
             width: 739px;
@@ -92,15 +92,15 @@
             color: rgba(0, 0, 0, 1);
         }
 
-        #Surkhet_Nepal {
-            left: 749px;
-            top: 104px;
+        #autonomous {
+            left: 649px;
+            top: 84px;
             position: absolute;
             overflow: visible;
             width: 248px;
             white-space: nowrap;
             text-align: left;
-            font-family: Bookman Old Style;
+            font-family: Arial;
             font-style: normal;
             font-weight: bold;
             font-size: 32px;
@@ -108,8 +108,8 @@
         }
 
         #Examination_Admission_Card {
-            left: 649px;
-            top: 156px;
+            left: 709px;
+            top: 120px;
             position: absolute;
             overflow: visible;
             width: 447px;
@@ -119,6 +119,37 @@
             font-style: normal;
             font-weight: bold;
             font-size: 32px;
+            color: rgba(0, 0, 0, 1);
+            /* text-decoration: underline; */
+        }
+
+        #surkhet {
+            left: 759px;
+            top: 154px;
+            position: absolute;
+            overflow: visible;
+            width: 248px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Arial;
+            font-style: normal;
+            font-weight: bold;  
+            font-size: 28px;
+            color: rgba(0, 0, 0, 1);
+        }
+
+        #year {
+            left: 500px;
+            top: 184px;
+            position: absolute;
+            overflow: visible;
+            width: 248px;
+            white-space: nowrap;
+            text-align: left;
+            font-family: Bookman Old Style;
+            font-style: normal;
+            font-weight: bold;  
+            font-size: 30px;
             color: rgba(0, 0, 0, 1);
             text-decoration: underline;
         }
@@ -4494,13 +4525,19 @@
                 <span>Mid-Western University</span>
             </div>
             <div id="Examinations_Management_Office">
-                <span>Examinations Management Office</span>
+                <span>School of Management (MUSOM)</span>
             </div>
-            <div id="Surkhet_Nepal">
-                <span>Surkhet, Nepal</span>
+            <div id="autonomous">
+                <span>(An Autonomous Institution)</span>
             </div>
             <div id="Examination_Admission_Card">
-                <span>Examination Admission Card</span>
+                <span>Examination Section</span>
+            </div>
+            <div id="surkhet">
+                <span>Surkhet, Nepal</span>
+            </div>
+            <div id="year">
+                <span>Application Form for the Examination of 2078</span>
             </div>
             <div id="Full_Name_">
                 <span>Full Name :</span>
@@ -4516,11 +4553,15 @@
                 <path id="Line_2" d="M 0 0 L 432 0">
                 </path>
             </svg>
-            <svg class="Rectangle_2">
-                <img class="Rectangle_2" src="{{asset('storage/uploads/exams/image/'.$exam->image)}}" style="z-index:1;" width="217" height="217">
-                <rect id="Rectangle_2" rx="49" ry="49" x="0" y="0" width="217" height="217">
-                </rect>
-            </svg>
+
+            <div class="align" style="position: relative; min-height: 17%;">
+                <svg class="Rectangle_2">
+                    <img class="Rectangle_2" src="{{asset('storage/uploads/exams/image/'.$exam->image)}}" style="z-index:1;" width="217" height="217">
+                    <rect id="Rectangle_2" rx="49" ry="49" x="0" y="0" width="217" height="217">
+                    </rect>
+                    <img style="z-index: 1; position: absolute; right: 5%; top: 50%; transform: translateY(-50%);" src="{{asset('authorized_sign.png')}}" style="z-index:1;" width="217" height="217">
+                </svg>
+            </div>
             <div id="Photo_PP_Size">
                 <span>Photo P/P<br />Size</span>
             </div>

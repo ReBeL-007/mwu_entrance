@@ -430,9 +430,13 @@ $divison = json_decode($data->division);
 </div>
 <div class="voucher" style="display: flex;justify-content: center;text-align: center">
     <div>
+        @if($data->payment_method == 1)  
+        <h4>esewa Transaction Code: {{$data->rid?$data->rid:'not paid yet'}}</h4>
+        @else
         <h4>Deposit Receipt / Voucher</h4>
         <img src="{{ asset('storage/uploads/exams/voucher/'.$data->voucher) }}" alt="Voucher" style="height: 30vh"><br><br>
         <h5><a href="/storage/uploads/exams/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click to download deposit slip</a></h5>
+        @endif
     </div>
 </div>
 

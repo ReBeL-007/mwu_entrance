@@ -553,7 +553,11 @@
            <!-- bank voucher -->
            @if($data->image)<h6><a href="/storage/uploads/image/{{ $data->image }}" download="{{ $data->image }}">Click here to download Applicant's Photo</a></h6>@endif
             @if($data->signature)<h6><a href="/storage/uploads/signature/{{ $data->signature }}" download="{{ $data->signature }}">Click here to download Applicant's Signature</a></h6>@endif
-            @if($data->voucher)<h6><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click here to download voucher</a></h6>@endif
+            @if($data->payment_method == 1)  
+                <h4>esewa Transaction Code: {{$data->rid?$data->rid:'not paid yet'}}</h4>
+            @else
+                @if($data->voucher)<h6><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click here to download voucher</a></h6>@endif
+            @endif
 
 
         

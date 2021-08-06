@@ -67,17 +67,17 @@ class StoreExamRequest extends FormRequest
             ],
             'image' => [
                 'required',
-                'mimes:jpeg,png',
+                'mimes:jpeg,png,jpg',
                 'max:512'
             ],
             'signature' => [
                 'required',
-                'mimes:jpeg,png',
+                'mimes:jpeg,png,jpg',
                 'max:512'
             ],
             // 'voucher' => [
             //     'required',
-            //     'mimes:jpeg,png',
+            //     'mimes:jpeg,png,jpg',
             //     'max:512'
             // ],
             'nationality' => [
