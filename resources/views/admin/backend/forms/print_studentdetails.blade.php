@@ -77,35 +77,8 @@
                     </span>
                     @endif
                 </div>
-                <div class="col-md-2">
-                    <label class="required">Exam Centre :-</label>
-                </div>
-               <div class="col-md-4 exam_centre">
-                    <input class=" {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" type="text" name="exam_centre" placeholder="Exam Centre" value="{{$data->exam_centre}}" required>
-                    @if($errors->has('exam_centre'))
-                    <span class="text-danger">
-                        {{$errors->first('exam_centre')}}
-                    </span>
-                    @endif
-                </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="required">Name of School/College/Campus</label>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
-                        name="campus" id="campus" required>
-                        @foreach($colleges as $id=>$campus)
-                        <option value='{{ $id }}' {{ ($id==$data->campus) ? 'selected' : '' }}>{{ $campus }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('campus'))
-                    <span class="text-danger">{{ $errors->first('campus') }}</span>
-                    @endif
-                </div>
-            </div>
            {{-- permission  --}}
            <div class="permission field" >
                 <div class="row">
@@ -227,6 +200,85 @@
                     <p> . I have included all my credentials and information required for appearing in the examinations.</p>
                     </div>
                 </div>
+
+                @elseif($data->faculty===5 && $data->level===2)
+                @php
+                $priority = json_decode($data->priority);
+                @endphp
+                <div class="priority">
+                    <div class="" style="overflow-x: auto; margin: 2rem;">
+                    <h5 style="font-weight: bold">Priority</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align: center">
+                            Scholarships
+                            </th>
+                            <th scope="col" colspan="2" style="text-align: center">
+                            Full Paying
+                            </th>
+                            <th scope="col" colspan="2" style="text-align: center">
+                            Sponsered
+                            </th>
+                        </tr>
+                        <tr class="table-heading-row">
+                            <th scope="col">MSc in Structural Engineering</th>
+                            <th scope="col">MSc in Construction Management</th>
+                            <th scope="col">MSc in Structural Engineering</th>
+                            <th scope="col">MSc in Construction Management</th>
+                            <th scope="col">MSc in Structural Engineering</th>
+                            <th scope="col">MSc in Construction Management</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <div class="" style="overflow-x: auto; margin: 2rem; max-width: 100%;">
+                    <h5 style="font-weight: bold">Fill The Priority</h5>
+                    <table class="table table-bordered ">
+                        <thead>
+                        <tr>
+                            <tr class="table-heading-row">
+                            <th></th>
+                            <th>P-1</th>
+                            <th>P-2</th>
+                            <th>P-3</th>
+                            <th>P-4</th>
+                            <th>P-5</th>
+                            <th>P-6</th>
+                            </tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Number</th>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[0]}}"  required></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[1]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[2]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[3]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[4]}}" ></td>
+                            <td><input type="number" name="priority[]" min="1" max="9" value="{{$priority[5]}}" ></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p> . I have included all my credentials and information required for appearing in the examinations.</p>
+                    </div>
+                </div>
+
                 @else
                 <div class="row">
                     <div class="col-md-1">
@@ -357,7 +409,7 @@
 
             <div id="martyr_section">
                 <div class="row field">
-                    <label class=" col-md-2 sex required">Martyr Status </label>
+                    <label class=" col-md-2 sex required">Children of Martyr </label>
                     <select class="col-md-1" name="martyr_status" id="martyr_status">
                         <option value="0" {{ ('0' == $data->martyr_status) ? 'selected' : '' }}>No</option>
                         <option value="1" {{ ('1' == $data->martyr_status) ? 'selected' : '' }}>Yes</option>

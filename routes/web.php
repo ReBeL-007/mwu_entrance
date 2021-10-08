@@ -95,6 +95,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('forms/{form}/print-studentdetails', 'Admin\FormController@printformdetails')->name('forms.print-student-details');
     Route::post('forms/print-studentdetails', 'Admin\FormController@printmultipleformdetails')->name('forms.print-multiple-student-details');
     
+    // exam
+    Route::get('exams/{exam}/fraud-check', 'Admin\ExamController@fraudCheck')->name('exams.fraud-check');
+    Route::delete('exams/destroy', 'Admin\ExamController@massDestroy')->name('exams.massDestroy');
+    Route::resource('exams', 'Admin\ExamController');
+    Route::get('exams/{exam}', 'Admin\ExamController@generateform')->name('exams.generate');
+    Route::get('exams/{exam}/print', 'Admin\ExamController@printform')->name('exams.print');
+    Route::post('exams/print', 'Admin\ExamController@printmultipleform')->name('exams.print.multiple');
+    Route::post('exams/triplicate/print', 'Admin\ExamController@printtriplicate')->name('exams.print.triplicate');
+    Route::get('exams/{exam}/print-studentdetails', 'Admin\ExamController@printformdetails')->name('exams.print-student-details');
+    Route::post('exams/print-studentdetails', 'Admin\ExamController@printmultipleformdetails')->name('exams.print-multiple-student-details');
+
     Route::resource('faculty', 'Admin\FacultyController');
     Route::delete('faculties/destroy', 'Admin\FacultyController@massDestroy')->name('faculty.massDestroy');
 

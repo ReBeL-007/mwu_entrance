@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Form;
+use App\Exam;
 use Auth;
 
 class HomeController extends Controller
@@ -27,10 +28,17 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
         $data = Form::where('user_id',$user_id)->first();
-        if($data) {
+        $exam = Exam::where('user_id',$user_id)->latest()->first();
+        
+        if($exam) {
+            return view('home', compact('exam'));
+        }
+        elseif($data) {
+            // dd($data->colleges()); 
             return view('home', compact('data'));
-        } else {
-            return redirect()->route('admin.forms.create');
+        }
+        else{
+            return view('home',compact('exam'));
         }
     }
 

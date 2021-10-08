@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Filter by College</label>
+                    <label>Filter by Year</label>
                     <select class="college form-control">
                     </select>
                 </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Filter by District</label>
+                    <label>Filter by Semester</label>
                     <select class="semester form-control">
                     </select>
                 </div>
@@ -47,28 +47,28 @@
                             SN
                         </th>
                         <th>
+                            Registration No.
+                        </th>
+                        <th>
                             Symbol No.
                         </th>
                         <th>
                             Name
                         </th>
                         <th>
-                            Faculty
+                            Exam Year
                         </th>
                         <th>
                             Program
                         </th>
                         <th>
-                            District
-                        </th>
-                        <th>
-                            Gender
+                            Semester
                         </th>
                         <th>
                             Payment Mode
                         </th>
                         <th>
-                            Verification Status
+                            Status
                         </th>
                         <th>
                             Action
@@ -85,45 +85,22 @@
                             {{ $loop->index + 1 ?? '' }}
                         </td>
                         <td>
+                            {{ $data->regd_no ?? '' }}
+                        </td>
+                        <td>
                             {{ $data->symbol_no ?? '' }}
                         </td>
                         <td>
                             {{ $data->fname ?? '' }} {{ $data->mname ?? '' }} {{ $data->lname ?? '' }}
                         </td>
                         <td>
-                            {{ $data->faculties->name ?? '' }}
+                            {{ $data->year ?? '' }}
                         </td>
                         <td>
-                        @if($data->faculty===5 && $data->level===1)
-                            @php
-                            $priority = json_decode($data->priority);
-                            @endphp
-                            @switch($priority[0])
-                            @case(1)
-                            @case(4)
-                            @case(7)
-                                B.E. Civil
-                            @break
-                            @case(2)
-                            @case(5)
-                            @case(8)
-                                B.E. Computer
-                            @break
-                            @case(3)
-                            @case(6)
-                            @case(9)
-                                B.E. Hydropower
-                            @break
-                            @endswitch
-                        @else
-                            {{$data->course->name ?? ' '}}
-                        @endif
-                         </td>
-                        <td>
-                            {{ $data->district ?? '' }}
+                            {{ $data->course->name ?? '' }}
                         </td>
                         <td>
-                            {{ $data->sex ?? '' }}
+                            {{ $data->semester ?? '' }}
                         </td>
                         <td>
                             @if($data->payment_method == 1)
@@ -134,11 +111,11 @@
                                 <span class="badge badge-success">Paid</span>
                                 @endif
                             @elseif($data->payment_method == 0)
-                            <span class="badge badge-secondary">Voucher</span>
+                                <span class="badge badge-secondary">Voucher</span>
                             {{-- <label class="label label-success">Approved</label> --}}
                             @endif
                         </td>
-                         <td>
+                        <td>
                             @if($data->is_verified == 0)
                             <span class="badge badge-info">Pending</span>
                             {{-- <label class="label label-danger">Pending</label> --}}
@@ -149,35 +126,35 @@
                         </td>
                         <td>
                             {{-- @can('form-show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.forms.show', $data->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.exams.show', $data->id) }}">
                             {{ trans('global.view') }}
                             </a>
                             @endcan --}}
 
                             @can('form-edit')
                                 @if($data->is_verified==0)
-                                <a class="btn btn-xs btn-info" href="{{ route('admin.forms.edit', $data->id) }}">
-                                    {{-- {{ trans('global.edit') }} --}}
-                                    Approve
-                                </a>
-                                @endif  
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.exams.edit', $data->id) }}">
+                                        {{-- {{ trans('global.edit') }} --}}
+                                        Approve
+                                    </a>
+                                @endif
                             @endcan
 
                             @can('card-download')
-                            <a class="btn btn-xs btn-success" href="{{ route('admin.forms.print', $data->id) }}" target="_blank" style="margin:5px 0px;">
+                            <a class="btn btn-xs btn-success" href="{{ route('admin.exams.print', $data->id) }}" target="_blank" style="margin:5px 0px;">
                                 Get Card
                             </a>
                             @endcan
                             @can('form-download')
-                            <a class="btn btn-xs btn-success" href="{{ route('admin.forms.print-student-details', $data->id) }}" target="_blank" style="margin:5px 0px;">
+                            <a class="btn btn-xs btn-success" href="{{ route('admin.exams.print-student-details', $data->id) }}" target="_blank" style="margin:5px 0px;">
                                 Get Form
                             </a>
                             @endcan
-                            {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.forms.show', $data->id) }}">
+                            {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.exams.show', $data->id) }}">
                             show
                             </a> --}}
                             @can('form-delete')
-                            <form action="{{ route('admin.forms.destroy', $data->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                            <form action="{{ route('admin.exams.destroy', $data->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -284,7 +261,7 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(4).search($('.college').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(5).search($('.college').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
@@ -295,7 +272,7 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(5).search($('.department').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(6).search($('.department').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
@@ -306,13 +283,12 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
-            $dataTable = $('.datatable-form').DataTable().column(6).search($('.semester').val()).draw();
+            $dataTable = $('.datatable-form').DataTable().column(7).search($('.semester').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
             $('.semester').val($semester).trigger('selected');
         });
-
 
         $(document).on('click', '.admit-card', function() {
             $('.admit-cards').html('');
@@ -332,7 +308,7 @@
         let deleteButtonTrans = "{{ trans('global.datatables.delete') }}"
         let deleteButton = {
             text: deleteButtonTrans
-            , url: "{{ route('admin.forms.massDestroy') }}"
+            , url: "{{ route('admin.exams.massDestroy') }}"
             , className: 'btn-danger'
             , action: function(e, dt, node, config) {
                 var ids = $.map(dt.rows({
@@ -371,7 +347,7 @@
         @can('card-download')
         let admitCardButton = {
             text: 'Get Cards'
-            , url: "{{ route('admin.forms.print.multiple') }}"
+            , url: "{{ route('admin.exams.print.multiple') }}"
             , className: 'btn-success admit-card'
             , action: function(e, dt, node, config) {
                 var ids = [];
@@ -384,42 +360,42 @@
                     return
                 }
                 $('input[name="ids"]').val(ids);
-                $('.multiple-form-print').attr('action',"{{ route('admin.forms.print.multiple') }}").submit();
+                $('.multiple-form-print').attr('action',"{{ route('admin.exams.print.multiple') }}").submit();
             }
         }        
         dtButtons.push(admitCardButton);
         @endcan
 
-        // @can('triplicate-download')
-        // let triplicateButton = {
-        //     text: 'Get Triplicate'
-        //     , url: "{{ route('admin.forms.print.triplicate') }}"
-        //     , className: 'btn-success triplicate'
-        //     , action: function(e, dt, node, config) {
-        //         var ids = [];
-        //         $.each($('tbody').find('.selected'), function(i, ele) {
-        //             ids.push($(ele).data('entry-id'));
-        //         });
+        @can('triplicate-download')
+        let triplicateButton = {
+            text: 'Get Triplicate'
+            , url: "{{ route('admin.exams.print.triplicate') }}"
+            , className: 'btn-success triplicate'
+            , action: function(e, dt, node, config) {
+                var ids = [];
+                $.each($('tbody').find('.selected'), function(i, ele) {
+                    ids.push($(ele).data('entry-id'));
+                });
 
-        //         if (ids.length === 0) {
-        //             alert("{{ trans('global.datatables.zero_selected') }}")
-        //             return
-        //         }
+                if (ids.length === 0) {
+                    alert("{{ trans('global.datatables.zero_selected') }}")
+                    return
+                }
 
-        //         $('input[name="ids"]').val(ids);
-        //         $('input[name="program"]').val($('.department').val() != '' ? $('.department').val() : '');
-        //         $('input[name="college"]').val($('.college').val() != '' ? $('.college').val() : '');
-        //         $('input[name="semester"]').val($('.semester').val() != '' ? $('.semester').val() : '');
-        //         $('.multiple-form-print').attr('action',"{{ route('admin.forms.print.triplicate') }}").submit();
-        //     }
-        // }
-        // dtButtons.push(triplicateButton);
-        // @endcan
+                $('input[name="ids"]').val(ids);
+                $('input[name="program"]').val($('.department').val() != '' ? $('.department').val() : '');
+                $('input[name="college"]').val($('.college').val() != '' ? $('.college').val() : '');
+                $('input[name="semester"]').val($('.semester').val() != '' ? $('.semester').val() : '');
+                $('.multiple-form-print').attr('action',"{{ route('admin.exams.print.triplicate') }}").submit();
+            }
+        }
+        dtButtons.push(triplicateButton);
+        @endcan
         
         @can('form-download')
         let formButton = {
             text: 'Get Forms'
-            , url: "{{ route('admin.forms.print-multiple-student-details') }}"
+            , url: "{{ route('admin.exams.print-multiple-student-details') }}"
             , className: 'btn-success'
             , action: function(e, dt, node, config) {
                 var ids = [];
@@ -433,7 +409,7 @@
                 }
 
                 $('input[name="ids"]').val(ids);
-                $('.multiple-form-print').attr('action',"{{ route('admin.forms.print-multiple-student-details') }}").submit();
+                $('.multiple-form-print').attr('action',"{{ route('admin.exams.print-multiple-student-details') }}").submit();
             }
         }
         dtButtons.push(formButton);
@@ -459,16 +435,16 @@
     });
 
     function searchOption() {
-        $('.college').html('<option value="">Select College</option>');
-        $.each($dataTable.column(4).data().unique(), function(i, ele) {
+        $('.college').html('<option value="">Select Year</option>');
+        $.each($dataTable.column(5).data().unique(), function(i, ele) {
             $('.college').append('<option value="' + ele + '">' + ele + '</option>');
         });
         $('.department').html('<option value="">Select Program</option>');
-        $.each($dataTable.column(5).data().unique(), function(i, ele) {
+        $.each($dataTable.column(6).data().unique(), function(i, ele) {
             $('.department').append('<option value="' + ele + '">' + ele + '</option>');
         });
-        $('.semester').html('<option value="">Select District</option>');
-        $.each($dataTable.column(6).data().unique(), function(i, ele) {
+        $('.semester').html('<option value="">Select Semester</option>');
+        $.each($dataTable.column(7).data().unique(), function(i, ele) {
             $('.semester').append('<option value="' + ele + '">' + ele + '</option>');
         });
     }

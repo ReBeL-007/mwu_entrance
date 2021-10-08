@@ -18,7 +18,7 @@
 <body class="hold-transition login-page">
   <div class="card" style="background-color: #ecf0f1;">
       <div class="card-header" style="text-align: center;">
-        <h1 style="color: rgb(128, 0, 107); text-align: center;">Mid-Western University</h1>
+        <h1 style="color: rgb(128, 0, 107); text-align: center;">MUSOM</h1>
         <!-- <h4>Examinations Management Office</h4> -->
       </div>
       

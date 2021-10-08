@@ -31,7 +31,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 header-image">
-                    <img src="{{asset('MWU top.svg') }}" alt="">
+                    @if(request()->is('admin/forms/*') )
+                        <img src="{{asset('entrance_header.png') }}" alt="" width="100%">
+                    @else
+                        <img src="{{asset('exam_header.png') }}" alt="" width="100%">
+                    @endif
                 </div>
             </div>
         </div>
@@ -99,7 +103,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <footer>
+        <!-- <footer>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 header-image">
@@ -107,12 +111,12 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
 
     </div>
 
 <!-- jQuery -->
-<script src="{{ asset('js/app.js') }}"></script>
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 <script src="{{ asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
   @yield('scripts')
 <script>

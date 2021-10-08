@@ -52,6 +52,15 @@
         </div> -->
         <form class="ui form" method="POST" action="{{ route('admin.forms.store') }}" enctype="multipart/form-data">
             @csrf
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="hidden" name="campus" value="{{$colleges->id}}">
+                    
+                    @if($errors->has('campus'))
+                    <span class="text-danger">{{ $errors->first('campus') }}</span>
+                    @endif
+                </div>
+            </div>
             <!-- <h4 class="ui dividing header"></h4> -->
             <!-- <div class="row">
                 <div class="col-md-2">
@@ -67,33 +76,6 @@
                 </div>
             </div> -->
 
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="required">Name of School/College/Campus</label>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
-                        name="campus" id="campus" required>
-                        <option value="">Select a campus...
-                        </option>
-                        @foreach($colleges as $id=>$campus)
-                        <option value="{{ $id }}"> {{$campus}}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('campus'))
-                    <span class="text-danger">{{ $errors->first('campus') }}</span>
-                    @endif
-                </div>
-
-                <div class="col-md-1 exam_centre">
-                    <label class="">Exam Centre :-</label>
-                </div>
-               <div class="col-md- exam_centre">
-                    <select class="form-control {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" name="exam_centre" id="exam_centre">
-                        
-                    </select>
-                </div>
-            </div>
            {{-- permission  --}}
            <div class="permission field" >
                 <div class="row engineer">
@@ -246,7 +228,7 @@
 
         <div id="martyr_section">
             <div class="row field">
-                <label class=" col-md-2 sex required">Martyr Status </label>
+                <label class=" col-md-2 sex required">Children of Martyr </label>
                 <select class="col-md-1" name="martyr_status" id="martyr_status">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
@@ -713,7 +695,7 @@
            <!-- bank voucher -->
         <div class="field" id="upload_voucher">
             <label class="required">Deposit Receipt / Voucher (scanned image)</label>
-            <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" id="voucher">
+            <input class=" {{ $errors->has('voucher') ? 'is-invalid' : '' }}" type="file" name="voucher" accept="image/*" id="voucher" required>
             @if($errors->has('voucher'))
             <span class="text-danger">{{ $errors->first('voucher') }}</span>
             @endif
@@ -767,17 +749,17 @@
         var selected_type = $("#payment_method").val();
             if(selected_type == '1') {
                 $("#upload_voucher").hide();
-                $("voucher").removeAttr('required');
+                $("#voucher").removeAttr('required');
             } else if(selected_type == '0'){
                 $("#upload_voucher").show();
-                $("voucher").attr('required');
+                $("#voucher").attr('required', true);
             }
 
         var selected_college = $("#campus").val();
             if(selected_college == '20') {
                 $(".exam_centre").show();
                 $("#exam_centre").empty();
-                $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option><option value='MICD - Kathmandu'>MICD - Kathmandu</option>");
+                $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option>");
             } else {
                 $(".exam_centre").hide();
             }
@@ -789,7 +771,7 @@
                 if(selected_college == '20') {
                     $(".exam_centre").show();
                     $("#exam_centre").empty();
-                    $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option><option value='MICD - Kathmandu'>MICD - Kathmandu</option>");
+                    $("#exam_centre").append("<option value='Central Campus of Engineering - Surkhet'>Central Campus of Engineering - Surkhet</option>");
                 } else {
                     $(".exam_centre").hide();
                 }
@@ -799,10 +781,10 @@
                 var selected_type = $(this).val();
                 if(selected_type == '1') {
                     $("#upload_voucher").hide();
-                    $("voucher").removeAttr('required');
+                    $("#voucher").removeAttr('required');
                 } else if(selected_type == '0'){
                     $("#upload_voucher").show();
-                    $("voucher").attr('required');
+                    $("#voucher").attr('required', true);
                 }
             });
 
@@ -899,29 +881,35 @@
             $("#faculties").change(function() {
                 //
                 var selected_id = $(this).val();
-                $.ajax({
-                    cache: false
-                    , url: "{{ route('admin.levels.getspecificlevels') }}"
-                    , type: 'get'
-                    , data: {
-                        facultyId: selected_id
-                    }
-                    , dataType: 'json'
-                    , beforeSend: function(request) {
-                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
-                    }
-                    , success: function(data) {
-                        // console.log(data)
-                        var len = data.length;
-                        $("#levels").empty();
-                        $levels = $("#levels").append("<option value=''>Select a level...</option>");
-                        for (var i = 0; i < len; i++) {
-                            var id = data[i]['id'];
-                            var name = data[i]['name'];
-                            $levels.append("<option value='" + id + "'>" + name + "</option>");
+                // if(selected_id == 5) {
+                //     $("#levels").empty();
+                //     $("#levels").append("<option value=''>Sorry registration has been closed for Engineering...</option>");
+                // } else {
+                    
+                    $.ajax({
+                        cache: false
+                        , url: "{{ route('admin.levels.getspecificlevels') }}"
+                        , type: 'get'
+                        , data: {
+                            facultyId: selected_id
                         }
-                    }
-                });
+                        , dataType: 'json'
+                        , beforeSend: function(request) {
+                            return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+                        }
+                        , success: function(data) {
+                            // console.log(data)
+                            var len = data.length;
+                            $("#levels").empty();
+                            $levels = $("#levels").append("<option value=''>Select a level...</option>");
+                            for (var i = 0; i < len; i++) {
+                                var id = data[i]['id'];
+                                var name = data[i]['name'];
+                                $levels.append("<option value='" + id + "'>" + name + "</option>");
+                            }
+                        }
+                    });   
+                // }
             });
 
             // if changes is made on level selection
@@ -930,32 +918,92 @@
                 var faculty_id = $('#faculties').val();
 
                 if(faculty_id==5 && selected_id==1) { 
+                    $(".priority").remove();
                     $(".engineer").append(`<div class="priority">
                                             <div class="" style="overflow-x: auto; margin: 2rem;">
                                             <h5 style="font-weight: bold">Priority</h5>
                                             <table class="table table-bordered">
                                                 <thead>
                                                 <tr>
-                                                    <th scope="col" colspan="3" style="text-align: center">
-                                                    Scholarships
-                                                    </th>
+                                                    
                                                     <th scope="col" colspan="3" style="text-align: center">
                                                     Full Paying
-                                                    </th>
-                                                    <th scope="col" colspan="3" style="text-align: center">
-                                                    Sponsered
                                                     </th>
                                                 </tr>
                                                 <tr class="table-heading-row">
                                                     <th scope="col">Civil</th>
                                                     <th scope="col">Computer</th>
                                                     <th scope="col">Hydropower</th>
-                                                    <th scope="col">Civil</th>
-                                                    <th scope="col">Computer</th>
-                                                    <th scope="col">Hydropower</th>
-                                                    <th scope="col">Civil</th>
-                                                    <th scope="col">Computer</th>
-                                                    <th scope="col">Hydropower</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>5</td>
+                                                    <td>6</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+
+                                            <div class="" style="overflow-x: auto; margin: 2rem; max-width: 100%;">
+                                            <h5 style="font-weight: bold">Fill The Priority</h5>
+                                            <table class="table table-bordered ">
+                                                <thead>
+                                                <tr>
+                                                    <tr class="table-heading-row">
+                                                    <th></th>
+                                                    <th>P-1</th>
+                                                    <th>P-2</th>
+                                                    <th>P-3</th>
+                                                    </tr>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th>Number</th>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9"  required></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class=""><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                    <td class="d-none"><input type="hidden" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength=1 min="1" max="9" ></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                `);
+                    $(".hide-for-engineer").hide(); 
+                    $("#programs").removeAttr("required")                             
+                } else if(faculty_id==5 && selected_id==2) { 
+                    $(".priority").remove(); 
+                    $(".engineer").append(`<div class="priority">
+                                            <div class="" style="overflow-x: auto; margin: 2rem;">
+                                            <h5 style="font-weight: bold">Priority</h5>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col" colspan="2" style="text-align: center">
+                                                    Scholarships
+                                                    </th>
+                                                    <th scope="col" colspan="2" style="text-align: center">
+                                                    Full Paying
+                                                    </th>
+                                                    <th scope="col" colspan="2" style="text-align: center">
+                                                    Sponsored
+                                                    </th>
+                                                </tr>
+                                                <tr class="table-heading-row">
+                                                    <th scope="col">MSc in Structural Engineering</th>
+                                                    <th scope="col">MSc in Construction Management</th>
+                                                    <th scope="col">MSc in Structural Engineering</th>
+                                                    <th scope="col">MSc in Construction Management</th>
+                                                    <th scope="col">MSc in Structural Engineering</th>
+                                                    <th scope="col">MSc in Construction Management</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -966,9 +1014,6 @@
                                                     <td>4</td>
                                                     <td>5</td>
                                                     <td>6</td>
-                                                    <td>7</td>
-                                                    <td>8</td>
-                                                    <td>9</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -987,24 +1032,18 @@
                                                     <th>P-4</th>
                                                     <th>P-5</th>
                                                     <th>P-6</th>
-                                                    <th>P-7</th>
-                                                    <th>P-8</th>
-                                                    <th>P-9</th>
                                                     </tr>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
                                                     <th>Number</th>
-                                                    <td><input type="number" name="priority[]" min="1" max="9"  required></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
-                                                    <td><input type="number" name="priority[]" min="1" max="9" ></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6"  required></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6" ></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6" ></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6" ></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6" ></td>
+                                                    <td><input type="number" name="priority[]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="1" min="1" max="6" ></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

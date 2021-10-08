@@ -41,36 +41,9 @@
                         {{$errors->first('symbol_no')}}
                     </span>
                     @endif
-                </div>
-                <div class="col-md-2">
-                    <label class="required">Exam Centre :-</label>
-                </div>
-               <div class="col-md-4 exam_centre">
-                    <input class=" {{ $errors->has('exam_centre') ? 'is-invalid' : '' }}" type="text" name="exam_centre" placeholder="Exam Centre" value="{{($data->campus==20)?$data->exam_centre:$data->colleges->name}}" required>
-                    @if($errors->has('exam_centre'))
-                    <span class="text-danger">
-                        {{$errors->first('exam_centre')}}
-                    </span>
-                    @endif
-                </div>
+                </div>                
             </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="required">Name of School/College/Campus</label>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control {{ $errors->has('campus') ? 'is-invalid' : '' }}"
-                        name="campus" id="campus" required>
-                        @foreach($colleges as $id=>$campus)
-                        <option value='{{ $id }}' {{ ($id==$data->campus) ? 'selected' : '' }}>{{ $campus }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('campus'))
-                    <span class="text-danger">{{ $errors->first('campus') }}</span>
-                    @endif
-                </div>
-            </div>
            {{-- permission  --}}
            <div class="permission field" >
                 <div class="row">
@@ -321,7 +294,7 @@
 
             <div id="martyr_section">
                 <div class="row field">
-                    <label class=" col-md-2 sex required">Martyr Status </label>
+                    <label class=" col-md-2 sex required">Children of Martyr </label>
                     <select class="col-md-1" name="martyr_status" id="martyr_status">
                         <option value="0" {{ ('0' == $data->martyr_status) ? 'selected' : '' }}>No</option>
                         <option value="1" {{ ('1' == $data->martyr_status) ? 'selected' : '' }}>Yes</option>
@@ -580,7 +553,11 @@
            <!-- bank voucher -->
            @if($data->image)<h6><a href="/storage/uploads/image/{{ $data->image }}" download="{{ $data->image }}">Click here to download Applicant's Photo</a></h6>@endif
             @if($data->signature)<h6><a href="/storage/uploads/signature/{{ $data->signature }}" download="{{ $data->signature }}">Click here to download Applicant's Signature</a></h6>@endif
-            @if($data->voucher)<h6><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click here to download voucher</a></h6>@endif
+            @if($data->payment_method == 1)  
+                <h4>esewa Transaction Code: {{$data->rid?$data->rid:'not paid yet'}}</h4>
+            @else
+                @if($data->voucher)<h6><a href="/storage/uploads/voucher/{{ $data->voucher }}" download="{{ $data->voucher }}">Click here to download voucher</a></h6>@endif
+            @endif
 
 
         

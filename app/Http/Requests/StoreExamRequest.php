@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Form;
+use App\Exam;
 use Symfony\Component\HttpFoundation\Response;
 use Gate;
 
-class StoreFormRequest extends FormRequest
+class StoreExamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,59 +35,68 @@ class StoreFormRequest extends FormRequest
             'level' => [
                 'required'
             ],
-            // 'programs' => [
-            //     'required'
-            // ],
+            'programs' => [
+                'required'
+            ],
+            'year' => [
+                'required'
+            ],
+            'sex' => [
+                'required'
+            ],
             'fname' => [
                 'required'
             ],
             'lname' => [
                 'required'
             ],
-            'caste' => [
+            // 'regd_no' => [
+            //     'required'
+            // ],
+            'semester' => [
                 'required'
             ],
-            'religion' => [
+            'exam_type' => [
                 'required'
             ],
+            'subjects' => [
+                'required'
+            ],
+            'subject_codes' => [
+                'required'
+            ],
+            'image' => [
+                'required',
+                'mimes:jpeg,png,jpg',
+                'max:512'
+            ],
+            'signature' => [
+                'required',
+                'mimes:jpeg,png,jpg',
+                'max:512'
+            ],
+            // 'voucher' => [
+            //     'required',
+            //     'mimes:jpeg,png,jpg',
+            //     'max:512'
+            // ],
             'nationality' => [
                 'required'
             ],
             'dateOfBirth' => [
                 'required'
             ],
-            'sex' => [
+            'district' => [
                 'required'
             ],
-            'image' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
+            'mother_name' => [
+                'required'
             ],
-            'signature' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
+            'father_name' => [
+                'required'
             ],
-            'see_certificate' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
-            ],
-            'see_marksheet' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
-            ],
-            'see_provisional' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
-            ],
-            'citizenship' => [
-                'required',
-                'mimes:jpeg,png',
-                'max:512'
+            'contact' => [
+                'required'
             ],
             'board' => [
                 'required'
@@ -98,24 +107,14 @@ class StoreFormRequest extends FormRequest
              'roll_no' => [
                 'required'
             ],
+
              'division' => [
                 'required'
             ],
-            // 'voucher' => [
-            //     'required',
-            //     'mimes:jpeg,png',
-            //     'max:512'
-            // ],
-            'mother_name' => [
-                'required'
-            ],
-            'father_name' => [
-                'required'
-            ],
-            'payment_method' => [
-                'required'
-            ],     
             'consent' => [
+                'required'
+            ],
+            'email' => [
                 'required'
             ],
 

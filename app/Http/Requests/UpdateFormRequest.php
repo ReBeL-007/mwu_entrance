@@ -23,12 +23,6 @@ class UpdateFormRequest extends FormRequest
             // 'symbol_no' => [
             //     'required'
             // ],
-            'exam_centre' => [
-                'required'
-            ],
-            'campus' => [
-                'required'
-            ],
             'faculty' => [
                 'required'
             ],

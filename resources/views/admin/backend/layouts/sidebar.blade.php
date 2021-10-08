@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-  <div class="sidebar">
+<div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
@@ -26,8 +26,6 @@
           </a>
         </li>
         
-        @foreach(Auth::user()->groups as $group)
-        @if($group->title==='Owner')
             @can('user-management-access')
             <li class="nav-item has-treeview {{ request()->is('admin/permissions*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/groups*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
                 <a class="nav-link nav-dropdown-toggle" href="#">
@@ -129,8 +127,7 @@
           </a>
       </li>
     @endcan
-@endif
-@endforeach
+
     {{-- @can('sub-access')
       <li class="nav-item">
           <a href="{{ route("admin.subs.index") }}" class="nav-link {{ request()->is('admin/subs') || request()->is('admin/subs/*') ? 'active' : '' }}">
@@ -180,11 +177,18 @@
     <li class="nav-item">
       <a href="{{ route('admin.forms.index') }}" class="nav-link {{ request()->is('admin/forms') || request()->is('admin/forms/*') ? 'active' : '' }}">
           <i class="fa fa-plus-circle"></i>
-          <p> <span>Applicants</span></p>
+          <p> <span>Entrance Applicants</span></p>
       </a>
     </li>
     @endcan
-
+    @can('exam-access')
+    <li class="nav-item">
+      <a href="{{ route('admin.exams.index') }}" class="nav-link {{ request()->is('admin/exams') || request()->is('admin/exams/*') ? 'active' : '' }}">
+          <i class="fa fa-plus-circle"></i>
+          <p> <span>Exam Registration</span></p>
+      </a>
+    </li>
+    @endcan
 
     {{-- menu to change password --}}
         <li class="nav-item">

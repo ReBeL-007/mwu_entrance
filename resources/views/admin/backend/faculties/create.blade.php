@@ -25,7 +25,7 @@
                         <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
                         <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                     </div>
-                    <select class="form-control select2 {{ $errors->has('levels') ? 'is-invalid' : '' }}" name="levels[]" id="levels" multiple required>
+                    <select class="form-control select2 {{ $errors->has('levels') ? 'is-invalid' : '' }}" name="levels[]" id="levels" multiple>
                         @foreach($levels as $id => $levels)
                             <option value="{{ $id }}" {{ in_array($id, old('levels', [])) ? 'selected' : '' }}>{{ $levels }}</option>
                         @endforeach
