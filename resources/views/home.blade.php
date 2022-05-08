@@ -68,9 +68,9 @@
                          </td>
                          @endif
                          <td>
-                            @if($data->is_verified == 0)
+                            @if($data->is_final_verified == 0)
                             <span class="badge badge-info">Pending</span>
-                            @elseif($data->is_verified == 1)
+                            @elseif($data->is_final_verified == 1)
                             <span class="badge badge-success">Approved</span>
                             @endif
                          </td>
@@ -117,7 +117,7 @@
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.forms.print-student-details', $data->id) }}" target="_blank" style="margin:5px 0px;" >
                                 Get Form
                             </a> 
-                            <a class="btn btn-xs btn-success <?PHP echo ($data->is_verified == '0')? 'disabled': ''; ?>" href="{{ route('admin.forms.print', $data->id) }}" target="_blank" style="margin:5px 0px;" >
+                            <a class="btn btn-xs btn-success <?PHP echo ($data->is_final_verified == '0')? 'disabled': ''; ?>" href="{{ route('admin.forms.print', $data->id) }}" target="_blank" style="margin:5px 0px;" >
                                 Get Card
                             </a>
                          </td> 
@@ -182,9 +182,9 @@
                          </td>
                          @endif
                          <td>
-                            @if($exam->is_verified == 0)
+                            @if($exam->is_final_verified == 0)
                             <span class="badge badge-info">Pending</span>
-                            @elseif($exam->is_verified == 1)
+                            @elseif($exam->is_final_verified == 1)
                             <span class="badge badge-success">Approved</span>
                             @endif
                          </td>
@@ -231,7 +231,7 @@
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.exams.print-student-details', $exam->id) }}" target="_blank" style="margin:5px 0px;" >
                                 Get Form
                             </a> 
-                            <a class="btn btn-xs btn-success <?PHP echo ($exam->is_verified == '0')? 'disabled': ''; ?>" href="{{ route('admin.exams.print', $exam->id) }}" target="_blank" style="margin:5px 0px;" >
+                            <a class="btn btn-xs btn-success <?PHP echo ($exam->is_final_verified == '0')? 'disabled': ''; ?>" href="{{ route('admin.exams.print', $exam->id) }}" target="_blank" style="margin:5px 0px;" >
                                 Get Card
                             </a>
                          </td> 

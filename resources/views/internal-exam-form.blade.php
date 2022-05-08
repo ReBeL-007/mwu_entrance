@@ -101,6 +101,15 @@
                     @endif
                 </div>
 
+                <div class="two field">
+                    <label class="required">Course Type</label>
+                    <select class="ui fluid search dropdown" name="course" id="course" required>
+                        <option value="">Select a course type...</option>
+                        <option value="Old">Old</option>
+                        <option value="New">New</option>
+                    </select>
+                </div>
+
                 <div class="six wide field">
                     <label class="required">Exam Type</label>
                     <select class="ui fluid search dropdown" name="exam_type" id="exam-type" required>
@@ -490,7 +499,7 @@
             </div>
 
             <div class="field">
-                <span><input type="checkbox" name="consent" id="consent" value="1" required> I hereby declare that the information given by me in this examination application form is correct to the best of my knowledge and belief. I understand that in case anything is found contradictory or false, my application form shall be cancelled. I shall abide by all terms and conditions of the Examinations Management Office (EMO) with regards to examination. </span>
+                <span><input type="checkbox" name="consent" id="consent" value="1" required> I hereby declare that the information given by me in this examination application form is correct to the best of my knowledge and belief. I understand that in case anything is found contradictory or false, my application form shall be cancelled. I shall abide by all terms and conditions of the MUSOM Exam Section with regards to examination. </span>
             </div>
             @if($errors->has('consent'))
             <span class="text-danger">{{ $errors->first('consent') }}</span>
@@ -647,6 +656,23 @@
                         }
                     }
                 });
+            });
+
+            // if changes is made on course type selection
+            $("#course").change(function() {
+                var course_value = $(this).val();
+                $("#exam-type").empty();
+                if(course_value == 'Old') {
+                    $("#exam-type").append(`
+                        <option value="Chance">Chance</option>
+                        `);
+                } else {
+                    $("#exam-type").append(`
+                        <option value="Regular">Regular</option>
+                        <option value="Chance">Chance</option>
+                        <option value="Partial">Partial</option>
+                        `);
+                }
             });
 
             // if changes is made on programs selection

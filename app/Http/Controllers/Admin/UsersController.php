@@ -40,7 +40,7 @@ class UsersController extends Controller
             }
             elseif($role == 'Admin'){
                 $users = Admin::whereHas('roles', function ($query) use ($role) {
-                    $query->whereIn('title',['User']);
+                    $query->whereIn('title',['User','Exam Section']);
                     })->get();
             }
         }

@@ -29,13 +29,18 @@
             
             <!-- Name of School and Faculty -->
             <div class="two fields">
+            @php
+                $role = auth()->user()->roles->first();
+            @endphp
+            @if($role->slug == 'exam-section')
                 <div class="four wide field">
                     <label class="">Symbol No.</label>
-                    <input class=" {{ $errors->has('symbol_no') ? 'is-invalid' : '' }}" type="text" name="symbol_no" placeholder="Symbol No." value="{{$data->symbol_no}}">
+                    <input class=" {{ $errors->has('symbol_no') ? 'is-invalid' : '' }}" type="text" name="symbol_no" placeholder="Symbol No." value="{{$data->symbol_no}}" required>
                     @if($errors->has('symbol_no'))
                     <span class="text-danger">{{ $errors->first('symbol_no') }}</span>
                     @endif
                 </div>
+            @endif
                 <div class="two fields"></div>
                 <div class="seven wide field">
                     <label class="">Exam Centre</label>

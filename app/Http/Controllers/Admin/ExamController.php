@@ -33,7 +33,14 @@ class ExamController extends Controller
     {
         abort_if(Gate::denies('exam-access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $datas = Exam::orderBy('regd_no','asc')->get();
-        $datas = Exam::with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
+        $role = auth()->user()->roles->first();
+        if($role->slug == 'exam-section') {
+            $datas = Exam::where('is_verified', 1)->with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
+        } else {
+            $datas = Exam::with(['faculties','levels','course'])->orderBy('created_at','asc')->get();
+        }
+
+        // dd($datas);
         return view('admin.backend.exams.index', compact('datas'));
     }
 
@@ -51,7 +58,7 @@ class ExamController extends Controller
         $faculties = Faculty::all()->pluck('name','id');
         $colleges = Admin::whereHas('roles', function ($query)
                             {
-                                $query->where('id', 2);
+                                $query->where('slug', 'exam-section');
                             })                          
                             ->where('name','MUSOM')
                             ->first();
@@ -107,6 +114,7 @@ class ExamController extends Controller
             'regd_no' => $request->regd_no,
             'symbol_no' => $request->symbol_no,
             'semester' => $request->semester,
+            'course_type' => $request->course,
             'exam_type' => $request->exam_type,
             'subjects' => json_encode($request->subjects),
             'subject_codes' => json_encode($request->subject_codes),
@@ -186,8 +194,14 @@ class ExamController extends Controller
     public function update(UpdateExamRequest $request, Exam $exam)
     {
         //  dd($request->all());
-        $auth = Auth::user();
-
+        $roles = Auth::user()->roles;
+        $r = 'User';
+        foreach($roles as $role){
+            if($role->title == 'Exam Section'){
+                $r = $role->title;
+                break;
+            }
+        }
          $data=[
             'faculty' => $request->faculty,
             // 'campus' => $request->campus,
@@ -212,10 +226,15 @@ class ExamController extends Controller
             'ward' => $request->ward,
             'contact' => $request->contact,
             'email' => $request->email,
-            'is_verified' => 1
+            // 'is_verified' => 1   
             // 'form_serial_no' => $request->form_serial_no,
         ];
-        
+
+        if($r=='Exam Section'){
+            $data['is_final_verified'] = 1;
+        } else {
+            $data['is_verified'] = 1;
+        }
         // dd($data);
         $exam->update($data);
 

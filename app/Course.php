@@ -73,6 +73,11 @@ class Course extends Model
               
       }
 
+      public function exams() {
+
+        return $this->hasMany(Exam::class,'programs');
+            
+      }
      public function getRouteKeyName() {
        
           return 'slug';

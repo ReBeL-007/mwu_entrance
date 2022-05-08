@@ -40,7 +40,7 @@
                     <span>Mid-Western University</span>
                 </div>
                 <div id="office">
-                    <span>Examinations Management Office</span>
+                    <span>MUSOM Exam Section</span>
                 </div>
                 <div id="address">
                     <span>Surkhet, Nepal</span>
@@ -77,6 +77,7 @@
                     <th>Student Name</th>
                     <th>Registration No</th>
                     <th>Symbol No</th>
+                    <th>Course Type</th>
                     @php
                     $count = 0;
                     foreach ($regular as $key => $exam) {
@@ -97,6 +98,7 @@
                     <td>{{ $exam->fname }} {{ $exam->mname }} {{ $exam->lname }}</td>
                     <td>{{ $exam->regd_no }}</td>
                     <td>{{ $exam->symbol_no }}</td>
+                    <td>{{ $exam->course_type }}</td>
                     @foreach($exam->subjects as $key => $subject)
                     <td>{{ $subject->subject_code }}</td>
                     @endforeach
@@ -160,7 +162,7 @@
                         <span>Mid-Western University</span>
                     </div>
                     <div id="office">
-                        <span>Examinations Management Office</span>
+                        <span>MUSOM Exam Section</span>
                     </div>
                     <div id="address">
                         <span>Surkhet, Nepal</span>
@@ -176,7 +178,7 @@
                         <span style="font-weight:bold;">Program : </span><span style="font-weight:bold;">{{ $college_data['program'] }}</span>
                     </div>
                     <div>
-                        <span style="font-weight:bold;">College/Campus : </span><span style="font-weight:bold;">{{ $college_data['college'] }}</span>
+                        <span style="font-weight:bold;">Year : </span><span style="font-weight:bold;">{{ $college_data['college'] }}</span>
                     </div>
                 </div>
                 <div style="float:right">
@@ -195,6 +197,7 @@
                 <th>Student Name</th>
                 <th>Registration No</th>
                 <th>Symbol No</th>
+                <th>Course Type</th>
                 @php
                 $count = 0;
                 foreach ($partial as $key => $exam) {
@@ -215,6 +218,7 @@
                     <td>{{ $exam->fname }} {{ $exam->mname }} {{ $exam->lname }}</td>
                     <td>{{ $exam->regd_no }}</td>
                     <td>{{ $exam->symbol_no }}</td>
+                    <td>{{ $exam->course_type }}</td>
                     @foreach($exam->subjects as $key => $subject)
                     <td>{{ $subject->subject_code }}</td>
                     @endforeach
@@ -278,7 +282,7 @@
                         <span>Mid-Western University</span>
                     </div>
                     <div id="office">
-                        <span>Examinations Management Office</span>
+                        <span>MUSOM Exam Section</span>
                     </div>
                     <div id="address">
                         <span>Surkhet, Nepal</span>
@@ -294,7 +298,7 @@
                         <span style="font-weight:bold;">Program : </span><span style="font-weight:bold;">{{ $college_data['program'] }}</span>
                     </div>
                     <div>
-                        <span style="font-weight:bold;">College/Campus : </span><span style="font-weight:bold;">{{ $college_data['college'] }}</span>
+                        <span style="font-weight:bold;">Year : </span><span style="font-weight:bold;">{{ $college_data['college'] }}</span>
                     </div>
                 </div>
                 <div style="float:right">
@@ -313,6 +317,7 @@
                 <th>Student Name</th>
                 <th>Registration No</th>
                 <th>Symbol No</th>
+                <th>Course Type</th>
                 @php
                 $count = 0;
                 foreach ($chance as $key => $exam) {
@@ -333,6 +338,7 @@
                     <td>{{ $exam->fname }} {{ $exam->mname }} {{ $exam->lname }}</td>
                     <td>{{ $exam->regd_no }}</td>
                     <td>{{ $exam->symbol_no }}</td>
+                    <td>{{ $exam->course_type }}</td>
                     @foreach($exam->subjects as $key => $subject)
                     <td>{{ $subject->subject_code }}</td>
                     @endforeach

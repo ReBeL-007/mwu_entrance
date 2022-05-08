@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $data = Form::where('user_id',$user_id)->first();
+        $data = Form::where('user_id',$user_id)->first(); 
         $exam = Exam::where('user_id',$user_id)->latest()->first();
         
         if($exam) {

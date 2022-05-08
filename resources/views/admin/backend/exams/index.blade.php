@@ -35,6 +35,20 @@
                     </select>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Filter by Course Type</label>
+                    <select class="course_type form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Filter by Exam Type</label>
+                    <select class="exam_type form-control">
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-form">
@@ -65,10 +79,19 @@
                             Semester
                         </th>
                         <th>
+                            Course Type
+                        </th>
+                        <th>
+                            Exam Type
+                        </th>
+                        <th>
                             Payment Mode
                         </th>
                         <th>
                             Status
+                        </th>
+                        <th>
+                            Status (MUSOM Exam Section)
                         </th>
                         <th>
                             Action
@@ -103,6 +126,12 @@
                             {{ $data->semester ?? '' }}
                         </td>
                         <td>
+                            {{ $data->course_type ?? '' }}
+                        </td>
+                        <td>
+                            {{ $data->exam_type ?? '' }}
+                        </td>
+                        <td>
                             @if($data->payment_method == 1)
                             <span class="badge badge-secondary">eSewa</span>
                                 @if($data->esewa_status == 0)
@@ -125,6 +154,15 @@
                             @endif
                         </td>
                         <td>
+                            @if($data->is_final_verified == 0)
+                            <span class="badge badge-info">Pending</span>
+                            {{-- <label class="label label-danger">Pending</label> --}}
+                            @elseif($data->is_final_verified == 1)
+                            <span class="badge badge-success">Approved</span>
+                            {{-- <label class="label label-success">Approved</label> --}}
+                            @endif
+                        </td>
+                        <td>
                             {{-- @can('form-show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.exams.show', $data->id) }}">
                             {{ trans('global.view') }}
@@ -132,12 +170,23 @@
                             @endcan --}}
 
                             @can('form-edit')
-                                @if($data->is_verified==0)
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.exams.edit', $data->id) }}">
-                                        {{-- {{ trans('global.edit') }} --}}
-                                        Approve
-                                    </a>
-                                @endif
+                                @foreach(auth()->user()->roles as $role)
+                                    @if($role->slug == 'admin')
+                                        @if($data->is_verified==0)
+                                            <a class="btn btn-xs btn-info" href="{{ route('admin.exams.edit', $data->id) }}">
+                                                {{-- {{ trans('global.edit') }} --}}
+                                                Approve
+                                            </a>
+                                        @endif
+                                    @else
+                                        @if($data->is_final_verified==0)
+                                            <a class="btn btn-xs btn-info" href="{{ route('admin.exams.edit', $data->id) }}">
+                                                {{-- {{ trans('global.edit') }} --}}
+                                                Approve
+                                            </a>
+                                        @endif
+                                    @endif
+                                @endforeach
                             @endcan
 
                             @can('card-download')
@@ -261,33 +310,75 @@
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
+            $course_type = $('.course_type').val();
+            $exam_type = $('.exam_type').val();
             $dataTable = $('.datatable-form').DataTable().column(5).search($('.college').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
             $('.semester').val($semester).trigger('selected');
+            $('.course_type').val($course_type).trigger('selected');
+            $('.exam_type').val($exam_type).trigger('selected');
         });
 
         $('.department').on('change', function() {
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
+            $course_type = $('.course_type').val();
+            $exam_type = $('.exam_type').val();
             $dataTable = $('.datatable-form').DataTable().column(6).search($('.department').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
             $('.semester').val($semester).trigger('selected');
+            $('.course_type').val($course_type).trigger('selected');
+            $('.exam_type').val($exam_type).trigger('selected');
         });
 
         $('.semester').on('change', function() {
             $college = $('.college').val();
             $department = $('.department').val();
             $semester = $('.semester').val();
+            $course_type = $('.course_type').val();
+            $exam_type = $('.exam_type').val();
             $dataTable = $('.datatable-form').DataTable().column(7).search($('.semester').val()).draw();
             searchOption();
             $('.college').val($college).trigger('selected');
             $('.department').val($department).trigger('selected');
             $('.semester').val($semester).trigger('selected');
+            $('.course_type').val($course_type).trigger('selected');
+            $('.exam_type').val($exam_type).trigger('selected');
+        });
+
+        $('.course_type').on('change', function() {
+            $college = $('.college').val();
+            $department = $('.department').val();
+            $semester = $('.semester').val();
+            $course_type = $('.course_type').val();
+            $exam_type = $('.exam_type').val();
+            $dataTable = $('.datatable-form').DataTable().column(8).search($('.course_type').val()).draw();
+            searchOption();
+            $('.college').val($college).trigger('selected');
+            $('.department').val($department).trigger('selected');
+            $('.semester').val($semester).trigger('selected');
+            $('.course_type').val($course_type).trigger('selected');
+            $('.exam_type').val($exam_type).trigger('selected');
+        });
+
+        $('.exam_type').on('change', function() {
+            $college = $('.college').val();
+            $department = $('.department').val();
+            $semester = $('.semester').val();
+            $course_type = $('.course_type').val();
+            $exam_type = $('.exam_type').val();
+            $dataTable = $('.datatable-form').DataTable().column(9).search($('.exam_type').val()).draw();
+            searchOption();
+            $('.college').val($college).trigger('selected');
+            $('.department').val($department).trigger('selected');
+            $('.semester').val($semester).trigger('selected');
+            $('.course_type').val($course_type).trigger('selected');
+            $('.exam_type').val($exam_type).trigger('selected');
         });
 
         $(document).on('click', '.admit-card', function() {
@@ -446,6 +537,14 @@
         $('.semester').html('<option value="">Select Semester</option>');
         $.each($dataTable.column(7).data().unique(), function(i, ele) {
             $('.semester').append('<option value="' + ele + '">' + ele + '</option>');
+        });
+        $('.course_type').html('<option value="">Select course type</option>');
+        $.each($dataTable.column(8).data().unique(), function(i, ele) {
+            $('.course_type').append('<option value="' + ele + '">' + ele + '</option>');
+        });
+        $('.exam_type').html('<option value="">Select exam type</option>');
+        $.each($dataTable.column(9).data().unique(), function(i, ele) {
+            $('.exam_type').append('<option value="' + ele + '">' + ele + '</option>');
         });
     }
 

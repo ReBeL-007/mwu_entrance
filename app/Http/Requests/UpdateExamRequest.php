@@ -41,9 +41,9 @@ class UpdateExamRequest extends FormRequest
             'lname' => [
                 'required'
             ],
-            'symbol_no' => [
-                'required'
-            ],
+            // 'symbol_no' => [
+            //     'required'
+            // ],
             'semester' => [
                 'required'
             ],
