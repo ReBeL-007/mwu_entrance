@@ -294,7 +294,7 @@
 
             <div id="martyr_section">
                 <div class="row field">
-                    <label class=" col-md-2 sex required">Martyr Status </label>
+                    <label class=" col-md-2 sex required">Children of Martyr </label>
                     <select class="col-md-1" name="martyr_status" id="martyr_status">
                         <option value="0" {{ ('0' == $data->martyr_status) ? 'selected' : '' }}>No</option>
                         <option value="1" {{ ('1' == $data->martyr_status) ? 'selected' : '' }}>Yes</option>

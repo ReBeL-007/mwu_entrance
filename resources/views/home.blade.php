@@ -56,7 +56,46 @@
                             {{$data->levels->name}} 
                          </td>
                          <td>
-                            {{$data->course->name ?? ''}} 
+                        @if($data->faculty===5 && $data->level===1)
+                            @php
+                            $priority = json_decode($data->priority);
+                            @endphp
+                            @switch($priority[0])
+                            @case(1)
+                            @case(4)
+                            @case(7)
+                                B.E. Civil
+                            @break
+                            @case(2)
+                            @case(5)
+                            @case(8)
+                                B.E. Computer
+                            @break
+                            @case(3)
+                            @case(6)
+                            @case(9)
+                                B.E. Hydropower
+                            @break
+                            @endswitch
+                        @elseif($data->faculty===5 && $data->level===2)
+                            @php
+                            $priority = json_decode($data->priority);
+                            @endphp
+                            @switch($priority[0])
+                            @case(1)
+                            @case(3)
+                            @case(5)
+                                MSc in Structural Engineering
+                            @break
+                            @case(2)
+                            @case(4)
+                            @case(6)
+                                MSc in Construction Management
+                            @break
+                            @endswitch
+                        @else
+                            {{$data->course->name}}
+                        @endif
                          </td>
                          @if($data->payment_method == 1)
                          <td>

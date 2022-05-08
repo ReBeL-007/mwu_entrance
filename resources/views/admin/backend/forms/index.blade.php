@@ -94,8 +94,31 @@
                             {{ $data->faculties->name ?? '' }}
                         </td>
                         <td>
-                            {{ $data->course->name ?? '' }}
-                        </td>
+                        @if($data->faculty===5 && $data->level===1)
+                            @php
+                            $priority = json_decode($data->priority);
+                            @endphp
+                            @switch($priority[0])
+                            @case(1)
+                            @case(4)
+                            @case(7)
+                                B.E. Civil
+                            @break
+                            @case(2)
+                            @case(5)
+                            @case(8)
+                                B.E. Computer
+                            @break
+                            @case(3)
+                            @case(6)
+                            @case(9)
+                                B.E. Hydropower
+                            @break
+                            @endswitch
+                        @else
+                            {{$data->course->name ?? ' '}}
+                        @endif
+                         </td>
                         <td>
                             {{ $data->district ?? '' }}
                         </td>

@@ -4620,14 +4620,36 @@
                     $priority = json_decode($form->priority);
                     @endphp
                     @switch($priority[0])
-                    @case( '1'):@case( '4' ):@case( '7')
+                    @case( '1')
+                    @case( '4' )
+                    @case( '7')
                         <span>B.E. Civil</span>
                     @break
-                    @case( 2 ):@case( '5' ):@case( '8')
+                    @case( 2 )
+                    @case( '5' )
+                    @case( '8')
                         <span>B.E. Computer</span>
                     @break
-                    @case( 3 ):@case( '6' ):@case( '9')
+                    @case( 3 )
+                    @case( '6' )
+                    @case( '9')
                         <span>B.E. Hydropower</span>
+                    @break
+                    @endswitch
+                @elseif($form->faculty===5 && $form->level===2)
+                    @php
+                    $priority = json_decode($form->priority);
+                    @endphp
+                    @switch($priority[0])
+                    @case( '1')
+                    @case( '3' )
+                    @case( '5')
+                        <span>MSc in Structural Engineering</span>
+                    @break
+                    @case( '2' )
+                    @case( '4' )
+                    @case( '6')
+                        <span>MSc in Construction Management</span>
                     @break
                     @endswitch
                 @else
